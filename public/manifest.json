@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "Hide Unwanted Search Engine Results",
+  "short_name": "huser",
+  "version": "1",
+  "developer": {
+    "name": "Tomasz Pisarek",
+    "url": "https://github.com/pistom"
+  },
+
+  "description": "Hide unwanted search engine results from specific domains.",
+
+  "browser_action": {
+    "default_title": "Hide Unwanted Search Engine Results",
+    "default_popup": "popup.html"
+  },
+
+  "permissions": ["storage","contextMenus","activeTab"],
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.duckduckgo.com/*"],
+      "js": ["static/js/content.js"]
+    }
+  ],
+
+  "background": {
+      "page": "background.html"
+  },
+
+  "content_security_policy": "default-src 'self'",  
+  
+  "applications": {
+    "gecko": {
+      "strict_min_version": "52.0"
+    }
+  }
+}
