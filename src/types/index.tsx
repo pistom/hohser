@@ -9,7 +9,8 @@ export interface Domain {
 
 export interface StoreState {
   domainsList: Array<Domain>;
-  settings: boolean;
+  option: boolean;
   addDomain: (domainName: string, hideStyle: HideStyle) => void;
   removeDomain: () => void;
+  test: () => void;
 }

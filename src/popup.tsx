@@ -1,16 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './containers/App';
-import { createStore } from 'redux';
-import { domain } from './reducers/index';
-import { StoreState } from './types/index';
-import { DomainAction } from './actions';
+import { createStore, applyMiddleware } from 'redux';
+import { domains, defaultState } from './reducers/domains';
 import { Provider } from 'react-redux';
+import promise from 'redux-promise-middleware'
 
-const store = createStore<StoreState, DomainAction, any, any>(domain, {
-  domainsList: [],
-  settings: true,
-});
+const store = createStore(domains, defaultState, applyMiddleware(promise()));
 
 ReactDOM.render(
   <Provider store={store}>
