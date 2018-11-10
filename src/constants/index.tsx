@@ -22,5 +22,5 @@ export type FETCH_DOMAINS_REJECTED = typeof FETCH_DOMAINS_REJECTED;
 export const REMOVE_DOMAIN = 'REMOVE_DOMAIN';
 export type REMOVE_DOMAIN = typeof REMOVE_DOMAIN;
 
-export const TEST = 'TEST';
-export type TEST = typeof TEST;
+export const MENAGE_ANIMATIONS = 'MENAGE_ANIMATIONS';
+export type MENAGE_ANIMATIONS = typeof MENAGE_ANIMATIONS;

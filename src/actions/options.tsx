@@ -1,13 +1,13 @@
-import * as constants from '../constants';
+import { MENAGE_ANIMATIONS } from '../constants';
 
-export interface Test {
-  type: constants.TEST;
+export interface Animations {
+  type: MENAGE_ANIMATIONS;
 }
 
-export type OptionAction = Test;
+export type OptionAction = Animations;
 
-export function test(): Test {
+export function animations(): Animations {
   return {
-        type: constants.TEST
+        type: MENAGE_ANIMATIONS
     }
 }
