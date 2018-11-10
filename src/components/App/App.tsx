@@ -20,6 +20,7 @@ class App extends React.Component<Props> {
   public render() {
     return (
       <div>
+        <AddDomain addDomain={this.props.addDomain} />
         {Object.keys(this.props.domainsList).map((item, i) => (
           <li key={i}>
             {this.props.domainsList[item].domainName}
@@ -29,7 +30,6 @@ class App extends React.Component<Props> {
             }
           </li>
         ))}
-        <AddDomain addDomain={this.props.addDomain} />
         <button onClick={this.props.fetchDomainsList}>Fetch</button>
         <img src={this.props.dog} alt=""/>
       </div>
