@@ -16,7 +16,7 @@ function mapStateToProps(state: State) {
 function mapDispatchToProps(dispatch: Dispatch<actions.DomainAction | actions.OptionAction>) {
   return {
     addDomain: (domainName: string, hideType: FULL_HIDE | PARTIAL_HIDE) => dispatch(actions.addDomain(domainName, hideType)),
-    removeDomain: () => dispatch(actions.removeDomain()),
+    removeDomain: (index: number) => dispatch(actions.removeDomain(index)),
     fetchDomainsList: () => dispatch(actions.fetchDomainsList())
   }
 }

@@ -17,6 +17,7 @@ export interface AddDomain {
 
 export interface RemoveDomain {
   type: REMOVE_DOMAIN;
+  index: number;
 }
 
 export interface FetchDomains {
@@ -34,6 +35,7 @@ export const fetchDomainsList = (): FetchDomains => ({
   type: FETCH_DOMAINS,
   payload: browserStorageSync.get('domainsList')
     .then((res: any) => res)
+    .catch((err: any) => {console.error(err)})
 });
 
 
@@ -45,8 +47,9 @@ export const addDomain = (domainName: string, hideStyle: HideStyle): AddDomain =
   }
 }
 
-export function removeDomain(): RemoveDomain {
+export function removeDomain(index: number): RemoveDomain {
   return {
-    type: REMOVE_DOMAIN
+    type: REMOVE_DOMAIN,
+    index
   }
 }
