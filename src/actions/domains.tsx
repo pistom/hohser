@@ -1,30 +1,36 @@
-import * as constants from '../constants';
+import {
+  FETCH_DOMAINS,
+  FETCH_DOMAINS_PENDING,
+  FETCH_DOMAINS_FULFILLED,
+  FETCH_DOMAINS_REJECTED,
+  ADD_DOMAIN,
+  REMOVE_DOMAIN
+} from '../constants';
 import { HideStyle } from 'src/types';
 
 export interface AddDomain {
-  type: constants.ADD_DOMAIN;
+  type: ADD_DOMAIN;
   domainName: string;
   hideStyle: HideStyle
 }
 
 export interface RemoveDomain {
-  type: constants.REMOVE_DOMAIN;
+  type: REMOVE_DOMAIN;
 }
 
 export interface FetchDomains {
   type: 
-    | constants.FETCH_DOMAINS 
-    | constants.FETCH_DOMAINS_PENDING 
-    | constants.FETCH_DOMAINS_FULFILLED
-    | constants.FETCH_DOMAINS_REJECTED
-    ;
+    | FETCH_DOMAINS 
+    | FETCH_DOMAINS_PENDING 
+    | FETCH_DOMAINS_FULFILLED
+    | FETCH_DOMAINS_REJECTED;
   payload: any;
 }
 
 export type DomainAction = AddDomain | RemoveDomain | FetchDomains;
 
 export const fetchDomainsList = (): FetchDomains => ({
-  type: constants.FETCH_DOMAINS,
+  type: FETCH_DOMAINS,
   payload: fetch('https://dog.ceo/api/breeds/image/random')
     .then(response => response.json()),
 });
