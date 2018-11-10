@@ -1,6 +1,5 @@
 import { DomainAction } from '../actions/domains';
 import { Domain } from '../types/index';
-import BrowserStorageSyncMock from 'src/mock/browserStorageSyncMock';
 import {
   ADD_DOMAIN,
   REMOVE_DOMAIN,
@@ -8,6 +7,7 @@ import {
   FETCH_DOMAINS_FULFILLED, 
   FETCH_DOMAINS_REJECTED
 } from '../constants/index';
+import { browserStorageSync } from 'src/popup';
 
 export interface DomainsState {
   domainsList: Array<Domain>;
@@ -28,7 +28,7 @@ let domainsState = {
  * In normal browser window browser object is not accesible.
  * In this case the constant stores a reference to a browser storage mock object.
  */
-const browserStorageSync: any = typeof browser === 'undefined' ? new BrowserStorageSyncMock() : browser.storage.sync;
+
 
 export const domains = (state: DomainsState = domainsState, action: DomainAction): DomainsState => {
   switch (action.type) {
