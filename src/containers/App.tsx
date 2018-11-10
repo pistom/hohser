@@ -3,14 +3,14 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { FULL_HIDE, PARTIAL_HIDE } from 'src/constants';
-import { DomainsState } from 'src/reducers/domains';
+import { State } from 'src/reducers';
 
 
-export function mapStateToProps({ domainsList, option, dog }: DomainsState) {
+export function mapStateToProps(state: State) {
   return {
-    domainsList,
-    option,
-    dog
+    domainsList: state.domains.domainsList,
+    dog: state.domains.dog,
+    animations: state.options.animations
   }
 }
 
