@@ -20,8 +20,8 @@ export interface RemoveDomain {
 
 export interface FetchDomains {
   type: 
-    | FETCH_DOMAINS 
-    | FETCH_DOMAINS_PENDING 
+    | FETCH_DOMAINS
+    | FETCH_DOMAINS_PENDING
     | FETCH_DOMAINS_FULFILLED
     | FETCH_DOMAINS_REJECTED;
   payload: any;
@@ -36,7 +36,7 @@ export const fetchDomainsList = (): FetchDomains => ({
 });
 
 
-export function addDomain(domainName: string, hideStyle: HideStyle): AddDomain {
+export const addDomain = (domainName: string, hideStyle: HideStyle): AddDomain => {
   return {
     type: ADD_DOMAIN,
     domainName,
