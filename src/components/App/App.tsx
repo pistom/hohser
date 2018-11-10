@@ -6,7 +6,6 @@ import { FULL_HIDE } from 'src/constants';
 
 export interface Props {
   domainsList: Array<Domain>;
-  dog: string;
   addDomain: (domainName: string, hideStyle: HideStyle) => void;
   removeDomain: () => void;
   fetchDomainsList: () => void;
@@ -15,6 +14,10 @@ export interface Props {
 class App extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchDomainsList();
   }
 
   public render() {
@@ -30,8 +33,6 @@ class App extends React.Component<Props> {
             }
           </li>
         ))}
-        <button onClick={this.props.fetchDomainsList}>Fetch</button>
-        <img src={this.props.dog} alt=""/>
       </div>
     )
   }

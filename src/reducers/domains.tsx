@@ -13,22 +13,13 @@ export interface DomainsState {
   domainsList: Array<Domain>;
   domainsListLoading: boolean;
   domainsListError: boolean;
-  dog: string;
 }
 
 let domainsState = {
   domainsList: [],
   domainsListLoading: true,
   domainsListError: false,
-  dog: ''
 };
-
-/*
- * This constant stores a reference to browser.storage.sync object.
- * In normal browser window browser object is not accesible.
- * In this case the constant stores a reference to a browser storage mock object.
- */
-
 
 export const domains = (state: DomainsState = domainsState, action: DomainAction): DomainsState => {
   switch (action.type) {
@@ -58,7 +49,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
       {
         return {
           ...state,
-          dog: action.payload.message,
+          domainsList: action.payload.domainsList,
           domainsListLoading: false
         };
       }

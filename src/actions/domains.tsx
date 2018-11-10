@@ -7,6 +7,7 @@ import {
   REMOVE_DOMAIN
 } from '../constants';
 import { HideStyle } from 'src/types';
+import { browserStorageSync } from 'src/popup';
 
 export interface AddDomain {
   type: ADD_DOMAIN;
@@ -31,8 +32,8 @@ export type DomainAction = AddDomain | RemoveDomain | FetchDomains;
 
 export const fetchDomainsList = (): FetchDomains => ({
   type: FETCH_DOMAINS,
-  payload: fetch('https://dog.ceo/api/breeds/image/random')
-    .then(response => response.json()),
+  payload: browserStorageSync.get('domainsList')
+    .then((res: any) => res)
 });
 
 
