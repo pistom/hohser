@@ -38,7 +38,7 @@ export const fetchDomainsList = (): FetchDomains => ({
 
 export function addDomain(domainName: string, hideStyle: HideStyle): AddDomain {
   return {
-    type: constants.ADD_DOMAIN,
+    type: ADD_DOMAIN,
     domainName,
     hideStyle
   }
@@ -46,6 +46,6 @@ export function addDomain(domainName: string, hideStyle: HideStyle): AddDomain {
 
 export function removeDomain(): RemoveDomain {
   return {
-    type: constants.REMOVE_DOMAIN
+    type: REMOVE_DOMAIN
   }
 }
