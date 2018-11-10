@@ -7,7 +7,7 @@ import { FULL_HIDE } from 'src/constants';
 export interface Props {
   domainsList: Array<Domain>;
   addDomain: (domainName: string, hideStyle: HideStyle) => void;
-  removeDomain: () => void;
+  removeDomain: (index: number) => void;
   fetchDomainsList: () => void;
 }
 
@@ -18,6 +18,10 @@ class App extends React.Component<Props> {
 
   componentDidMount() {
     this.props.fetchDomainsList();
+  }
+
+  removeDomainHandle(index: number) {
+    this.props.removeDomain(index);
   }
 
   public render() {
@@ -31,6 +35,7 @@ class App extends React.Component<Props> {
               this.props.domainsList[item].hideStyle === FULL_HIDE ?
                 <span> ✅</span> : null
             }
+            <span onClick={() => this.removeDomainHandle(i)}>❌</span>
           </li>
         ))}
       </div>
