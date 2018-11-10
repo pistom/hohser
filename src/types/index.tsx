@@ -12,5 +12,4 @@ export interface StoreState {
   option: boolean;
   addDomain: (domainName: string, hideStyle: HideStyle) => void;
   removeDomain: () => void;
-  test: () => void;
 }

@@ -5,11 +5,15 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { domains, options } from './reducers';
 import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware'
+import BrowserStorageSyncMock from './mock/BrowserStorageSyncMock';
+import { reducers } from './reducers';
 
-const reducers = combineReducers({
-  domains,
-  options
-})
+/*
+ * This constant stores a reference to browser.storage.sync object.
+ * In normal browser window browser object is not accesible.
+ * In this case the constant stores a reference to a browser storage mock object.
+ */
+export const browserStorageSync: any = typeof browser === 'undefined' ? new BrowserStorageSyncMock() : browser.storage.sync;
 
 const store = createStore(reducers, applyMiddleware(promise()));
 
