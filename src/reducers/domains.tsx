@@ -34,7 +34,10 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
 
     case REMOVE_DOMAIN:
       {
-        return { ...state };
+        const domainsList = [...state.domainsList];
+        domainsList.splice(action.index, 1);
+        browserStorageSync.set({domainsList});  
+        return { ...state, domainsList };
       }
 
     case FETCH_DOMAINS_PENDING:
@@ -49,7 +52,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
       {
         return {
           ...state,
-          domainsList: action.payload.domainsList,
+          domainsList: action.payload.domainsList || [],
           domainsListLoading: false
         };
       }
