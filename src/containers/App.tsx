@@ -6,15 +6,14 @@ import { FULL_HIDE, PARTIAL_HIDE } from 'src/constants';
 import { State } from 'src/reducers';
 
 
-export function mapStateToProps(state: State) {
+function mapStateToProps(state: State) {
   return {
     domainsList: state.domains.domainsList,
-    dog: state.domains.dog,
     animations: state.options.animations
   }
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.DomainAction | actions.OptionAction>) {
+function mapDispatchToProps(dispatch: Dispatch<actions.DomainAction | actions.OptionAction>) {
   return {
     addDomain: (domainName: string, hideType: FULL_HIDE | PARTIAL_HIDE) => dispatch(actions.addDomain(domainName, hideType)),
     removeDomain: () => dispatch(actions.removeDomain()),

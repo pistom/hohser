@@ -1,5 +1,10 @@
 export default class {
-  storage = {};
+  storage = {
+    domainsList: [
+      {domainName: "www.test.pl", hideStyle: "PARTIAL_HIDE"},
+      {domainName: "www.onet.pl", hideStyle: "FULL_HIDE"}
+    ]
+  };
 
   set(value: any) {
     const storageCopy = {...this.storage};
@@ -11,7 +16,9 @@ export default class {
   get(value: string) {
     return new Promise((resolve, reject) => {
       if (this.storage[value]) {
-        resolve(this.storage[value]);
+        const storageObject = {};
+        storageObject[value] = this.storage[value];
+        resolve(storageObject);
       }
       else {
         reject(Error(`There is no value called ${value} in storage.sync`));
