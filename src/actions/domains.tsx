@@ -12,7 +12,12 @@ export interface RemoveDomain {
 }
 
 export interface FetchDomains {
-  type: constants.FETCH_DOMAINS | constants.FETCH_DOMAINS_PENDING | constants.FETCH_DOMAINS_FULFILLED;
+  type: 
+    | constants.FETCH_DOMAINS 
+    | constants.FETCH_DOMAINS_PENDING 
+    | constants.FETCH_DOMAINS_FULFILLED
+    | constants.FETCH_DOMAINS_REJECTED
+    ;
   payload: any;
 }
 
