@@ -37,11 +37,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
       {
         const domainsList = [...state.domainsList];
         domainsList.push({ domainName: action.domainName, hideStyle: action.hideStyle });
-        browserStorageSync.set({domainsList});
-
-        // TODO: remove this test
-        browserStorageSync.get('domainsList').then((res: any) => {console.log(res)})
-        
+        browserStorageSync.set({domainsList});        
         return { ...state, domainsList };
       }
 
