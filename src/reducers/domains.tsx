@@ -5,12 +5,14 @@ import { OptionAction } from 'src/actions';
 
 export interface DomainsState {
   domainsList: Array<Domain>;
+  domainsListLoading: boolean;
   option: boolean;
   dog: string;
 }
 
 export const defaultState = {
   domainsList:[],
+  domainsListLoading: true,
   option: true,
   dog: ''
 };
@@ -31,16 +33,21 @@ export const domains = (state: DomainsState = defaultState, action: DomainAction
       }
 
     case FETCH_DOMAINS_PENDING:
-    {
-      console.log('PENDING');
-      return { ...state };
-    }
+      {
+        return {
+          ...state,
+          domainsListLoading: true
+        };
+      }
 
     case FETCH_DOMAINS_FULFILLED:
-    {
-      console.log('FULFILLED');
-      return { ...state, dog: action.payload.message };
-    }
+      {
+        return { 
+          ...state,
+          dog: action.payload.message,
+          domainsListLoading: false
+        };
+      }
     
     case TEST:
       {
