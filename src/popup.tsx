@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './containers/App';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { domains, options } from './reducers';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware'
 import BrowserStorageSyncMock from './mock/BrowserStorageSyncMock';

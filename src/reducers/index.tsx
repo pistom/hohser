@@ -1,5 +1,6 @@
-import { DomainsState } from './domains';
-import { OptionsState } from './options';
+import { DomainsState, domains } from './domains';
+import { OptionsState, options } from './options';
+import { combineReducers } from 'redux';
 
 export interface State {
   domains: DomainsState,
@@ -8,3 +9,8 @@ export interface State {
 
 export * from './domains';
 export * from './options';
+
+export const reducers = combineReducers({
+  domains,
+  options
+})
