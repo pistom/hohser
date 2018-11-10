@@ -9304,6 +9304,10 @@ wcwidth@^1.0.0:
   dependencies:
     defaults "^1.0.3"
 
+web-ext-types@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/web-ext-types/-/web-ext-types-3.0.0.tgz#c161b48bc1b44653c5749e0e7aa20ce917570c3c"
+
 web-ext@^2.9.1:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/web-ext/-/web-ext-2.9.1.tgz#41aef65dbaea97760607a5009bf0ffa634d9cdb9"
