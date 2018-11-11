@@ -1,17 +1,17 @@
 {
   "manifest_version": 2,
-  "name": "Hide Unwanted Search Engine Results",
-  "short_name": "huser",
+  "name": "Highlight or Hide Search Engine Results",
+  "short_name": "hohser",
   "version": "1",
   "developer": {
     "name": "Tomasz Pisarek",
     "url": "https://github.com/pistom"
   },
 
-  "description": "Hide unwanted search engine results from specific domains.",
+  "description": "Highlight or hide search engine results from specific domains.",
 
   "browser_action": {
-    "default_title": "Hide Unwanted Search Engine Results",
+    "default_title": "Highlight or Hide Search Engine Results",
     "default_popup": "popup.html"
   },
 

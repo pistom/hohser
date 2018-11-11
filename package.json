@@ -1,5 +1,5 @@
 {
-  "name": "huser",
+  "name": "hohser",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -105,7 +105,7 @@
     ],
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "D:\\huser\\tsconfig.test.json"
+        "tsConfigFile": "D:\\hohser\\tsconfig.test.json"
       }
     }
   },
