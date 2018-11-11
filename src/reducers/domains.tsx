@@ -73,6 +73,9 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
         const domainsList = [...state.domainsList];
         const oldDomainsList = action.payload.ddghurBlockedDomains || [];
 
+        /*
+         * This loops verify if imported domain is already on the list and add it if it is not.
+         */
         oldDomainsList:
         for(let i = 0; i<oldDomainsList.length; i++) {
           for(let j = 0; j<domainsList.length; j++) {
@@ -83,8 +86,6 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
           const domainEntry = ({domainName: oldDomainsList[i], hideStyle: PARTIAL_HIDE } as Domain)
           domainsList.push(domainEntry);
         }
-
-        console.log(domainsList);
 
         return {
           ...state,
