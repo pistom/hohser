@@ -5,6 +5,7 @@
 
 # testing
 /coverage
+/browser
 
 # production
 /build
