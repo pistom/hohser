@@ -6,14 +6,14 @@ export default class {
     ]
   };
 
-  set(value: any) {
+  set (value: any) {
     const storageCopy = {...this.storage};
-    const objectName = Object.keys( value )
+    const objectName = Object.keys( value );
     storageCopy[objectName[0]] = value;
     this.storage = storageCopy;
   }
 
-  get(value: string) {
+  get (value: string) {
     return new Promise((resolve, reject) => {
       if (this.storage[value]) {
         const storageObject = {};
@@ -24,6 +24,6 @@ export default class {
         reject(Error(`There is no value called ${value} in storage.sync`));
       }
     });
-    
+
   }
 }

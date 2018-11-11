@@ -13,23 +13,23 @@ export interface Props {
 }
 
 class App extends React.Component<Props> {
-  constructor(props: Props) {
+  constructor (props: Props) {
     super(props);
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.props.fetchDomainsList();
   }
 
-  removeDomainHandle(index: number) {
+  removeDomainHandle (index: number) {
     this.props.removeDomain(index);
   }
 
-  importFromOldVersionHandle() {
+  importFromOldVersionHandle () {
     this.props.importFromOldVersion();
   }
 
-  public render() {
+  public render () {
     return (
       <div>
         <AddDomain addDomain={this.props.addDomain} />
@@ -46,7 +46,7 @@ class App extends React.Component<Props> {
         ))}
         <span onClick={() => this.importFromOldVersionHandle()}>import</span>
       </div>
-    )
+    );
   }
 }
 

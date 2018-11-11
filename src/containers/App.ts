@@ -6,20 +6,20 @@ import { State } from 'src/reducers';
 import { HideStyle, Color } from 'src/types';
 
 
-function mapStateToProps(state: State) {
+function mapStateToProps (state: State) {
   return {
     domainsList: state.domains.domainsList,
     animations: state.options.animations
-  }
+  };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<actions.DomainAction | actions.OptionAction>) {
+function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.OptionAction>) {
   return {
     addDomain: (domainName: string, hideType: HideStyle, color?: Color) => dispatch(actions.addDomain(domainName, hideType, color)),
     removeDomain: (index: number) => dispatch(actions.removeDomain(index)),
     fetchDomainsList: () => dispatch(actions.fetchDomainsList()),
     importFromOldVersion: () => dispatch(actions.importFromOldVersion())
-  }
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
