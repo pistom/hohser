@@ -17,6 +17,9 @@ class App extends React.Component<Props> {
 
   componentDidMount () {
     this.props.fetchDomainsList();
+  }
+
+  componentWillUpdate (nextProps: Props, nextState: any){
     this.props.importFromOldVersion();
   }
 
