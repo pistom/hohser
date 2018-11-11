@@ -48,7 +48,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "load": "cd ./build && web-ext run --browser-console",
+    "load": "cd ./build && web-ext run -p ../browser/huser1 --keep-profile-changes",
     "start": "node scripts/start.js"
   },
   "devDependencies": {
