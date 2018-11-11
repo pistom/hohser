@@ -3,6 +3,7 @@ import { Domain } from '../types/index';
 import {
   ADD_DOMAIN,
   REMOVE_DOMAIN,
+  IMPORT_FROM_OLD_VERSION,
   FETCH_DOMAINS_PENDING, 
   FETCH_DOMAINS_FULFILLED, 
   FETCH_DOMAINS_REJECTED
@@ -58,6 +59,15 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
       }
 
     case FETCH_DOMAINS_REJECTED:
+      {
+        console.error("I could not get the list from store")
+        return {
+          ...state,
+          domainsListError: true
+        };
+      }
+
+    case IMPORT_FROM_OLD_VERSION:
       {
         console.error("I could not get the list from store")
         return {
