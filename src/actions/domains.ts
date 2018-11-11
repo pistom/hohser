@@ -10,13 +10,13 @@ import {
   IMPORT_FROM_OLD_VERSION_FULFILLED,
   IMPORT_FROM_OLD_VERSION_REJECTED
 } from '../constants';
-import { HideStyle, Color } from 'src/types';
+import { DisplayStyle, Color } from 'src/types';
 import { browserStorageSync } from 'src/popup';
 
 export interface AddDomain {
   type: ADD_DOMAIN;
   domainName: string;
-  hideStyle: HideStyle;
+  display: DisplayStyle;
   color?: Color;
 }
 
@@ -56,11 +56,11 @@ export const fetchDomainsList = (): FetchDomains => ({
 });
 
 
-export const addDomain = (domainName: string, hideStyle: HideStyle, color?: Color): AddDomain => {
+export const addDomain = (domainName: string, display: DisplayStyle, color?: Color): AddDomain => {
   return {
     type: ADD_DOMAIN,
     domainName,
-    hideStyle,
+    display,
     color
   };
 };

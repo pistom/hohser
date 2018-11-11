@@ -1,3 +1,6 @@
+export const HIGHLIGHT = 'HIGHLIGHT';
+export type HIGHLIGHT = typeof HIGHLIGHT;
+
 export const PARTIAL_HIDE = 'PARTIAL_HIDE';
 export type PARTIAL_HIDE = typeof PARTIAL_HIDE;
 

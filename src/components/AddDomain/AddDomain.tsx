@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from 'src/constants';
-import { HideStyle, Color } from 'src/types';
+import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from 'src/constants';
+import { DisplayStyle, Color } from 'src/types';
 
 interface State {
   domainName: string;
   fullHide: boolean;
   color: number;
+  display: number;
 }
 
 interface Props {
-  addDomain: (domainName: string, hideType: HideStyle, color?: Color) => void;
+  addDomain: (domainName: string, hideType: DisplayStyle, color?: Color) => void;
 }
 
 class AddDomain extends React.Component<Props, State> {
@@ -18,11 +19,12 @@ class AddDomain extends React.Component<Props, State> {
     this.state = {
       domainName: '',
       fullHide: false,
-      color: 0
+      color: 0,
+      display: 0
     };
 
     this.handleDomainNameChange = this.handleDomainNameChange.bind(this);
-    this.handleHideStyleChange = this.handleHideStyleChange.bind(this);
+    this.handleDisplayChange = this.handleDisplayChange.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -31,8 +33,8 @@ class AddDomain extends React.Component<Props, State> {
     this.setState({domainName: event.target.value});
   }
 
-  handleHideStyleChange (event: any) {
-    this.setState({fullHide: event.target.checked});
+  handleDisplayChange (event: any) {
+    this.setState({display: parseInt(event.target.value, 10)});
   }
 
   handleColorChange (event: any) {
@@ -42,9 +44,11 @@ class AddDomain extends React.Component<Props, State> {
   handleSubmit (event: any) {
     event.preventDefault();
 
-    let hideStyle: HideStyle = PARTIAL_HIDE;
-    if(this.state.fullHide) {
-      hideStyle = FULL_HIDE;
+    let display: DisplayStyle = PARTIAL_HIDE;
+    switch (this.state.display) {
+      case 1: display = HIGHLIGHT; break;
+      case 2: display = PARTIAL_HIDE; break;
+      case 3: display = FULL_HIDE; break;
     }
 
     let color: Color = COLOR_1;
@@ -55,9 +59,9 @@ class AddDomain extends React.Component<Props, State> {
     }
 
     if(this.state.color === 0) {
-      this.props.addDomain(this.state.domainName, hideStyle);
+      this.props.addDomain(this.state.domainName, display);
     } else {
-      this.props.addDomain(this.state.domainName, hideStyle, color);
+      this.props.addDomain(this.state.domainName, display, color);
     }
   }
 
@@ -69,13 +73,12 @@ class AddDomain extends React.Component<Props, State> {
           type="text"
           value={this.state.domainName}
           onChange={this.handleDomainNameChange} />
-        <input
-          name="fullHide"
-          type="checkbox"
-          checked={this.state.fullHide}
-          onChange={this.handleHideStyleChange}
-        />
-        <select value={this.state.color} onChange={this.handleColorChange}>
+        <select name="display" value={this.state.display} onChange={this.handleDisplayChange}>
+          <option value="1">Highlighted</option>
+          <option value="2">Transparent</option>
+          <option value="3">Hidden</option>
+        </select>
+        <select name="color" value={this.state.color} onChange={this.handleColorChange}>
           <option value="0">None</option>
           <option value="1">Color 1</option>
           <option value="2">Color 2</option>
