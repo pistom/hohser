@@ -40,6 +40,7 @@ class App extends React.Component<Props> {
               this.props.domainsList[item].hideStyle === FULL_HIDE ?
                 <span> ✅</span> : null
             }
+            {this.props.domainsList[item].color ? <span>{this.props.domainsList[item].color}</span> : null}
             <span onClick={() => this.removeDomainHandle(i)}>❌</span>
           </li>
         ))}

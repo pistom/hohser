@@ -4,6 +4,15 @@ export type PARTIAL_HIDE = typeof PARTIAL_HIDE;
 export const FULL_HIDE = 'FULL_HIDE';
 export type FULL_HIDE = typeof FULL_HIDE;
 
+export const COLOR_1 = 'COLOR_1';
+export type COLOR_1 = typeof COLOR_1;
+
+export const COLOR_2 = 'COLOR_2';
+export type COLOR_2 = typeof COLOR_2;
+
+export const COLOR_3 = 'COLOR_3';
+export type COLOR_3 = typeof COLOR_3;
+
 export const ADD_DOMAIN = 'ADD_DOMAIN';
 export type ADD_DOMAIN = typeof ADD_DOMAIN;
 
