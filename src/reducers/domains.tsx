@@ -29,7 +29,12 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
     case ADD_DOMAIN:
       {
         const domainsList = [...state.domainsList];
-        domainsList.push({ domainName: action.domainName, hideStyle: action.hideStyle });
+        if(action.color) {
+          domainsList.push({ domainName: action.domainName, hideStyle: action.hideStyle, color: action.color });
+        } else {
+          domainsList.push({ domainName: action.domainName, hideStyle: action.hideStyle });
+        }
+        
         browserStorageSync.set({domainsList});        
         return { ...state, domainsList };
       }
