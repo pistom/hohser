@@ -48,7 +48,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "load": "cd ./build && web-ext run -p ../browser/huser1 --keep-profile-changes",
+    "load": "cd ./build && web-ext run -p ../browser/huser1 --keep-profile-changes --bc",
+    "load:old": "cd ./browser/build.old && web-ext run -p ../huser1 --keep-profile-changes --bc",
     "start": "node scripts/start.js"
   },
   "devDependencies": {
