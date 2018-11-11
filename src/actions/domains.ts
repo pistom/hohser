@@ -10,13 +10,14 @@ import {
   IMPORT_FROM_OLD_VERSION_FULFILLED,
   IMPORT_FROM_OLD_VERSION_REJECTED
 } from '../constants';
-import { HideStyle } from 'src/types';
+import { DisplayStyle, Color } from 'src/types';
 import { browserStorageSync } from 'src/popup';
 
 export interface AddDomain {
   type: ADD_DOMAIN;
   domainName: string;
-  hideStyle: HideStyle
+  display: DisplayStyle;
+  color?: Color;
 }
 
 export interface RemoveDomain {
@@ -25,7 +26,7 @@ export interface RemoveDomain {
 }
 
 export interface ImportFromOldVersion {
-  type: 
+  type:
     | IMPORT_FROM_OLD_VERSION
     | IMPORT_FROM_OLD_VERSION_PENDING
     | IMPORT_FROM_OLD_VERSION_FULFILLED
@@ -41,7 +42,7 @@ export interface FetchDomains {
   payload: any;
 }
 
-export type DomainAction = 
+export type DomainAction =
   | AddDomain
   | RemoveDomain
   | FetchDomains
@@ -51,29 +52,30 @@ export const fetchDomainsList = (): FetchDomains => ({
   type: FETCH_DOMAINS,
   payload: browserStorageSync.get('domainsList')
     .then((res: any) => res)
-    .catch((err: any) => {console.error(err)})
+    .catch((err: any) => {console.error(err);})
 });
 
 
-export const addDomain = (domainName: string, hideStyle: HideStyle): AddDomain => {
+export const addDomain = (domainName: string, display: DisplayStyle, color?: Color): AddDomain => {
   return {
     type: ADD_DOMAIN,
     domainName,
-    hideStyle
-  }
-}
+    display,
+    color
+  };
+};
 
-export function removeDomain(index: number): RemoveDomain {
+export function removeDomain (index: number): RemoveDomain {
   return {
     type: REMOVE_DOMAIN,
     index
-  }
+  };
 }
 
-export function importFromOldVersion(): ImportFromOldVersion {
+export function importFromOldVersion ():  ImportFromOldVersion {
   return {
     type: IMPORT_FROM_OLD_VERSION,
     payload: browser.storage.local.get('ddghurBlockedDomains')
       .then((res: any) => res)
-  }
+  };
 }
