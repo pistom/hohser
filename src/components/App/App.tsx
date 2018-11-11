@@ -17,14 +17,11 @@ class App extends React.Component<Props> {
 
   componentDidMount () {
     this.props.fetchDomainsList();
+    this.props.importFromOldVersion();
   }
 
   removeDomainHandle (index: number) {
     this.props.removeDomain(index);
-  }
-
-  importFromOldVersionHandle () {
-    this.props.importFromOldVersion();
   }
 
   public render () {
@@ -39,7 +36,6 @@ class App extends React.Component<Props> {
             <span onClick={() => this.removeDomainHandle(i)}>❌</span>
           </li>
         ))}
-        <span onClick={() => this.importFromOldVersionHandle()}>import</span>
       </div>
     );
   }
