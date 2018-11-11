@@ -4,6 +4,7 @@ import AddDomain from '../AddDomain/AddDomain';
 
 export interface Props {
   domainsList: Array<Domain>;
+  domainsListLoading: boolean;
   addDomain: (domainName: string, display: DisplayStyle) => void;
   removeDomain: (index: number) => void;
   fetchDomainsList: () => void;
@@ -19,8 +20,10 @@ class App extends React.Component<Props> {
     this.props.fetchDomainsList();
   }
 
-  componentWillUpdate (nextProps: Props, nextState: any){
-    this.props.importFromOldVersion();
+  componentWillUpdate (nextProps: Props){
+    if (this.props.domainsListLoading && !nextProps.domainsListLoading) {
+      this.props.importFromOldVersion();
+    }
   }
 
   removeDomainHandle (index: number) {
