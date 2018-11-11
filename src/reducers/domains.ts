@@ -76,25 +76,27 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
     case IMPORT_FROM_OLD_VERSION_FULFILLED:
       {
         const domainsList = [...state.domainsList];
-        const oldDomainsList = action.payload.ddghurBlockedDomains || [];
+        const oldDomainsList = action.payload.ddghurBlockedDomains;
+        if (oldDomainsList) {
 
-        // This loops verify if imported domain is already on the list and add it if it is not.
-        oldDomainsList:
-        for(let i = 0; i<oldDomainsList.length; i++) {
-          for(let j = 0; j<domainsList.length; j++) {
-            if(oldDomainsList[i] === domainsList[j].domainName) {
-              continue oldDomainsList;
+          // This loops verify if imported domain is already on the list and add it if it is not.
+          oldDomainsList:
+          for(let i = 0; i<oldDomainsList.length; i++) {
+            for(let j = 0; j<domainsList.length; j++) {
+              if(oldDomainsList[i] === domainsList[j].domainName) {
+                continue oldDomainsList;
+              }
             }
+            const domainEntry = ({domainName: oldDomainsList[i], display: PARTIAL_HIDE } as Domain);
+            domainsList.push(domainEntry);
           }
-          const domainEntry = ({domainName: oldDomainsList[i], display: PARTIAL_HIDE } as Domain);
-          domainsList.push(domainEntry);
+
+          // Store domainsList object in storageSync
+          browserStorageSync.set({domainsList});
+
+          // Remove ddghurBlockedDomains from localStorage
+          browser.storage.local.remove('ddghurBlockedDomains');
         }
-
-        // Store domainsList object in storageSync
-        browserStorageSync.set({domainsList});
-
-        // Remove ddghurBlockedDomains from localStorage
-        browser.storage.local.remove('ddghurBlockedDomains');
 
         return {
           ...state,
