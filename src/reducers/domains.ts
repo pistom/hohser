@@ -30,9 +30,9 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
       {
         const domainsList = [...state.domainsList];
         if(action.color) {
-          domainsList.push({ domainName: action.domainName, hideStyle: action.hideStyle, color: action.color });
+          domainsList.push({ domainName: action.domainName, display: action.display, color: action.color });
         } else {
-          domainsList.push({ domainName: action.domainName, hideStyle: action.hideStyle });
+          domainsList.push({ domainName: action.domainName, display: action.display });
         }
 
         browserStorageSync.set({domainsList});
@@ -86,7 +86,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
               continue oldDomainsList;
             }
           }
-          const domainEntry = ({domainName: oldDomainsList[i], hideStyle: PARTIAL_HIDE } as Domain);
+          const domainEntry = ({domainName: oldDomainsList[i], display: PARTIAL_HIDE } as Domain);
           domainsList.push(domainEntry);
         }
 
