@@ -9,6 +9,7 @@ import { DisplayStyle, Color } from 'src/types';
 function mapStateToProps (state: State) {
   return {
     domainsList: state.domains.domainsList,
+    domainsListLoading: state.domains.domainsListLoading,
     animations: state.options.animations
   };
 }
