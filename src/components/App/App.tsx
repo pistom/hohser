@@ -9,6 +9,7 @@ export interface Props {
   addDomain: (domainName: string, hideStyle: HideStyle) => void;
   removeDomain: (index: number) => void;
   fetchDomainsList: () => void;
+  importFromOldVersion: () => void;
 }
 
 class App extends React.Component<Props> {
@@ -22,6 +23,10 @@ class App extends React.Component<Props> {
 
   removeDomainHandle(index: number) {
     this.props.removeDomain(index);
+  }
+
+  importFromOldVersionHandle() {
+    this.props.importFromOldVersion();
   }
 
   public render() {
@@ -38,6 +43,7 @@ class App extends React.Component<Props> {
             <span onClick={() => this.removeDomainHandle(i)}>❌</span>
           </li>
         ))}
+        <span onClick={() => this.importFromOldVersionHandle()}>import</span>
       </div>
     )
   }
