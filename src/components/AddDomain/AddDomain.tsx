@@ -5,7 +5,7 @@ import { HideStyle, Color } from 'src/types';
 interface State {
   domainName: string;
   fullHide: boolean;
-  color: number
+  color: number;
 }
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 class AddDomain extends React.Component<Props, State> {
-  constructor(props: any) {
+  constructor (props: any) {
     super(props);
     this.state = {
       domainName: '',
@@ -27,19 +27,19 @@ class AddDomain extends React.Component<Props, State> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleDomainNameChange(event: any) {
+  handleDomainNameChange (event: any) {
     this.setState({domainName: event.target.value});
   }
 
-  handleHideStyleChange(event: any) {
+  handleHideStyleChange (event: any) {
     this.setState({fullHide: event.target.checked});
   }
 
-  handleColorChange(event: any) {
+  handleColorChange (event: any) {
     this.setState({color: parseInt(event.target.value, 10)});
   }
 
-  handleSubmit(event: any) {
+  handleSubmit (event: any) {
     event.preventDefault();
 
     let hideStyle: HideStyle = PARTIAL_HIDE;
@@ -61,11 +61,11 @@ class AddDomain extends React.Component<Props, State> {
     }
   }
 
-  render() {
+  render () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input 
-          name="domainName" 
+        <input
+          name="domainName"
           type="text"
           value={this.state.domainName}
           onChange={this.handleDomainNameChange} />
@@ -83,9 +83,8 @@ class AddDomain extends React.Component<Props, State> {
         </select>
         <button type="submit">+</button>
       </form>
-    )
+    );
   }
-
 
 }
 

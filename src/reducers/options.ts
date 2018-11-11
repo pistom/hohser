@@ -1,10 +1,10 @@
-import { 
+import {
   MENAGE_ANIMATIONS
 } from '../constants/index';
 import { OptionAction } from 'src/actions';
 
 export interface OptionsState {
-  animations: boolean
+  animations: boolean;
 }
 
 const optionsState = {
@@ -21,4 +21,4 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
 
   }
   return state;
-}
+};

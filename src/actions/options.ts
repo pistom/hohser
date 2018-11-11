@@ -6,8 +6,8 @@ export interface Animations {
 
 export type OptionAction = Animations;
 
-export function animations(): Animations {
+export function animations (): Animations {
   return {
         type: MENAGE_ANIMATIONS
-    }
+    };
 }
