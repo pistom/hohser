@@ -2,8 +2,9 @@ import { Domain, DisplayStyle } from 'src/types';
 import * as React from 'react';
 import AddDomain from '../AddDomain/AddDomain';
 import AppBar from '@material-ui/core/AppBar';
-import { Toolbar, IconButton, Typography, withStyles, CssBaseline } from '@material-ui/core';
+import { Toolbar, IconButton, Typography, withStyles, CssBaseline, TextField, Select, MenuItem, FormControl, InputLabel, Button, Grid } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import AddIcon from '@material-ui/icons/Add';
 
 const styles = {
   root: {
