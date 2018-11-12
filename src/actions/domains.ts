@@ -73,9 +73,12 @@ export function removeDomain (index: number): RemoveDomain {
 }
 
 export function importFromOldVersion ():  ImportFromOldVersion {
+  // Check if browser object is defined
+  const payload = typeof browser !== 'undefined' ?
+    browser.storage.local.get('ddghurBlockedDomains')
+        .then((res: any) => res) : [];
   return {
     type: IMPORT_FROM_OLD_VERSION,
-    payload: browser.storage.local.get('ddghurBlockedDomains')
-      .then((res: any) => res)
+    payload
   };
 }
