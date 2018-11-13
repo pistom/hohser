@@ -2,9 +2,10 @@ import { Domain, DisplayStyle } from 'src/types';
 import * as React from 'react';
 import AddDomain from '../AddDomain/AddDomain';
 import AppBar from '@material-ui/core/AppBar';
-import { Toolbar, IconButton, Typography, withStyles, CssBaseline, TextField, Select, MenuItem, FormControl, InputLabel, Button, Grid } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { Toolbar, withStyles, CssBaseline, TextField, Select, MenuItem, FormControl, InputLabel, Button, Grid } from '@material-ui/core';
+
 import AddIcon from '@material-ui/icons/Add';
+import TopBar from '../TopBar/TopBar';
 
 const styles = {
   root: {
@@ -62,16 +63,7 @@ class App extends React.Component<Props> {
     const { classes } = this.props;
     return [
       <CssBaseline />,
-      <AppBar position="fixed" color="primary" className={classes.appBarTop}>
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            Highlight or Hide
-          </Typography>
-        </Toolbar>
-      </AppBar>,
+      <TopBar />,
       <AddDomain addDomain={this.props.addDomain} />,
       <div style={{paddingTop: 48}}>
         {Object.keys(this.props.domainsList).map((item, i) => (
