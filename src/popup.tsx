@@ -8,13 +8,21 @@ import BrowserStorageSyncMock from './mock/BrowserStorageSyncMock';
 import { reducers } from './reducers';
 import { MuiThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
-import green from '@material-ui/core/colors/green';
 
 const theme = createMuiTheme({
   palette: {
-    primary: teal,
-    secondary: green,
+    primary: {
+      main: '#455a64',
+      light: '#718792',
+      dark: '#1c313a',
+      contrastText: '#ffffff'
+    },
+    secondary:  {
+      main: '#dd2c00',
+      light: '#ff6434',
+      dark: '#a30000',
+      contrastText: '#ffffff'
+    },
   },
 });
 
