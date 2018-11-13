@@ -23,20 +23,26 @@ const styles = {
   },
 };
 
-const BottomBar = (props: Props) => {
-  const classes = props.classes;
-  return(
-    <AppBar position="fixed" color="default" className={classes.appBar}>
+class BottomBar extends React.Component<Props> {
+
+  constructor (props: Props) {
+    super(props);
+  }
+
+  render () {
+    const classes = this.props.classes;
+    return (
+      <AppBar position="fixed" color="default" className={classes.appBar}>
         <Toolbar>
           <form className={classes.root} autoComplete="off">
             <Grid container spacing={8}>
               <Grid item xs={6}>
-              <FormControl fullWidth>
-                <TextField
-                  label="Domain"
-                  id="margin-none"
-                  className={classes.textField}
-                />
+                <FormControl fullWidth>
+                  <TextField
+                    label="Domain"
+                    id="margin-none"
+                    className={classes.textField}
+                  />
                 </FormControl>
               </Grid>
               <Grid item xs={3} sm={2}>
@@ -92,7 +98,8 @@ const BottomBar = (props: Props) => {
         </Toolbar>
 
       </AppBar>
-  );
-};
+    );
+  }
+}
 
 export default withStyles(styles)(BottomBar);
