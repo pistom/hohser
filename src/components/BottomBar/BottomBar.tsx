@@ -18,8 +18,8 @@ const styles = {
     marginRight: 20,
   },
   appBar: {
-    bottom: 'auto',
-    top: 0,
+    top: 'auto',
+    bottom: 0,
   },
 };
 
@@ -36,11 +36,10 @@ const BottomBar = (props: Props) => {
                   label="Domain"
                   id="margin-none"
                   className={classes.textField}
-
                 />
                 </FormControl>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={3} sm={2}>
                 <FormControl fullWidth className={classes.formControl}>
                   <InputLabel htmlFor="age-simple">Style</InputLabel>
                   <Select
@@ -60,7 +59,7 @@ const BottomBar = (props: Props) => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={3} sm={2}>
                 <FormControl fullWidth className={classes.formControl}>
                   <InputLabel htmlFor="age-simple">Color</InputLabel>
                   <Select
@@ -80,13 +79,11 @@ const BottomBar = (props: Props) => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs>
+              <Grid item xs={12} sm={2}>
                 <FormControl margin="dense" fullWidth className={classes.formControl}>
-                  <div style={{textAlign: 'right'}}>
-                    <Button variant="fab" mini color="secondary" aria-label="Add" className={classes.button}>
-                      <AddIcon />
-                    </Button>
-                  </div>
+                  <Button variant="outlined" size="small" color="primary" className={classes.button}>
+                    Add <AddIcon />
+                  </Button>
                 </FormControl>
               </Grid>
             </Grid>
