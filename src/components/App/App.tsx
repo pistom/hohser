@@ -3,7 +3,6 @@ import * as React from 'react';
 import AddDomain from '../AddDomain/AddDomain';
 import { CssBaseline } from '@material-ui/core';
 
-
 import TopBar from '../TopBar/TopBar';
 import BottomBar from '../BottomBar/BottomBar';
 
@@ -40,7 +39,7 @@ class App extends React.Component<Props> {
       <CssBaseline />,
       <TopBar />,
       <AddDomain addDomain={this.props.addDomain} />,
-      <div style={{paddingTop: 48}}>
+      <div style={{paddingTop: 48, minHeight: 400}}>
         {Object.keys(this.props.domainsList).map((item, i) => (
           <li key={i}>
             {this.props.domainsList[item].domainName} -

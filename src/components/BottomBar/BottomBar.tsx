@@ -33,7 +33,7 @@ class BottomBar extends React.Component<Props> {
     const classes = this.props.classes;
     return (
       <AppBar position="fixed" color="default" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar style={{paddingBottom: '10px'}}>
           <form className={classes.root} autoComplete="off">
             <Grid container spacing={8}>
               <Grid item xs={6}>
@@ -87,7 +87,7 @@ class BottomBar extends React.Component<Props> {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <FormControl margin="dense" fullWidth className={classes.formControl}>
-                  <Button variant="outlined" size="small" color="primary" className={classes.button}>
+                  <Button variant="raised" size="small" color="secondary" className={classes.button}>
                     Add <AddIcon />
                   </Button>
                 </FormControl>
