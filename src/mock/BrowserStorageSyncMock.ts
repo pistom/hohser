@@ -1,8 +1,17 @@
 export default class {
   storage = {
     domainsList: [
-      {domainName: "www.test.pl", display: "PARTIAL_HIDE"},
-      {domainName: "www.onet.pl", display: "FULL_HIDE"}
+      {domainName: "www.test.fr", display: "PARTIAL_HIDE"},
+      {domainName: "www.onet.pl", display: "FULL_HIDE"},
+      {domainName: "www.tvn24.pl", display: "PARTIAL_HIDE"},
+      {domainName: "www.exemple-domain.us", display: "FULL_HIDE"},
+      {domainName: "wwws.13-piatek.test.au", display: "PARTIAL_HIDE"},
+      {domainName: "www.facebook.com", display: "FULL_HIDE"},
+      {domainName: "www.swietlica-testowa-domena.warszawa.eu", display: "PARTIAL_HIDE"},
+      {domainName: "www.interia.pl", display: "FULL_HIDE"},
+      {domainName: "www.nrj.fr", display: "PARTIAL_HIDE"},
+      {domainName: "www.download.australia.tu", display: "FULL_HIDE"},
+      {domainName: "www.END_OF_LIST.pl", display: "FULL_HIDE"},
     ]
   };
 
