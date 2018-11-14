@@ -5,6 +5,7 @@ import { Domain } from 'src/types';
 
 interface Props {
   domainsList: Array<Domain>;
+  removeDomainHandle: (index: number) => void;
 }
 
 const DomainsList = (props: Props) => {
@@ -14,7 +15,7 @@ const DomainsList = (props: Props) => {
         <ListItem button>
           <ListItemText primary={props.domainsList[item].domainName} />
           <ListItemSecondaryAction>
-            <IconButton aria-label="Delete">
+            <IconButton aria-label="Delete" onClick={() => props.removeDomainHandle(i)}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>

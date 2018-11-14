@@ -39,7 +39,7 @@ class App extends React.Component<Props> {
     return [
       <CssBaseline />,
       <TopBar />,
-      <DomainsList domainsList={this.props.domainsList} />,
+      <DomainsList domainsList={this.props.domainsList} removeDomainHandle={(i) => this.removeDomainHandle(i)} />,
       <BottomBar addDomain={this.props.addDomain} />
     ];
   }
