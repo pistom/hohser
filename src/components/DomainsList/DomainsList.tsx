@@ -9,7 +9,7 @@ interface Props {
 
 const DomainsList = (props: Props) => {
   return (
-    <List style={{paddingTop: 64, paddingBottom: 124}}>
+    <List style={{position: "absolute", top: 54, bottom: 116, overflowY: "scroll", overflowX: "hidden", width: "100%"}}>
       {Object.keys(props.domainsList).map((item, i, arr) => ([
         <ListItem button>
           <ListItemText primary={props.domainsList[item].domainName} />
