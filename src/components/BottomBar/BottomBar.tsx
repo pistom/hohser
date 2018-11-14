@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Toolbar, AppBar, withStyles, Grid, FormControl, TextField, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
+import ColorIcon from '@material-ui/icons/InvertColors';
+import NoColorIcon from '@material-ui/icons/InvertColorsOff';
 import AddIcon from '@material-ui/icons/Add';
 import { DisplayStyle, Color } from 'src/types';
 import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from 'src/constants';
@@ -27,6 +29,10 @@ const styles = {
     top: 'auto',
     bottom: 0,
   },
+  colorIcon: {
+    marginTop: -6,
+    marginBottom: -6
+  }
 };
 
 class BottomBar extends React.Component<Props, State> {
@@ -89,7 +95,7 @@ class BottomBar extends React.Component<Props, State> {
         <Toolbar style={{paddingBottom: '10px'}}>
           <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
             <Grid container spacing={8}>
-              <Grid item xs={6}>
+              <Grid item xs={7}>
                 <FormControl fullWidth>
                   <TextField
                     label="Domain"
@@ -113,17 +119,17 @@ class BottomBar extends React.Component<Props, State> {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={3} sm={2}>
+              <Grid item xs={2} sm={1}>
                 <FormControl fullWidth className={classes.formControl}>
                   <InputLabel htmlFor="age-simple">Color</InputLabel>
                   <Select
                     value={this.state.color}
                     onChange={this.handleColorChange}
                   >
-                    <MenuItem value="0">None</MenuItem>
-                    <MenuItem value="1">Color 1</MenuItem>
-                    <MenuItem value="2">Color 2</MenuItem>
-                    <MenuItem value="3">Color 3</MenuItem>
+                    <MenuItem value="0"><NoColorIcon className={classes.colorIcon} style={{color: '#607D8B'}} /></MenuItem>
+                    <MenuItem value="1"><ColorIcon className={classes.colorIcon} style={{color: '#f50057'}} /></MenuItem>
+                    <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{color: '#8BC34A'}} /></MenuItem>
+                    <MenuItem value="3"><ColorIcon className={classes.colorIcon} style={{color: '#03A9F4'}} /></MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
