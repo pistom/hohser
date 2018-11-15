@@ -13,5 +13,6 @@ export interface StoreState {
   domainsList: Array<Domain>;
   option: boolean;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   removeDomain: () => void;
 }

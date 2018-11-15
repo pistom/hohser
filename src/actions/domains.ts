@@ -4,6 +4,7 @@ import {
   FETCH_DOMAINS_FULFILLED,
   FETCH_DOMAINS_REJECTED,
   ADD_DOMAIN,
+  EDIT_DOMAIN,
   REMOVE_DOMAIN,
   IMPORT_FROM_OLD_VERSION,
   IMPORT_FROM_OLD_VERSION_PENDING,
@@ -18,6 +19,14 @@ export interface AddDomain {
   domainName: string;
   display: DisplayStyle;
   color?: Color;
+}
+
+export interface EditDomain {
+  type: EDIT_DOMAIN;
+  domainName: string;
+  display: DisplayStyle;
+  color?: Color;
+  index: number;
 }
 
 export interface RemoveDomain {
@@ -44,6 +53,7 @@ export interface FetchDomains {
 
 export type DomainAction =
   | AddDomain
+  | EditDomain
   | RemoveDomain
   | FetchDomains
   | ImportFromOldVersion;
@@ -62,6 +72,16 @@ export const addDomain = (domainName: string, display: DisplayStyle, color?: Col
     domainName,
     display,
     color
+  };
+};
+
+export const editDomain = (index: number, domainName: string, display: DisplayStyle, color?: Color): EditDomain => {
+  return {
+    type: EDIT_DOMAIN,
+    domainName,
+    display,
+    color,
+    index
   };
 };
 

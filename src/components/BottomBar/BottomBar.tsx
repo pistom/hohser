@@ -13,7 +13,6 @@ interface Props {
 
 interface State {
   domainName: string;
-  fullHide: boolean;
   color: number;
   display: number;
 }
@@ -41,7 +40,6 @@ class BottomBar extends React.Component<Props, State> {
     super(props);
     this.state = {
       domainName: '',
-      fullHide: false,
       color: 0,
       display: 2
     };
@@ -86,6 +84,9 @@ class BottomBar extends React.Component<Props, State> {
     } else {
       this.props.addDomain(this.state.domainName, display, color);
     }
+    this.setState({
+      domainName: '',
+    });
   }
 
   render () {

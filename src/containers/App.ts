@@ -16,7 +16,12 @@ function mapStateToProps (state: State) {
 
 function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.OptionAction>) {
   return {
-    addDomain: (domainName: string, hideType: DisplayStyle, color?: Color) => dispatch(actions.addDomain(domainName, hideType, color)),
+    addDomain: (domainName: string, hideType: DisplayStyle, color?: Color) => {
+      dispatch(actions.addDomain(domainName, hideType, color));
+    },
+    editDomain: (index: number, domainName: string, hideType: DisplayStyle, color?: Color) => {
+      dispatch(actions.editDomain(index, domainName, hideType, color));
+    },
     removeDomain: (index: number) => dispatch(actions.removeDomain(index)),
     fetchDomainsList: () => dispatch(actions.fetchDomainsList()),
     importFromOldVersion: () => dispatch(actions.importFromOldVersion())

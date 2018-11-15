@@ -2,6 +2,7 @@ import { DomainAction } from '../actions/domains';
 import { Domain } from '../types/index';
 import {
   ADD_DOMAIN,
+  EDIT_DOMAIN,
   REMOVE_DOMAIN,
   FETCH_DOMAINS_PENDING,
   FETCH_DOMAINS_FULFILLED,
@@ -33,6 +34,19 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
           domainsList.push({ domainName: action.domainName, display: action.display, color: action.color });
         } else {
           domainsList.push({ domainName: action.domainName, display: action.display });
+        }
+
+        browserStorageSync.set({domainsList});
+        return { ...state, domainsList };
+      }
+
+    case EDIT_DOMAIN:
+      {
+        const domainsList = [...state.domainsList];
+        if(action.color) {
+          domainsList[action.index] = { domainName: action.domainName, display: action.display, color: action.color };
+        } else {
+          domainsList[action.index] = { domainName: action.domainName, display: action.display };
         }
 
         browserStorageSync.set({domainsList});
