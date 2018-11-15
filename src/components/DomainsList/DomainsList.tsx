@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Divider } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import FavoriteBorderIcon from '@material-ui/icons/Favorite';
+import OffIcon from '@material-ui/icons/VisibilityOff';
+import BlockIcon from '@material-ui/icons/Opacity';
 import { Domain } from 'src/types';
+import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from 'src/constants';
 
 interface Props {
   domainsList: Array<Domain>;
@@ -29,6 +33,21 @@ const DomainsList = (props: Props) => {
         >
           <ListItemText primary={props.domainsList[item].domainName} />
           <ListItemSecondaryAction>
+            {props.domainsList[item].display === HIGHLIGHT ?
+              <IconButton disabled>
+                <FavoriteBorderIcon />
+              </IconButton> : null
+            }
+            {props.domainsList[item].display === PARTIAL_HIDE ?
+              <IconButton disabled>
+                <BlockIcon />
+              </IconButton> : null
+            }
+            {props.domainsList[item].display === FULL_HIDE ?
+              <IconButton disabled>
+                <OffIcon />
+              </IconButton> : null
+            }
             <IconButton aria-label="Delete" onClick={() => props.removeDomainHandle(i)}>
               <DeleteIcon />
             </IconButton>
