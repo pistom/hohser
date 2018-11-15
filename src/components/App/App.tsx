@@ -6,6 +6,7 @@ import { CssBaseline } from '@material-ui/core';
 import TopBar from '../TopBar/TopBar';
 import BottomBar from '../BottomBar/BottomBar';
 import DomainsList from '../DomainsList/DomainsList';
+import EditDomain from '../EditDomain/EditDomain';
 
 export interface Props {
   domainsList: Array<Domain>;
@@ -16,9 +17,17 @@ export interface Props {
   importFromOldVersion: () => void;
 }
 
-class App extends React.Component<Props> {
+interface State {
+  open: boolean;
+}
+
+class App extends React.Component<Props, State> {
+
   constructor (props: Props) {
     super(props);
+    this.state = {
+      open: false
+    };
   }
 
   componentDidMount () {
@@ -35,11 +44,27 @@ class App extends React.Component<Props> {
     this.props.removeDomain(index);
   }
 
+  editDomainHandle (index: number) {
+    this.setState({open: true});
+  }
+
+  closeEditionHandle () {
+    this.setState({open: false});
+  }
+
   public render () {
     return [
       <CssBaseline />,
       <TopBar />,
-      <DomainsList domainsList={this.props.domainsList} removeDomainHandle={(i) => this.removeDomainHandle(i)} />,
+      <DomainsList
+        domainsList={this.props.domainsList}
+        removeDomainHandle={(i) => this.removeDomainHandle(i)}
+        editDomainHandle={(i) => this.editDomainHandle(i)}
+      />,
+      <EditDomain
+        open={this.state.open}
+        closeEditionHandle={() => this.closeEditionHandle()}
+      />,
       <BottomBar addDomain={this.props.addDomain} />
     ];
   }
