@@ -19,6 +19,9 @@ export type COLOR_3 = typeof COLOR_3;
 export const ADD_DOMAIN = 'ADD_DOMAIN';
 export type ADD_DOMAIN = typeof ADD_DOMAIN;
 
+export const EDIT_DOMAIN = 'EDIT_DOMAIN';
+export type EDIT_DOMAIN = typeof EDIT_DOMAIN;
+
 export const FETCH_DOMAINS = 'FETCH_DOMAINS';
 export type FETCH_DOMAINS = typeof FETCH_DOMAINS;
 

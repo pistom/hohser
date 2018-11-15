@@ -8,9 +8,9 @@ import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from 's
 
 interface Props {
   classes: any;
-  open: boolean;
+  open: number | null;
   domain: Domain;
-  editDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   closeEditionHandle: () => void;
 }
 
@@ -54,7 +54,7 @@ class EditDomain extends React.Component<Props, State> {
     this.handleDomainNameChange = this.handleDomainNameChange.bind(this);
     this.handleDisplayChange = this.handleDisplayChange.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   componentWillReceiveProps (nextProps: any) {
@@ -99,7 +99,7 @@ class EditDomain extends React.Component<Props, State> {
     this.setState({ color: parseInt(event.target.value, 10) });
   }
 
-  handleSubmit (event: any) {
+  handleSave (event: any) {
     event.preventDefault();
 
     let display: DisplayStyle = PARTIAL_HIDE;
@@ -116,11 +116,14 @@ class EditDomain extends React.Component<Props, State> {
       case 3: color = COLOR_3; break;
     }
 
-    if (this.state.color === 0) {
-      this.props.editDomain(this.state.domainName, display);
-    } else {
-      this.props.editDomain(this.state.domainName, display, color);
+    if (this.props.open !== null){
+      if (this.state.color === 0) {
+        this.props.editDomain(this.props.open, this.state.domainName, display);
+      } else {
+        this.props.editDomain(this.props.open, this.state.domainName, display, color);
+      }
     }
+
     this.props.closeEditionHandle();
   }
 
@@ -133,7 +136,7 @@ class EditDomain extends React.Component<Props, State> {
     return (
       <Dialog
         fullScreen
-        open={this.props.open}
+        open={this.props.open !== null}
         onClose={this.handleClose}
         TransitionComponent={Transition}
       >
@@ -145,12 +148,12 @@ class EditDomain extends React.Component<Props, State> {
             <Typography variant="h6" color="inherit" className={classes.flex}>
               Sound
             </Typography>
-            <Button color="inherit" onClick={this.handleClose}>
+            <Button color="inherit" onClick={this.handleSave}>
               save
             </Button>
           </Toolbar>
         </AppBar>
-        <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
+        <form className={classes.root} autoComplete="off">
           <Grid container spacing={16}>
             <Grid item xs={12}>
               <FormControl fullWidth>
