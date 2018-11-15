@@ -3,19 +3,19 @@ import { Toolbar, AppBar, withStyles, Grid, FormControl, TextField, InputLabel, 
 import ColorIcon from '@material-ui/icons/InvertColors';
 import NoColorIcon from '@material-ui/icons/InvertColorsOff';
 import CloseIcon from '@material-ui/icons/Close';
-import { DisplayStyle, Color } from 'src/types';
+import { DisplayStyle, Color, Domain } from 'src/types';
 import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from 'src/constants';
 
 interface Props {
   classes: any;
   open: boolean;
-  addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  domain: Domain;
+  editDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   closeEditionHandle: () => void;
 }
 
 interface State {
   domainName: string;
-  fullHide: boolean;
   color: number;
   display: number;
 }
@@ -47,7 +47,6 @@ class EditDomain extends React.Component<Props, State> {
     super(props);
     this.state = {
       domainName: '',
-      fullHide: false,
       color: 0,
       display: 2,
     };
@@ -56,6 +55,36 @@ class EditDomain extends React.Component<Props, State> {
     this.handleDisplayChange = this.handleDisplayChange.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillReceiveProps (nextProps: any) {
+    if (this.props.domain !== nextProps.domain) {
+      if (nextProps.domain !== null) {
+        let display: number = 0;
+        switch (nextProps.domain.display) {
+          case HIGHLIGHT: display = 1; break;
+          case PARTIAL_HIDE: display = 2; break;
+          case FULL_HIDE: display = 3; break;
+        }
+        let color: number = 0;
+        switch (nextProps.domain.color) {
+          case COLOR_1: color = 1; break;
+          case COLOR_2: color = 2; break;
+          case COLOR_3: color = 3; break;
+        }
+        this.setState({
+          domainName: nextProps.domain.domainName,
+          color: color,
+          display: display,
+        });
+      } else {
+        this.setState({
+          domainName: '',
+          color: 0,
+          display: 2,
+        });
+      }
+    }
   }
 
   handleDomainNameChange (event: any) {
@@ -88,10 +117,11 @@ class EditDomain extends React.Component<Props, State> {
     }
 
     if (this.state.color === 0) {
-      this.props.addDomain(this.state.domainName, display);
+      this.props.editDomain(this.state.domainName, display);
     } else {
-      this.props.addDomain(this.state.domainName, display, color);
+      this.props.editDomain(this.state.domainName, display, color);
     }
+    this.props.closeEditionHandle();
   }
 
   handleClose = () => {

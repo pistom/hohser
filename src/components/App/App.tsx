@@ -18,7 +18,7 @@ export interface Props {
 }
 
 interface State {
-  open: boolean;
+  editedDomain: number | null;
 }
 
 class App extends React.Component<Props, State> {
@@ -26,7 +26,7 @@ class App extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props);
     this.state = {
-      open: false
+      editedDomain: null
     };
   }
 
@@ -45,11 +45,11 @@ class App extends React.Component<Props, State> {
   }
 
   editDomainHandle (index: number) {
-    this.setState({open: true});
+    this.setState({editedDomain: index});
   }
 
   closeEditionHandle () {
-    this.setState({open: false});
+    this.setState({editedDomain: null});
   }
 
   public render () {
@@ -62,8 +62,9 @@ class App extends React.Component<Props, State> {
         editDomainHandle={(i) => this.editDomainHandle(i)}
       />,
       <EditDomain
-        open={this.state.open}
+        open={!!this.state.editedDomain}
         closeEditionHandle={() => this.closeEditionHandle()}
+        domain={this.state.editedDomain !== null ? this.props.domainsList[this.state.editedDomain] : null}
       />,
       <BottomBar addDomain={this.props.addDomain} />
     ];
