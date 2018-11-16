@@ -16,6 +16,7 @@ interface State {
   color: number;
   display: number;
   disableColors: boolean;
+  emptyDomain: boolean;
 }
 
 const styles = {
@@ -43,7 +44,8 @@ class BottomBar extends React.Component<Props, State> {
       domainName: '',
       color: 0,
       display: 2,
-      disableColors: true
+      disableColors: true,
+      emptyDomain: false
     };
 
     this.handleDomainNameChange = this.handleDomainNameChange.bind(this);
@@ -54,6 +56,9 @@ class BottomBar extends React.Component<Props, State> {
 
   handleDomainNameChange (event: any) {
     this.setState({domainName: event.target.value});
+    if (event.target.value.length === 0) {
+      this.setState({emptyDomain: true});
+    }
   }
 
   handleDisplayChange (event: any) {
@@ -96,14 +101,21 @@ class BottomBar extends React.Component<Props, State> {
       case 3: color = COLOR_3; break;
     }
 
-    if(this.state.color === 0) {
-      this.props.addDomain(this.state.domainName, display);
+    // Check if domain field is not empty
+    if (this.state.domainName.length !== 0) {
+      if(this.state.color === 0) {
+        this.props.addDomain(this.state.domainName, display);
+      } else {
+        this.props.addDomain(this.state.domainName, display, color);
+      }
+      this.setState({
+        domainName: '',
+        emptyDomain: false
+      });
     } else {
-      this.props.addDomain(this.state.domainName, display, color);
+      this.setState({emptyDomain: true});
     }
-    this.setState({
-      domainName: '',
-    });
+    
   }
 
   render () {
@@ -116,6 +128,7 @@ class BottomBar extends React.Component<Props, State> {
               <Grid item xs={7}>
                 <FormControl fullWidth>
                   <TextField
+                    error={this.state.emptyDomain}
                     label="Domain"
                     id="margin-none"
                     className={classes.textField}
