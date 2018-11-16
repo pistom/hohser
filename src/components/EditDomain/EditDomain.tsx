@@ -80,12 +80,14 @@ class EditDomain extends React.Component<Props, State> {
           domainName: nextProps.domain.domainName,
           color: color,
           display: display,
+          disableColors: color === 0
         });
       } else {
         this.setState({
           domainName: '',
           color: 0,
           display: 2,
+          disableColors: true
         });
       }
     }
