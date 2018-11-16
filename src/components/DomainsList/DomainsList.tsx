@@ -29,13 +29,12 @@ const DomainsList = (props: Props) => {
         <ListItem
           button
           onClick={() => props.editDomainHandle(i)}
-          style={{backgroundColor: `${domainColors[props.domainsList[item].color] || domainColors.COLOR_0}`}}
         >
           <ListItemText primary={props.domainsList[item].domainName} />
           <ListItemSecondaryAction>
             {props.domainsList[item].display === HIGHLIGHT ?
               <IconButton disabled>
-                <FavoriteBorderIcon />
+                <FavoriteBorderIcon style={{color: `${domainColors[props.domainsList[item].color] || domainColors.COLOR_0}`}} />
               </IconButton> : null
             }
             {props.domainsList[item].display === PARTIAL_HIDE ?
