@@ -15,6 +15,7 @@ interface State {
   domainName: string;
   color: number;
   display: number;
+  disableColors: boolean;
 }
 
 const styles = {
@@ -41,7 +42,8 @@ class BottomBar extends React.Component<Props, State> {
     this.state = {
       domainName: '',
       color: 0,
-      display: 2
+      display: 2,
+      disableColors: true
     };
 
     this.handleDomainNameChange = this.handleDomainNameChange.bind(this);
@@ -55,7 +57,22 @@ class BottomBar extends React.Component<Props, State> {
   }
 
   handleDisplayChange (event: any) {
-    this.setState({display: parseInt(event.target.value, 10)});
+    const display = parseInt(event.target.value, 10);
+
+    // Set display value and selected or default color
+    this.setState({
+      display,
+      disableColors: false,
+      color: this.state.color !==0 ? this.state.color : 1
+    });
+
+    // Disable color field for non highlighted domains
+    if (display !== 1) {
+      this.setState({
+        color: 0,
+        disableColors: true
+      });
+    }
   }
 
   handleColorChange (event: any) {
@@ -126,8 +143,9 @@ class BottomBar extends React.Component<Props, State> {
                   <Select
                     value={this.state.color}
                     onChange={this.handleColorChange}
+                    disabled={this.state.disableColors}
                   >
-                    <MenuItem value="0"><NoColorIcon className={classes.colorIcon} style={{color: '#607D8B'}} /></MenuItem>
+                    <MenuItem value="0" disabled><NoColorIcon className={classes.colorIcon} style={{color: '#607D8B'}} /></MenuItem>
                     <MenuItem value="1"><ColorIcon className={classes.colorIcon} style={{color: '#f50057'}} /></MenuItem>
                     <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{color: '#8BC34A'}} /></MenuItem>
                     <MenuItem value="3"><ColorIcon className={classes.colorIcon} style={{color: '#03A9F4'}} /></MenuItem>
