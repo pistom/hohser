@@ -115,7 +115,7 @@ class BottomBar extends React.Component<Props, State> {
     } else {
       this.setState({emptyDomain: true});
     }
-    
+
   }
 
   render () {
