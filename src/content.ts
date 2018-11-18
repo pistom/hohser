@@ -1,5 +1,6 @@
 import StorageManager from './content/storageManager';
 import { SearchEngineConfig } from './types';
+import { duckduckgo, google, yahoo } from './config';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
@@ -10,16 +11,16 @@ var searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[
 
 switch (searchEngine) {
   case 'duckduckgo':
-    searchEngineConfig = {resultSelector: '.result', domainSelector: '.result__url__domain', observerSelector: '#links'};
+    searchEngineConfig = duckduckgo;
     break;
   case 'google':
-    searchEngineConfig = {resultSelector: '.g', domainSelector: '.TbwUpd', observerSelector: '#rcnt'};
+    searchEngineConfig = google;
     break;
   case 'yahoo':
-    searchEngineConfig = {resultSelector: '#web ol li', domainSelector: '.title + div > span', observerSelector: '#ysch'};
+    searchEngineConfig = yahoo;
     break;
   default:
-    searchEngineConfig = {resultSelector: '.result', domainSelector: '.result__url__domain', observerSelector: '#links'};
+    searchEngineConfig = duckduckgo;
 }
 
 // Process results function
@@ -40,13 +41,13 @@ async function processResults (searchEngineConfig: SearchEngineConfig, resultsLi
   });
 }
 
-// Process results after page load
+// Init process results after the page load
 window.onload = function () {
   const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
   processResults(searchEngineConfig, resultsList);
 };
 
-// Process results after the DOM changement
+// Init process results after changing the DOM
 var target = document.querySelector(searchEngineConfig.observerSelector);
 var observer = new MutationObserver(function (mutations) {
   const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
