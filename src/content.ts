@@ -18,6 +18,8 @@ switch (searchEngine) {
   case 'yahoo':
     searchEngineConfig = {resultSelector: '#web ol li', domainSelector: '.title + div > span', observerSelector: '#ysch'};
     break;
+  default:
+    searchEngineConfig = {resultSelector: '.result', domainSelector: '.result__url__domain', observerSelector: '#links'};
 }
 
 // Process results function
@@ -45,7 +47,7 @@ window.onload = function () {
 };
 
 // Process results after the DOM changement
-var target = document.querySelector('links');
+var target = document.querySelector(searchEngineConfig.observerSelector);
 var observer = new MutationObserver(function (mutations) {
   const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
   processResults(searchEngineConfig, resultsList);
