@@ -12,6 +12,7 @@ export interface Domain {
 export interface SearchEngineConfig {
   resultSelector: string;
   domainSelector: string;
+  observerSelector: string;
 }
 
 export interface StoreState {
