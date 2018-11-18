@@ -1,21 +1,26 @@
 import StorageManager from './content/storageManager';
 import { SearchEngineConfig } from './types';
 
+// Initialize storage manager
 const storageManager = new StorageManager();
 
+// Determine search engine and applay right config
 let searchEngineConfig: SearchEngineConfig;
-// let domain = 'duckduckgo.com';
-let domain = 'google.com';
+var searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[1];
 
-switch (domain) {
-  case 'duckduckgo.com':
+switch (searchEngine) {
+  case 'duckduckgo':
     searchEngineConfig = {resultSelector: '.result', domainSelector: '.result__url__domain', observerSelector: '#links'};
     break;
-  case 'google.com':
+  case 'google':
     searchEngineConfig = {resultSelector: '.g', domainSelector: '.TbwUpd', observerSelector: '#rcnt'};
+    break;
+  case 'yahoo':
+    searchEngineConfig = {resultSelector: '#web ol li', domainSelector: '.title + div > span', observerSelector: '#ysch'};
     break;
 }
 
+// Process results function
 async function processResults (searchEngineConfig: SearchEngineConfig, resultsList: NodeList) {
   const domainsList = await storageManager.fetchDomainsList();
   resultsList.forEach((result) => {
