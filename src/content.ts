@@ -29,28 +29,31 @@ async function processResults (searchEngineConfig: SearchEngineConfig, resultsLi
   resultsList.forEach((result) => {
     try {
       const domain = (result as Element).querySelector(searchEngineConfig.domainSelector);
-      console.log(domain);
       const domainTxt = (domain as HTMLElement).innerText;
       const matches = domainsList.filter(s => domainTxt.includes(s.domainName));
       if (matches.length > 0) {
         (result as HTMLElement).style.backgroundColor = '#f50057';
       }
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   });
 }
 
-// Init process results after the page load
+// Process results on page load
 window.onload = function () {
   const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
   processResults(searchEngineConfig, resultsList);
 };
 
-// Init process results after changing the DOM
-var target = document.querySelector(searchEngineConfig.observerSelector);
-var observer = new MutationObserver(function (mutations) {
+// Process results on DOM change
+const target = document.querySelector(searchEngineConfig.observerSelector);
+const observer = new MutationObserver(function (mutations) {
   const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
   processResults(searchEngineConfig, resultsList);
 });
 if (target) observer.observe(target, {childList: true});
+
+// Process results on storage change event
+storageManager.browserStorage.onChanged.addListener(() => {
+  const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
+  processResults(searchEngineConfig, resultsList);
+});
