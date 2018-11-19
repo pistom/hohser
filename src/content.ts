@@ -24,7 +24,8 @@ switch (searchEngine) {
 }
 
 // Process results function
-async function processResults (searchEngineConfig: SearchEngineConfig, resultsList: NodeList) {
+async function processResults () {
+  const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
   const domainsList = await storageManager.fetchDomainsList();
   resultsList.forEach((result) => {
     try {
@@ -33,6 +34,8 @@ async function processResults (searchEngineConfig: SearchEngineConfig, resultsLi
       const matches = domainsList.filter(s => domainTxt.includes(s.domainName));
       if (matches.length > 0) {
         (result as HTMLElement).style.backgroundColor = '#f50057';
+      } else {
+        (result as HTMLElement).style.backgroundColor = null;
       }
     } catch (e) {}
   });
@@ -40,20 +43,17 @@ async function processResults (searchEngineConfig: SearchEngineConfig, resultsLi
 
 // Process results on page load
 window.onload = function () {
-  const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
-  processResults(searchEngineConfig, resultsList);
+  processResults();
 };
 
 // Process results on DOM change
 const target = document.querySelector(searchEngineConfig.observerSelector);
 const observer = new MutationObserver(function (mutations) {
-  const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
-  processResults(searchEngineConfig, resultsList);
+  processResults();
 });
 if (target) observer.observe(target, {childList: true});
 
 // Process results on storage change event
 storageManager.browserStorage.onChanged.addListener(() => {
-  const resultsList = document.querySelectorAll(searchEngineConfig.resultSelector);
-  processResults(searchEngineConfig, resultsList);
+  processResults();
 });
