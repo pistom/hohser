@@ -2,6 +2,7 @@ import StorageManager from "./content/storageManager";
 import { SearchEngineConfig, DisplayStyle, Color } from "./types";
 import { duckduckgo, google, yahoo } from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT } from "./constants";
+import './content.css';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
