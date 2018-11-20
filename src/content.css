@@ -2,3 +2,11 @@
   padding: 0 5px;
   margin-left: -5px;
 }
+
+.hohser_partial_hide {
+  opacity: .25;
+}
+
+.hohser_full_hide {
+  display: none;
+}
