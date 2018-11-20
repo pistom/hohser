@@ -20,7 +20,8 @@
   "content_scripts": [
     {
       "matches": ["*://*.duckduckgo.com/*", "*://*.google.com/*", "*://*.yahoo.com/*"],
-      "js": ["static/js/content.js"]
+      "js": ["static/js/content.js"],
+      "css": ["static/css/content.css"]
     }
   ],
 
