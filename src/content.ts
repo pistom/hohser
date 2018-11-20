@@ -46,7 +46,9 @@ async function processResults () {
           matches[0].display
         );
       } else {
-        (result as HTMLElement).style.backgroundColor = null;
+        removeResultStyle(
+          result as HTMLElement
+        );
       }
     } catch (e) {}
   });
@@ -59,23 +61,35 @@ function applyResultStyle (
   displayStyle: DisplayStyle
 ) {
   const domainColors = {
-    COLOR_1: "#f50057",
-    COLOR_2: "#8BC34A",
-    COLOR_3: "#03A9F4"
+    COLOR_1: [245, 0, 87],
+    COLOR_2: [139, 195, 74],
+    COLOR_3: [3, 169, 244]
   };
   if (displayStyle === HIGHLIGHT) {
-    result.style.backgroundColor = `${domainColors[color] || null}`;
+    result.classList.add("hohser_highlight");
+    result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .15)`;
   } else if (displayStyle === PARTIAL_HIDE) {
-    result.style.opacity = "0.5";
+    result.classList.add("hohser_partial_hide");
   } else if (displayStyle === FULL_HIDE) {
-    result.style.display = "none";
+    result.classList.add("hohser_full_hide");
   }
 }
 
+// Remove styles from result
+function removeResultStyle(
+  result: HTMLElement
+) {
+  result.classList.remove("hohser_highlight", "hohser_partial_hide", "hohser_full_hide");
+  result.style.backgroundColor = null;
+}
+
+// Initial process results
+processResults();
+
 // Process results on page load
-window.onload = function () {
+document.addEventListener('load', () => {
   processResults();
-};
+});
 
 // Process results on DOM change
 const target = document.querySelector(searchEngineConfig.observerSelector);
