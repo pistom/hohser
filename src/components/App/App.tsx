@@ -7,6 +7,7 @@ import TopBar from '../TopBar/TopBar';
 import BottomBar from '../BottomBar/BottomBar';
 import DomainsList from '../DomainsList/DomainsList';
 import EditDomain from '../EditDomain/EditDomain';
+import Drawer from '../Drawer/Drawer';
 
 export interface Props {
   domainsList: Array<Domain>;
@@ -20,6 +21,7 @@ export interface Props {
 
 interface State {
   editedDomain: number | null;
+  drawerIsOpen: boolean;
 }
 
 class App extends React.Component<Props, State> {
@@ -27,7 +29,8 @@ class App extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props);
     this.state = {
-      editedDomain: null
+      editedDomain: null,
+      drawerIsOpen: false
     };
   }
 
@@ -53,10 +56,22 @@ class App extends React.Component<Props, State> {
     this.setState({editedDomain: null});
   }
 
+  toggleDrawer () {
+    this.setState({
+      drawerIsOpen: !this.state.drawerIsOpen
+    });
+  }
+
   public render () {
     return [
       <CssBaseline />,
-      <TopBar />,
+      <TopBar
+        toggleDrawer={() => this.toggleDrawer()}
+      />,
+      <Drawer
+        open={this.state.drawerIsOpen}
+        toggle={() => this.toggleDrawer()}
+      />,
       <DomainsList
         domainsList={this.props.domainsList}
         removeDomainHandle={(i) => this.removeDomainHandle(i)}

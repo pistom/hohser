@@ -3,6 +3,7 @@ import { Toolbar, IconButton, Typography, AppBar, withStyles } from '@material-u
 import MenuIcon from '@material-ui/icons/Menu';
 
 interface Props {
+  toggleDrawer: () => void;
   classes: any;
 }
 
@@ -28,7 +29,7 @@ const TopBar = (props: Props) => {
   return(
     <AppBar position="fixed" color="primary" className={classes.appBar}>
       <Toolbar>
-        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => props.toggleDrawer()} >
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" color="inherit" className={classes.grow}>
