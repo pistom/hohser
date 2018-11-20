@@ -9,6 +9,12 @@ export interface Domain {
   color?: Color;
 }
 
+export interface SearchEngineConfig {
+  resultSelector: string;
+  domainSelector: string;
+  observerSelector: string;
+}
+
 export interface StoreState {
   domainsList: Array<Domain>;
   option: boolean;
