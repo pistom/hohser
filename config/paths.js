@@ -45,7 +45,6 @@ module.exports = {
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/popup.html'),
   appIndexJs: resolveApp('src/popup.tsx'),
-  appBackgroundJs: resolveApp('src/background.tsx'),
   appContentJs: resolveApp('src/content.ts'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
