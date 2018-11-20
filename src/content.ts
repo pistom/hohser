@@ -32,23 +32,19 @@ async function processResults () {
     searchEngineConfig.resultSelector
   );
   const domainsList = await storageManager.fetchDomainsList();
-  resultsList.forEach(result => {
+  resultsList.forEach(r => {
+    const result = r as HTMLElement;
     try {
-      const domain = (result as Element).querySelector(
+      const domain = result.querySelector(
         searchEngineConfig.domainSelector
       );
       const domainTxt = (domain as HTMLElement).innerText;
       const matches = domainsList.filter(s => domainTxt.includes(s.domainName));
       if (matches.length > 0) {
-        applyResultStyle(
-          result as HTMLElement,
-          matches[0].color,
-          matches[0].display
-        );
+        removeResultStyle(result);
+        applyResultStyle(result, matches[0].color, matches[0].display);
       } else {
-        removeResultStyle(
-          result as HTMLElement
-        );
+        removeResultStyle(result);
       }
     } catch (e) {}
   });
@@ -67,7 +63,7 @@ function applyResultStyle (
   };
   if (displayStyle === HIGHLIGHT) {
     result.classList.add("hohser_highlight");
-    result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .15)`;
+    result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .20)`;
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
   } else if (displayStyle === FULL_HIDE) {
@@ -76,10 +72,12 @@ function applyResultStyle (
 }
 
 // Remove styles from result
-function removeResultStyle(
+function removeResultStyle (
   result: HTMLElement
 ) {
-  result.classList.remove("hohser_highlight", "hohser_partial_hide", "hohser_full_hide");
+  result.classList.remove("hohser_highlight");
+  result.classList.remove("hohser_partial_hide");
+  result.classList.remove("hohser_full_hide");
   result.style.backgroundColor = null;
 }
 
