@@ -4,8 +4,10 @@ import Options from './Options';
 
 interface Props {
   toggle: () => void;
+  toggleShowAll: () => void;
   classes: any;
   open: boolean;
+  options: any;
 }
 
 const styles = (theme: any) => ({
@@ -32,7 +34,10 @@ const Drawer = (props: Props) => {
         tabIndex={0}
         role="button"
       >
-        <Options />
+        <Options
+          options={props.options}
+          toggleShowAll={() => props.toggleShowAll()}
+        />
       </div>
     </SwipeableDrawer>
   );

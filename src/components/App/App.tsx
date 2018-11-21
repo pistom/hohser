@@ -12,10 +12,13 @@ import Drawer from '../SideMenu/Drawer';
 export interface Props {
   domainsList: Array<Domain>;
   domainsListLoading: boolean;
+  options: any;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   removeDomain: (index: number) => void;
   fetchDomainsList: () => void;
+  fetchOptions: () => void;
+  toggleShowAll: () => void;
   importFromOldVersion: () => void;
 }
 
@@ -36,6 +39,7 @@ class App extends React.Component<Props, State> {
 
   componentDidMount () {
     this.props.fetchDomainsList();
+    this.props.fetchOptions();
   }
 
   componentWillUpdate (nextProps: Props) {
@@ -62,6 +66,10 @@ class App extends React.Component<Props, State> {
     });
   }
 
+  toggleShowAll () {
+    this.props.toggleShowAll();
+  }
+
   public render () {
     return [
       <CssBaseline />,
@@ -71,6 +79,8 @@ class App extends React.Component<Props, State> {
       <Drawer
         open={this.state.drawerIsOpen}
         toggle={() => this.toggleDrawer()}
+        toggleShowAll={() => this.toggleShowAll()}
+        options={this.props.options}
       />,
       <DomainsList
         domainsList={this.props.domainsList}
