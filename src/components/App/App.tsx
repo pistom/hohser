@@ -7,7 +7,7 @@ import TopBar from '../TopBar/TopBar';
 import BottomBar from '../BottomBar/BottomBar';
 import DomainsList from '../DomainsList/DomainsList';
 import EditDomain from '../EditDomain/EditDomain';
-import Drawer from '../Drawer/Drawer';
+import Drawer from '../SideMenu/Drawer';
 
 export interface Props {
   domainsList: Array<Domain>;
