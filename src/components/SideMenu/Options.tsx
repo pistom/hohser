@@ -6,6 +6,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 interface Props {
   classes: any;
+  options: any;
+  toggleShowAll: () => void;
 }
 
 interface State {
@@ -44,9 +46,9 @@ class Options extends React.Component<Props, State> {
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested} onClick={() => this.props.toggleShowAll()}>
               <ListItemIcon>
-                <ExpandMore />
+                {this.props.options.showAll ? <ExpandLess /> : <ExpandMore />}
               </ListItemIcon>
               <ListItemText inset primary="Starred" />
             </ListItem>

@@ -10,7 +10,7 @@ function mapStateToProps (state: State) {
   return {
     domainsList: state.domains.domainsList,
     domainsListLoading: state.domains.domainsListLoading,
-    animations: state.options.animations
+    options: state.options.options
   };
 }
 
@@ -24,7 +24,9 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
     },
     removeDomain: (index: number) => dispatch(actions.removeDomain(index)),
     fetchDomainsList: () => dispatch(actions.fetchDomainsList()),
-    importFromOldVersion: () => dispatch(actions.importFromOldVersion())
+    importFromOldVersion: () => dispatch(actions.importFromOldVersion()),
+    fetchOptions: () => dispatch(actions.fetchOptions()),
+    toggleShowAll: () => dispatch(actions.toggleShowAll()),
   };
 }
 

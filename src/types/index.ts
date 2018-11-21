@@ -9,6 +9,10 @@ export interface Domain {
   color?: Color;
 }
 
+export interface Options {
+  showAll: boolean;
+}
+
 export interface SearchEngineConfig {
   resultSelector: string;
   domainSelector: string;

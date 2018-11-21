@@ -32,7 +32,7 @@ const TopBar = (props: Props) => {
         <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={() => props.toggleDrawer()} >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" color="inherit" className={classes.grow}>
+        <Typography variant="h6" color="inherit" className={classes.grow} >
           Highlight or Hide
         </Typography>
       </Toolbar>
