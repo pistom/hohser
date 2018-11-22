@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { withStyles, List, ListItem, ListItemIcon, ListSubheader, Collapse, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import PowerOffIcon from '@material-ui/icons/PowerOff';
 
 interface Props {
-  classes: any;
   options: any;
   toggleShowAll: () => void;
 }
@@ -14,16 +14,9 @@ interface State {
   open: boolean;
 }
 
-const styles = (theme: any) => ({
-  nested: {
-    paddingLeft: theme.spacing.unit * 4,
-  },
-});
-
-
 class Options extends React.Component<Props, State> {
   state = {
-    open: true,
+    open: false,
   };
 
   handleClick = () => {
@@ -31,12 +24,8 @@ class Options extends React.Component<Props, State> {
   }
 
   render () {
-    const { classes } = this.props;
     return (
-      <List
-        component="nav"
-        subheader={<ListSubheader component="div">Options</ListSubheader>}
-      >
+      <List component="nav">
         <ListItem button onClick={this.handleClick}>
           <ListItemIcon>
             <SettingsIcon />
@@ -46,18 +35,25 @@ class Options extends React.Component<Props, State> {
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested} onClick={() => this.props.toggleShowAll()}>
+            <ListItem>
               <ListItemIcon>
-                {this.props.options.showAll ? <ExpandLess /> : <ExpandMore />}
+                <PowerOffIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Starred" />
+              <ListItemText secondary="Disable modifications" />
+              <ListItemSecondaryAction>
+                <Switch
+                  onChange={() => this.props.toggleShowAll()}
+                  checked={this.props.options.showAll}
+                />
+              </ListItemSecondaryAction>
             </ListItem>
           </List>
         </Collapse>
+        <Divider light />
       </List>
     );
   }
 }
 
-export default withStyles(styles)(Options);
+export default (Options);
 
