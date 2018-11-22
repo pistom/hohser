@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { SwipeableDrawer, withStyles } from '@material-ui/core';
+import { SwipeableDrawer, withStyles, Toolbar, IconButton } from '@material-ui/core';
 import Options from './Options';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 interface Props {
   toggle: () => void;
@@ -12,12 +13,16 @@ interface Props {
 
 const styles = (theme: any) => ({
   root: {
-    width: '100%',
-    maxWidth: 240,
+    width: 300,
+    maxWidth: '100%',
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
-    paddingLeft: theme.spacing.unit * 4,
+    paddingLeft: theme.spacing.unit * 6,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
   },
 });
 
@@ -30,10 +35,15 @@ const Drawer = (props: Props) => {
       onOpen={() => props.toggle()}
     >
       <div
-        className={classes.root}
         tabIndex={0}
         role="button"
+        className={classes.root}
       >
+        <Toolbar>
+          <IconButton className={classes.menuButton} onClick={() => props.toggle()} >
+            <ArrowBackIcon />
+          </IconButton>
+        </Toolbar>
         <Options
           options={props.options}
           toggleShowAll={() => props.toggleShowAll()}

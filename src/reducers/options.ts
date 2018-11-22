@@ -60,7 +60,6 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
         browserStorageSync.set({options});
         return { ...state, options };
       }
-
   }
   return state;
 };
