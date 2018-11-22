@@ -1,30 +1,16 @@
 import StorageManager from "./content/storageManager";
 import { SearchEngineConfig, DisplayStyle, Color } from "./types";
-import { duckduckgo, google, yahoo } from "./config";
+import * as config from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT } from "./constants";
 import './content.css';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
 
-// Determine search engine and applay right config
-let searchEngineConfig: SearchEngineConfig;
+// Determine search engine and apply right config
 var searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) ||
   [])[1];
-
-switch (searchEngine) {
-  case "duckduckgo":
-    searchEngineConfig = duckduckgo;
-    break;
-  case "google":
-    searchEngineConfig = google;
-    break;
-  case "yahoo":
-    searchEngineConfig = yahoo;
-    break;
-  default:
-    searchEngineConfig = duckduckgo;
-}
+let searchEngineConfig: SearchEngineConfig = config[searchEngine];
 
 // Process results function
 async function processResults () {
