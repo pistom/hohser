@@ -4,9 +4,36 @@
 }
 
 .hohser_partial_hide {
-  opacity: .25;
+  opacity: 0.25;
 }
 
 .hohser_full_hide {
   display: none;
+}
+
+.hohser_result {
+  position: relative;
+}
+
+.hohser_result_management {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+.hohser_result:hover .hohser_result_management {
+  display: block;
+}
+
+.hohser_action_list {
+  overflow: hidden;
+  max-height: 0;
+  position: absolute;
+  right: 0;
+  top: 15px;
+}
+
+.hohser_result_management:hover .hohser_action_list {
+  max-height: 80px;
 }

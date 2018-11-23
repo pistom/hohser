@@ -4,13 +4,15 @@ import * as config from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT } from "./constants";
 import './content.css';
 import { Options } from './types';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { ResultManagement } from './components/Content/ResultManagement';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
 
 // Determine search engine and apply right config
-var searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) ||
-  [])[1];
+var searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[1];
 let searchEngineConfig: SearchEngineConfig = config[searchEngine];
 
 // Process results function
@@ -18,18 +20,29 @@ async function processResults () {
   const resultsList = document.querySelectorAll(
     searchEngineConfig.resultSelector
   );
+
   // Fetching domains list and options
   const domainsList = await storageManager.fetchDomainsList();
   const options = await storageManager.fetchOptions();
 
   resultsList.forEach(r => {
     const result = r as HTMLElement;
+    result.classList.add('hohser_result');
     try {
       const domain = result.querySelector(
         searchEngineConfig.domainSelector
       );
-      const domainTxt = (domain as HTMLElement).innerText;
-      const matches = domainsList.filter(s => domainTxt.includes(s.domainName));
+      const url = (domain as HTMLElement).innerText;
+      const matches = domainsList.filter(s => url.includes(s.domainName));
+
+      // Add management component to the result
+      const managementComponentAnchor = result.appendChild(document.createElement("span"));
+      managementComponentAnchor.classList.add("hohser_result_management");
+      ReactDOM.render(
+        <ResultManagement result={result} url={url}/>,
+        managementComponentAnchor as HTMLElement
+      );
+
       if (matches.length > 0) {
         removeResultStyle(result);
         applyResultStyle(result, matches[0].color, matches[0].display, options);

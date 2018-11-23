@@ -45,7 +45,7 @@ module.exports = {
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/popup.html'),
   appIndexJs: resolveApp('src/popup.tsx'),
-  appContentJs: resolveApp('src/content.ts'),
+  appContentJs: resolveApp('src/content.tsx'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   yarnLockFile: resolveApp('yarn.lock'),
