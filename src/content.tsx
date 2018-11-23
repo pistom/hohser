@@ -33,16 +33,29 @@ async function processResults () {
         searchEngineConfig.domainSelector
       );
       const url = (domain as HTMLElement).innerText;
-      const matches = domainsList.filter(s => url.includes(s.domainName));
 
       // Add management component to the result
       const managementComponentAnchor = result.appendChild(document.createElement("span"));
       managementComponentAnchor.classList.add("hohser_result_management");
       ReactDOM.render(
-        <ResultManagement result={result} url={url}/>,
+        <ResultManagement result={result} url={url} storageManager={storageManager} />,
         managementComponentAnchor as HTMLElement
       );
 
+      // Listen to management results icon click and event stop propagation
+      managementComponentAnchor.addEventListener('click', (e: any) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.target.nodeName === 'BUTTON') {
+          const action = e.target.dataset.action;
+          const color = e.target.dataset.color;
+          const domain = e.target.dataset.domain;
+          storageManager.save(domain, action, color);
+        }
+      });
+
+      // Applay or remove classes to the matches results
+      const matches = domainsList.filter(s => url.includes(s.domainName));
       if (matches.length > 0) {
         removeResultStyle(result);
         applyResultStyle(result, matches[0].color, matches[0].display, options);
