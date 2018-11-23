@@ -12,7 +12,10 @@ export default class {
       {domainName: "www.nrj.fr", display: "PARTIAL_HIDE"},
       {domainName: "www.download.australia.tu", display: "FULL_HIDE"},
       {domainName: "www.END_OF_LIST.pl", display: "FULL_HIDE"},
-    ]
+    ],
+    options: {
+      showAll: false
+    }
   };
 
   set (value: any) {

@@ -13,4 +13,12 @@ export default class StorageManager {
     return this._browserStorage.sync.get('domainsList')
     .then((res) => res.domainsList as Array<any> || []);
   }
+
+  /*
+   * Fetching options from sync storage
+   */
+  async fetchOptions () {
+    return this._browserStorage.sync.get('options')
+    .then((res) => res.options as any || {});
+  }
 }

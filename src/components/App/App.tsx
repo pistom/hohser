@@ -7,19 +7,25 @@ import TopBar from '../TopBar/TopBar';
 import BottomBar from '../BottomBar/BottomBar';
 import DomainsList from '../DomainsList/DomainsList';
 import EditDomain from '../EditDomain/EditDomain';
+import Drawer from '../SideMenu/Drawer';
+import SnackBar from './SnackBar';
 
 export interface Props {
   domainsList: Array<Domain>;
   domainsListLoading: boolean;
+  options: any;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   removeDomain: (index: number) => void;
   fetchDomainsList: () => void;
+  fetchOptions: () => void;
+  toggleShowAll: () => void;
   importFromOldVersion: () => void;
 }
 
 interface State {
   editedDomain: number | null;
+  drawerIsOpen: boolean;
 }
 
 class App extends React.Component<Props, State> {
@@ -27,12 +33,14 @@ class App extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props);
     this.state = {
-      editedDomain: null
+      editedDomain: null,
+      drawerIsOpen: false
     };
   }
 
   componentDidMount () {
     this.props.fetchDomainsList();
+    this.props.fetchOptions();
   }
 
   componentWillUpdate (nextProps: Props) {
@@ -53,10 +61,32 @@ class App extends React.Component<Props, State> {
     this.setState({editedDomain: null});
   }
 
+  toggleDrawer () {
+    this.setState({
+      drawerIsOpen: !this.state.drawerIsOpen
+    });
+  }
+
+  toggleShowAll () {
+    this.props.toggleShowAll();
+  }
+
   public render () {
     return [
       <CssBaseline />,
-      <TopBar />,
+      <TopBar
+        toggleDrawer={() => this.toggleDrawer()}
+      />,
+      <SnackBar
+        options={this.props.options}
+        toggleShowAll={() => this.toggleShowAll()}
+      />,
+      <Drawer
+        open={this.state.drawerIsOpen}
+        toggle={() => this.toggleDrawer()}
+        toggleShowAll={() => this.toggleShowAll()}
+        options={this.props.options}
+      />,
       <DomainsList
         domainsList={this.props.domainsList}
         removeDomainHandle={(i) => this.removeDomainHandle(i)}
