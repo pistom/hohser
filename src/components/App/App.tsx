@@ -8,6 +8,7 @@ import BottomBar from '../BottomBar/BottomBar';
 import DomainsList from '../DomainsList/DomainsList';
 import EditDomain from '../EditDomain/EditDomain';
 import Drawer from '../SideMenu/Drawer';
+import SnackBar from './SnackBar';
 
 export interface Props {
   domainsList: Array<Domain>;
@@ -75,6 +76,10 @@ class App extends React.Component<Props, State> {
       <CssBaseline />,
       <TopBar
         toggleDrawer={() => this.toggleDrawer()}
+      />,
+      <SnackBar
+        options={this.props.options}
+        toggleShowAll={() => this.toggleShowAll()}
       />,
       <Drawer
         open={this.state.drawerIsOpen}
