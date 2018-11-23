@@ -39,7 +39,7 @@ class Options extends React.Component<Props, State> {
               <ListItemIcon>
                 <PowerOffIcon />
               </ListItemIcon>
-              <ListItemText secondary="Disable modifications" />
+              <ListItemText secondary="Show hidden results" />
               <ListItemSecondaryAction>
                 <Switch
                   onChange={() => this.props.toggleShowAll()}
