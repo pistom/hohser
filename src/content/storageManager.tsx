@@ -1,3 +1,5 @@
+import { DisplayStyle, Color } from 'src/types';
+
 export default class StorageManager {
 
   private _browserStorage = browser.storage;
@@ -20,5 +22,12 @@ export default class StorageManager {
   async fetchOptions () {
     return this._browserStorage.sync.get('options')
     .then((res) => res.options as any || {});
+  }
+
+  /*
+   * Add domain to storage domains list
+   */
+  public save (domain: string, action: DisplayStyle, color?: Color){
+    console.log(domain, action, color);
   }
 }

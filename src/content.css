@@ -26,14 +26,37 @@
   display: block;
 }
 
-.hohser_action_list {
+.hohser_actions {
   overflow: hidden;
   max-height: 0;
   position: absolute;
   right: 0;
-  top: 15px;
+  top: 18px;
+  padding: 0;
+  transition: all .5s;
+  background: rgba(255, 255, 255, .85);
+  padding: 0 8px;
+  min-width: 260px;
+  border: 1px solid rgba(0, 0, 0, .25);
+  border-radius: 2px;
+  box-sizing: border-box;
+  opacity: 0;
 }
 
-.hohser_result_management:hover .hohser_action_list {
+.hohser_result_management:hover .hohser_actions {
   max-height: 80px;
+  padding: 8px;
+  opacity: 1;
+}
+
+.hohser_actions_domain {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.hohser_actions_btns {
+  text-align: center;
 }
