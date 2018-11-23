@@ -42,9 +42,9 @@ class BottomBar extends React.Component<Props, State> {
     super(props);
     this.state = {
       domainName: '',
-      color: 0,
-      display: 2,
-      disableColors: true,
+      color: 1,
+      display: 1,
+      disableColors: false,
       emptyDomain: false
     };
 
@@ -129,7 +129,7 @@ class BottomBar extends React.Component<Props, State> {
                 <FormControl fullWidth>
                   <TextField
                     error={this.state.emptyDomain}
-                    label="Domain"
+                    label="Domain name or phrase"
                     id="margin-none"
                     className={classes.textField}
                     value={this.state.domainName}
@@ -144,9 +144,9 @@ class BottomBar extends React.Component<Props, State> {
                     value={this.state.display}
                     onChange={this.handleDisplayChange}
                   >
-                    <MenuItem value="1">Highlighted</MenuItem>
-                    <MenuItem value="2" selected>Transparent</MenuItem>
-                    <MenuItem value="3">Hidden</MenuItem>
+                    <MenuItem value="1" selected>Highlight</MenuItem>
+                    <MenuItem value="2">Set back</MenuItem>
+                    <MenuItem value="3">Hide</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
