@@ -19,6 +19,6 @@ export default class StorageManager {
    */
   async fetchOptions () {
     return this._browserStorage.sync.get('options')
-    .then((res) => res.options as Array<any> || []);
+    .then((res) => res.options as any || {});
   }
 }

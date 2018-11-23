@@ -3,6 +3,7 @@ import { SearchEngineConfig, DisplayStyle, Color } from "./types";
 import * as config from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT } from "./constants";
 import './content.css';
+import { Options } from './types';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
@@ -17,7 +18,10 @@ async function processResults () {
   const resultsList = document.querySelectorAll(
     searchEngineConfig.resultSelector
   );
+  // Fetching domains list and options
   const domainsList = await storageManager.fetchDomainsList();
+  const options = await storageManager.fetchOptions();
+
   resultsList.forEach(r => {
     const result = r as HTMLElement;
     try {
@@ -28,7 +32,7 @@ async function processResults () {
       const matches = domainsList.filter(s => domainTxt.includes(s.domainName));
       if (matches.length > 0) {
         removeResultStyle(result);
-        applyResultStyle(result, matches[0].color, matches[0].display);
+        applyResultStyle(result, matches[0].color, matches[0].display, options);
       } else {
         removeResultStyle(result);
       }
@@ -40,7 +44,8 @@ async function processResults () {
 function applyResultStyle (
   result: HTMLElement,
   color: Color,
-  displayStyle: DisplayStyle
+  displayStyle: DisplayStyle,
+  options: Options
 ) {
   const domainColors = {
     COLOR_1: [245, 0, 87],
@@ -52,8 +57,10 @@ function applyResultStyle (
     result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .20)`;
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
-  } else if (displayStyle === FULL_HIDE) {
+  } else if (displayStyle === FULL_HIDE && !options.showAll) {
     result.classList.add("hohser_full_hide");
+  } else if (displayStyle === FULL_HIDE && options.showAll) {
+    result.classList.add("hohser_partial_hide");
   }
 }
 
