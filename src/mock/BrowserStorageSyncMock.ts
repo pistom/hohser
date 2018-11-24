@@ -1,7 +1,7 @@
 export default class {
   storage = {
     domainsList: [
-      {domainName: "www.test.fr", display: "PARTIAL_HIDE"},
+      {domainName: "www.test.fr", display: "HIGHLIGHT", color: "COLOR_1"},
       {domainName: "www.onet.pl", display: "FULL_HIDE"},
       {domainName: "www.tvn24.pl", display: "PARTIAL_HIDE"},
       {domainName: "www.exemple-domain.us", display: "FULL_HIDE"},
