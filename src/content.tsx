@@ -94,6 +94,7 @@ function applyResultStyle (
   if (displayStyle === HIGHLIGHT) {
     result.classList.add("hohser_highlight");
     result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .20)`;
+    result.style.transition = `.5s`;
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
   } else if (displayStyle === FULL_HIDE && !options.showAll) {
@@ -132,3 +133,26 @@ if (target) observer.observe(target, { childList: true });
 storageManager.browserStorage.onChanged.addListener(() => {
   processResults();
 });
+
+if (searchEngineConfig.ajaxResults) {
+  // Process results after 1 second
+  setTimeout(() => {processResults();}, 1000);
+
+  // Process results on page resize
+  var isScrolling: any;
+  window.addEventListener('resize', function ( event ) {
+    window.clearTimeout( isScrolling );
+    isScrolling = setTimeout(() => {
+      processResults();
+    }, 1500);
+  }, false);
+
+  // Process results on scroll
+  var isScrolling: any;
+  window.addEventListener('scroll', function ( event ) {
+    window.clearTimeout( isScrolling );
+    isScrolling = setTimeout(() => {
+      processResults();
+    }, 100);
+  }, false);
+}

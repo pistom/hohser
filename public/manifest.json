@@ -19,7 +19,27 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.duckduckgo.com/*", "*://*.google.com/*", "*://*.yahoo.com/*"],
+      "matches": [
+        "*://*.duckduckgo.com/*",
+        "*://*.google.com/*",
+        "*://*.google.pl/*",
+        "*://*.google.fr/*",
+        "*://*.google.es/*",
+        "*://*.google.ca/*",
+        "*://*.google.de/*",
+        "*://*.google.jp/*",
+        "*://*.google.au/*",
+        "*://*.google.ru/*",
+        "*://*.google.ru/*",
+        "*://*.google.ch/*",
+        "*://*.google.it/*",
+        "*://*.google.nl/*",
+        "*://*.google.se/*",
+        "*://*.google.no/*",
+        "*://*.google.ua/*",
+        "*://*.yahoo.com/*",
+        "*://*.qwant.com/*"
+      ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]
     }

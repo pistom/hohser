@@ -17,6 +17,7 @@ export interface SearchEngineConfig {
   resultSelector: string;
   domainSelector: string;
   observerSelector: string;
+  ajaxResults?: boolean;
 }
 
 export interface StoreState {
