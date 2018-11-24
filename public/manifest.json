@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
-  "short_name": "hohser",
-  "version": "1",
+  "short_name": "HoHSER",
+  "version": "2.0",
   "developer": {
     "name": "Tomasz Pisarek",
     "url": "https://github.com/pistom"
@@ -10,12 +10,23 @@
 
   "description": "Highlight or hide search engine results from specific domains.",
 
-  "browser_action": {
-    "default_title": "Highlight or Hide Search Engine Results",
-    "default_popup": "popup.html"
+  "icons": {
+    "19": "images/hohser-19.png",
+    "32": "images/hohser-32.png",
+    "48": "images/hohser-48.png",
+    "96": "images/hohser-96.png"
   },
 
-  "permissions": ["storage","contextMenus","activeTab"],
+  "browser_action": {
+    "default_title": "Highlight or Hide Search Engine Results",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "19": "images/hohser-19.png",
+      "38": "images/hohser-38.png"
+    }
+  },
+
+  "permissions": ["storage"],
 
   "content_scripts": [
     {
@@ -29,7 +40,6 @@
         "*://*.google.de/*",
         "*://*.google.jp/*",
         "*://*.google.au/*",
-        "*://*.google.ru/*",
         "*://*.google.ru/*",
         "*://*.google.ch/*",
         "*://*.google.it/*",
@@ -46,10 +56,9 @@
   ],
 
   "content_security_policy": "script-src 'self'; object-src 'self';",  
-  
   "applications": {
     "gecko": {
-      "id": "{2c4b535d-e705-4a71-a925-b53a8bca13d1}",
+      "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
       "strict_min_version": "52.0"
     }
   }
