@@ -12,8 +12,11 @@ import { ResultManagement } from './components/Content/ResultManagement';
 const storageManager = new StorageManager();
 
 // Determine search engine and apply right config
-var searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[1];
+const searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[1];
 let searchEngineConfig: SearchEngineConfig = config[searchEngine];
+
+// Array of management component anchors
+const managementComponentAnchors: Array<Element> = [];
 
 // Process results function
 async function processResults () {
@@ -24,6 +27,15 @@ async function processResults () {
   // Fetching domains list and options
   const domainsList = await storageManager.fetchDomainsList();
   const options = await storageManager.fetchOptions();
+
+  // Clear managementComponent anchors
+  managementComponentAnchors.forEach(a => {
+    try{
+      if (a.parentNode) a.parentNode.removeChild(a);
+    } catch (e) {
+      console.log(e);
+    }
+  });
 
   resultsList.forEach(r => {
     const result = r as HTMLElement;
@@ -37,6 +49,7 @@ async function processResults () {
       // Add management component to the result
       const managementComponentAnchor = result.appendChild(document.createElement("span"));
       managementComponentAnchor.classList.add("hohser_result_management");
+      managementComponentAnchors.push(managementComponentAnchor);
       ReactDOM.render(
         <ResultManagement result={result} url={url} storageManager={storageManager} />,
         managementComponentAnchor as HTMLElement
