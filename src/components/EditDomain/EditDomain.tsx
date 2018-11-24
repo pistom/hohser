@@ -182,7 +182,7 @@ class EditDomain extends React.Component<Props, State> {
             </Button>
           </Toolbar>
         </AppBar>
-        <form className={classes.root} autoComplete="off">
+        <form onSubmit={this.handleSave} className={classes.root} autoComplete="off">
           <Grid container spacing={16}>
             <Grid item xs={12}>
               <FormControl fullWidth>
