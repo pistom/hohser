@@ -175,7 +175,7 @@ class EditDomain extends React.Component<Props, State> {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.flex}>
-              Sound
+              Edit
             </Typography>
             <Button color="inherit" onClick={this.handleSave}>
               save
