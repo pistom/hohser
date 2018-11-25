@@ -7,6 +7,7 @@ import { Options } from './types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ResultManagement } from './components/Content/ResultManagement';
+import { ResizeObserver } from './mock/ResizeObserver';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
@@ -135,24 +136,18 @@ storageManager.browserStorage.onChanged.addListener(() => {
 });
 
 if (searchEngineConfig.ajaxResults) {
-  // Process results after 1 second
-  setTimeout(() => {processResults();}, 1000);
 
-  // Process results on page resize
-  var isScrolling: any;
-  window.addEventListener('resize', function ( event ) {
-    window.clearTimeout( isScrolling );
-    isScrolling = setTimeout(() => {
-      processResults();
-    }, 1500);
-  }, false);
-
-  // Process results on scroll
-  var isScrolling: any;
-  window.addEventListener('scroll', function ( event ) {
-    window.clearTimeout( isScrolling );
-    isScrolling = setTimeout(() => {
+  // Observe resize event on result wrapper
+  var isResized: any;
+  const resizeObserver = new ResizeObserver((entries: any) => {
+    
+    window.clearTimeout( isResized );
+    isResized = setTimeout(() => {
       processResults();
     }, 100);
-  }, false);
+  });
+
+  const resultsWrapper = document.querySelector(searchEngineConfig.observerSelector);
+  resizeObserver.observe(resultsWrapper);
+
 }
