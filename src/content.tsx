@@ -94,7 +94,7 @@ function applyResultStyle (
   };
   if (displayStyle === HIGHLIGHT) {
     result.classList.add("hohser_highlight");
-    result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .20)`;
+    result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .12)`;
     result.style.transition = `.5s`;
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
