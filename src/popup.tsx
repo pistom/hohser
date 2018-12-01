@@ -9,6 +9,7 @@ import { reducers } from './reducers';
 import { MuiThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { CHROME, FIREFOX } from './constants';
+import 'chrome-storage-promise';
 
 const theme = createMuiTheme({
   palette: {
@@ -30,7 +31,8 @@ const theme = createMuiTheme({
 /*
  * Detect browser name
  */
-export const browserName = typeof browser === 'undefined' ? typeof chrome === 'undefined' ? null : CHROME : FIREFOX;
+export const browserName = typeof browser === 'undefined' ? typeof chrome === 'undefined' ?
+  null : CHROME : FIREFOX;
 
 /*
  * This constant stores a reference to browser.storage.sync or chrome.storage.sync object.
@@ -43,7 +45,7 @@ switch(browserName) {
     browserStorageSync = browser.storage.sync;
     break;
   case CHROME:
-    browserStorageSync = chrome.storage.sync;
+    browserStorageSync = (chrome.storage as any).promise.sync;
     break;
   default:
     browserStorageSync = new BrowserStorageSyncMock();
