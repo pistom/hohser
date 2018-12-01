@@ -9,10 +9,11 @@ import {
   IMPORT_FROM_OLD_VERSION,
   IMPORT_FROM_OLD_VERSION_PENDING,
   IMPORT_FROM_OLD_VERSION_FULFILLED,
-  IMPORT_FROM_OLD_VERSION_REJECTED
+  IMPORT_FROM_OLD_VERSION_REJECTED,
+  CHROME
 } from '../constants';
 import { DisplayStyle, Color } from 'src/types';
-import { browserStorageSync } from 'src/popup';
+import { browserStorageSync, browserName } from 'src/popup';
 
 export interface AddDomain {
   type: ADD_DOMAIN;
@@ -58,12 +59,22 @@ export type DomainAction =
   | FetchDomains
   | ImportFromOldVersion;
 
-export const fetchDomainsList = (): FetchDomains => ({
-  type: FETCH_DOMAINS,
-  payload: browserStorageSync.get('domainsList')
+export const fetchDomainsList = (): FetchDomains => {
+
+  let payload: any;
+  if (browserName === CHROME) {
+    payload = browserStorageSync.get('domainsList', (res: any) => res);
+  } else {
+    payload = browserStorageSync.get('domainsList')
     .then((res: any) => res)
-    .catch((err: any) => {console.error(err);})
-});
+    .catch((err: any) => {console.error(err);});
+  }
+
+  return {
+    type: FETCH_DOMAINS,
+    payload
+  };
+};
 
 
 export const addDomain = (domainName: string, display: DisplayStyle, color?: Color): AddDomain => {

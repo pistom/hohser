@@ -16,6 +16,12 @@ export type COLOR_2 = typeof COLOR_2;
 export const COLOR_3 = 'COLOR_3';
 export type COLOR_3 = typeof COLOR_3;
 
+export const FIREFOX = 'FIREFOX';
+export type FIREFOX = typeof FIREFOX;
+
+export const CHROME = 'CHROME';
+export type CHROME = typeof CHROME;
+
 export const ADD_DOMAIN = 'ADD_DOMAIN';
 export type ADD_DOMAIN = typeof ADD_DOMAIN;
 

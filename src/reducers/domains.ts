@@ -8,9 +8,10 @@ import {
   FETCH_DOMAINS_FULFILLED,
   FETCH_DOMAINS_REJECTED,
   IMPORT_FROM_OLD_VERSION_FULFILLED,
-  PARTIAL_HIDE
+  PARTIAL_HIDE,
+  CHROME
 } from '../constants/index';
-import { browserStorageSync } from 'src/popup';
+import { browserStorageSync, browserName } from 'src/popup';
 
 export interface DomainsState {
   domainsList: Array<Domain>;
@@ -35,8 +36,11 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
         } else {
           domainsList.push({ domainName: action.domainName, display: action.display });
         }
-
-        browserStorageSync.set({domainsList});
+        if (browserName === CHROME) {
+          browserStorageSync.set({domainsList}, () => {console.log('saved');});
+        } else {
+          browserStorageSync.set({domainsList});
+        }
         return { ...state, domainsList };
       }
 
