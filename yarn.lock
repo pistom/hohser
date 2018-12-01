@@ -1839,6 +1839,11 @@ chownr@^1.0.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.1.tgz#54726b8b8fff4df053c42187e801fb4412df1494"
 
+chrome-storage-promise@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/chrome-storage-promise/-/chrome-storage-promise-0.1.0.tgz#44a0060ae0c465e0c56b52734f68664c0bd2be35"
+  integrity sha1-RKAGCuDEZeDFa1JzT2hmTAvSvjU=
+
 ci-info@^1.5.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.6.0.tgz#2ca20dbb9ceb32d4524a683303313f0304b1e497"
