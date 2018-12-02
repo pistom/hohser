@@ -80,7 +80,7 @@ async function processResults () {
         storageManager.save(domain, action, color);
       });
 
-      // Applay or remove classes to the matches results
+      // Add or remove classes to the matches results
       const matches = domainsList.filter((s: Domain) => url.includes(s.domainName));
       if (matches.length > 0) {
         removeResultStyle(result);
