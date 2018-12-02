@@ -1,5 +1,5 @@
 import StorageManager from "./content/storageManager";
-import { SearchEngineConfig, DisplayStyle, Color } from "./types";
+import { SearchEngineConfig, DisplayStyle, Color, Domain } from "./types";
 import * as config from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT } from "./constants";
 import './content.css';
@@ -81,7 +81,7 @@ async function processResults () {
       });
 
       // Applay or remove classes to the matches results
-      const matches = domainsList.filter(s => url.includes(s.domainName));
+      const matches = domainsList.filter((s: Domain) => url.includes(s.domainName));
       if (matches.length > 0) {
         removeResultStyle(result);
         applyResultStyle(result, matches[0].color, matches[0].display, options);
@@ -152,7 +152,6 @@ if (searchEngineConfig.ajaxResults) {
   // Observe resize event on result wrapper
   var isResized: any;
   const resizeObserver = new ResizeObserver((entries: any) => {
-    
     window.clearTimeout( isResized );
     isResized = setTimeout(() => {
       processResults();

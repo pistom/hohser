@@ -23,7 +23,7 @@ export default class StorageManager {
    */
   public async fetchDomainsList () {
     return this._browserStorage.sync.get('domainsList')
-      .then((res) => res.domainsList as Array<any> || []);
+      .then((res: any) => res.domainsList as Array<any> || []);
   }
 
   /*
@@ -31,7 +31,7 @@ export default class StorageManager {
    */
   public async fetchOptions () {
     return this._browserStorage.sync.get('options')
-      .then((res) => res.options as any || {});
+      .then((res: any) => res.options as any || {});
   }
 
   /*
