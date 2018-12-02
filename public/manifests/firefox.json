@@ -1,0 +1,65 @@
+{
+  "manifest_version": 2,
+  "name": "Highlight or Hide Search Engine Results",
+  "short_name": "HoHSER",
+  "version": "2.0.1",
+  "developer": {
+    "name": "Tomasz Pisarek",
+    "url": "https://github.com/pistom"
+  },
+
+  "description": "Highlight or hide search engine results from specific domains.",
+
+  "icons": {
+    "19": "images/hohser-19.png",
+    "32": "images/hohser-32.png",
+    "48": "images/hohser-48.png",
+    "96": "images/hohser-96.png"
+  },
+
+  "browser_action": {
+    "default_title": "Highlight or Hide Search Engine Results",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "19": "images/hohser-19.png",
+      "38": "images/hohser-38.png"
+    }
+  },
+
+  "permissions": ["storage"],
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.duckduckgo.com/*",
+        "*://*.google.com/*",
+        "*://*.google.pl/*",
+        "*://*.google.fr/*",
+        "*://*.google.es/*",
+        "*://*.google.ca/*",
+        "*://*.google.de/*",
+        "*://*.google.jp/*",
+        "*://*.google.au/*",
+        "*://*.google.ru/*",
+        "*://*.google.ch/*",
+        "*://*.google.it/*",
+        "*://*.google.nl/*",
+        "*://*.google.se/*",
+        "*://*.google.no/*",
+        "*://*.google.ua/*",
+        "*://*.yahoo.com/*",
+        "*://*.qwant.com/*"
+      ],
+      "js": ["static/js/content.js"],
+      "css": ["static/css/content.css"]
+    }
+  ],
+
+  "content_security_policy": "script-src 'self'; object-src 'self';",  
+  "applications": {
+    "gecko": {
+      "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
+      "strict_min_version": "52.0"
+    }
+  }
+}
