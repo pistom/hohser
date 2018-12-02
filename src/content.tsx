@@ -56,16 +56,28 @@ async function processResults () {
         managementComponentAnchor as HTMLElement
       );
 
-      // Listen to management results icon click and event stop propagation
+      // Listen to management results buttons click and event stop propagation
       managementComponentAnchor.addEventListener('click', (e: any) => {
         e.preventDefault();
         e.stopPropagation();
-        if (e.target.nodeName === 'BUTTON') {
-          const action = e.target.dataset.action;
-          const color = e.target.dataset.color;
-          const domain = e.target.dataset.domain;
-          storageManager.save(domain, action, color);
+        let action;
+        let color;
+        let domain;
+        const nodeName = e.target.nodeName;
+        if (e.target && nodeName === 'BUTTON') {
+          action = e.target.dataset.action;
+          color = e.target.dataset.color;
+          domain = e.target.dataset.domain;
+        } else if (e.target && nodeName === 'SVG' || nodeName === 'svg') {
+          action = e.target.parentNode.parentNode.dataset.action;
+          color = e.target.parentNode.parentNode.dataset.color;
+          domain = e.target.parentNode.parentNode.dataset.domain;
+        } else if (e.target && nodeName === 'PATH' || nodeName === 'path') {
+          action = e.target.parentNode.parentNode.parentNode.dataset.action;
+          color = e.target.parentNode.parentNode.parentNode.dataset.color;
+          domain = e.target.parentNode.parentNode.parentNode.dataset.domain;
         }
+        storageManager.save(domain, action, color);
       });
 
       // Applay or remove classes to the matches results
