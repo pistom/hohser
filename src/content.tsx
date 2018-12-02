@@ -131,7 +131,7 @@ const observer = new MutationObserver(function (mutations) {
 if (target) observer.observe(target, { childList: true });
 
 // Process results on storage change event
-storageManager.browserStorage.onChanged.addListener(() => {
+storageManager.oryginalBrowserStorage.onChanged.addListener(() => {
   processResults();
 });
 

@@ -1,12 +1,21 @@
 import { DisplayStyle, Color } from 'src/types';
+import 'chrome-storage-promise';
 
 export default class StorageManager {
 
-  private _browserStorage = browser.storage;
+  // Browser storage object - using chrome-storage-promise on Chrome browser
+  private _browserStorage = typeof browser === 'undefined' ? (chrome.storage as any).promise : browser.storage;
+  // Oryginal chrome browser storage - to be able to listen onChange events on Chrome
+  private _oryginalBrowserStorage = typeof browser === 'undefined' ? (chrome.storage as any) : browser.storage;
+
   private domainsList: Array<any> = [];
 
   get browserStorage () {
     return this._browserStorage;
+  }
+
+  get oryginalBrowserStorage () {
+    return this._oryginalBrowserStorage;
   }
 
   /*
