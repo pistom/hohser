@@ -1,12 +1,21 @@
 import { DisplayStyle, Color } from 'src/types';
+import 'chrome-storage-promise';
 
 export default class StorageManager {
 
-  private _browserStorage = browser.storage;
+  // Browser storage object - using chrome-storage-promise on Chrome browser
+  private _browserStorage = typeof browser === 'undefined' ? (chrome.storage as any).promise : browser.storage;
+  // Oryginal chrome browser storage - to be able to listen onChange events on Chrome
+  private _oryginalBrowserStorage = typeof browser === 'undefined' ? (chrome.storage as any) : browser.storage;
+
   private domainsList: Array<any> = [];
 
   get browserStorage () {
     return this._browserStorage;
+  }
+
+  get oryginalBrowserStorage () {
+    return this._oryginalBrowserStorage;
   }
 
   /*
@@ -14,7 +23,7 @@ export default class StorageManager {
    */
   public async fetchDomainsList () {
     return this._browserStorage.sync.get('domainsList')
-      .then((res) => res.domainsList as Array<any> || []);
+      .then((res: any) => res.domainsList as Array<any> || []);
   }
 
   /*
@@ -22,7 +31,7 @@ export default class StorageManager {
    */
   public async fetchOptions () {
     return this._browserStorage.sync.get('options')
-      .then((res) => res.options as any || {});
+      .then((res: any) => res.options as any || {});
   }
 
   /*

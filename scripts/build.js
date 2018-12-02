@@ -41,11 +41,11 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 
 // First, read the current file sizes in build directory.
 // This lets us display how much they changed later.
-measureFileSizesBeforeBuild(paths.appBuild)
+measureFileSizesBeforeBuild(paths.appBuild[process.env.BROWSER])
   .then(previousFileSizes => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
+    fs.emptyDirSync(paths.appBuild[process.env.BROWSER]);
     // Merge with the public folder
     copyPublicFolder();
     // Start the webpack build
@@ -74,7 +74,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
       printFileSizesAfterBuild(
         stats,
         previousFileSizes,
-        paths.appBuild,
+        paths.appBuild[process.env.BROWSER],
         WARN_AFTER_BUNDLE_GZIP_SIZE,
         WARN_AFTER_CHUNK_GZIP_SIZE
       );
@@ -83,7 +83,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrl;
       const publicPath = config.output.publicPath;
-      const buildFolder = path.relative(process.cwd(), paths.appBuild);
+      const buildFolder = path.relative(process.cwd(), paths.appBuild[process.env.BROWSER]);
       printHostingInstructions(
         appPackage,
         publicUrl,
@@ -142,8 +142,14 @@ function build(previousFileSizes) {
 }
 
 function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuild, {
+  fs.copySync(paths.appPublic, paths.appBuild[process.env.BROWSER], {
     dereference: true,
-    // filter: file => file !== paths.appHtml,
+    filter: file => file !== paths.appManifests,
   });
+  if (process.env.BROWSER === 'chrome') {
+    fs.copySync(paths.appManifests+'/chrome.json', paths.appBuild[process.env.BROWSER]+'/manifest.json');
+  } else if (process.env.BROWSER === 'firefox') {
+    fs.copySync(paths.appManifests+'/firefox.json', paths.appBuild[process.env.BROWSER]+'/manifest.json');
+  }
+ 
 }

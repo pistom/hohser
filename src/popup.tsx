@@ -8,6 +8,8 @@ import BrowserStorageSyncMock from './mock/BrowserStorageSyncMock';
 import { reducers } from './reducers';
 import { MuiThemeProvider } from '@material-ui/core';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { CHROME, FIREFOX } from './constants';
+import 'chrome-storage-promise';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,11 +29,27 @@ const theme = createMuiTheme({
 });
 
 /*
- * This constant stores a reference to browser.storage.sync object.
- * In normal browser window browser object is not accesible.
+ * Detect browser name
+ */
+export const browserName = typeof browser === 'undefined' ? typeof chrome === 'undefined' ?
+  null : CHROME : FIREFOX;
+
+/*
+ * This constant stores a reference to browser.storage.sync or chrome.storage.sync object.
+ * In normal browser window browser/chrome objects are not accesible.
  * In this case the constant stores a reference to a browser storage mock object.
  */
-export const browserStorageSync: any = typeof browser === 'undefined' ? new BrowserStorageSyncMock() : browser.storage.sync;
+export let browserStorageSync: any;
+switch(browserName) {
+  case FIREFOX:
+    browserStorageSync = browser.storage.sync;
+    break;
+  case CHROME:
+    browserStorageSync = (chrome.storage as any).promise.sync;
+    break;
+  default:
+    browserStorageSync = new BrowserStorageSyncMock();
+}
 
 const store = createStore(reducers, applyMiddleware(promise()));
 

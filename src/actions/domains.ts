@@ -58,13 +58,15 @@ export type DomainAction =
   | FetchDomains
   | ImportFromOldVersion;
 
-export const fetchDomainsList = (): FetchDomains => ({
-  type: FETCH_DOMAINS,
-  payload: browserStorageSync.get('domainsList')
-    .then((res: any) => res)
-    .catch((err: any) => {console.error(err);})
-});
+export const fetchDomainsList = (): FetchDomains => {
 
+  return {
+    type: FETCH_DOMAINS,
+    payload: browserStorageSync.get('domainsList')
+      .then((res: any) => res)
+      .catch((err: any) => {console.error(err);})
+  };
+};
 
 export const addDomain = (domainName: string, display: DisplayStyle, color?: Color): AddDomain => {
   return {
