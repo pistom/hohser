@@ -1,5 +1,5 @@
 import StorageManager from "./content/storageManager";
-import { SearchEngineConfig, DisplayStyle, Color } from "./types";
+import { SearchEngineConfig, DisplayStyle, Color, Domain } from "./types";
 import * as config from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT } from "./constants";
 import './content.css';
@@ -56,20 +56,32 @@ async function processResults () {
         managementComponentAnchor as HTMLElement
       );
 
-      // Listen to management results icon click and event stop propagation
+      // Listen to management results buttons click and event stop propagation
       managementComponentAnchor.addEventListener('click', (e: any) => {
         e.preventDefault();
         e.stopPropagation();
-        if (e.target.nodeName === 'BUTTON') {
-          const action = e.target.dataset.action;
-          const color = e.target.dataset.color;
-          const domain = e.target.dataset.domain;
-          storageManager.save(domain, action, color);
+        let action;
+        let color;
+        let domain;
+        const nodeName = e.target.nodeName;
+        if (e.target && nodeName === 'BUTTON') {
+          action = e.target.dataset.action;
+          color = e.target.dataset.color;
+          domain = e.target.dataset.domain;
+        } else if (e.target && nodeName === 'SVG' || nodeName === 'svg') {
+          action = e.target.parentNode.parentNode.dataset.action;
+          color = e.target.parentNode.parentNode.dataset.color;
+          domain = e.target.parentNode.parentNode.dataset.domain;
+        } else if (e.target && nodeName === 'PATH' || nodeName === 'path') {
+          action = e.target.parentNode.parentNode.parentNode.dataset.action;
+          color = e.target.parentNode.parentNode.parentNode.dataset.color;
+          domain = e.target.parentNode.parentNode.parentNode.dataset.domain;
         }
+        storageManager.save(domain, action, color);
       });
 
-      // Applay or remove classes to the matches results
-      const matches = domainsList.filter(s => url.includes(s.domainName));
+      // Add or remove classes to the matches results
+      const matches = domainsList.filter((s: Domain) => url.includes(s.domainName));
       if (matches.length > 0) {
         removeResultStyle(result);
         applyResultStyle(result, matches[0].color, matches[0].display, options);
@@ -131,7 +143,7 @@ const observer = new MutationObserver(function (mutations) {
 if (target) observer.observe(target, { childList: true });
 
 // Process results on storage change event
-storageManager.browserStorage.onChanged.addListener(() => {
+storageManager.oryginalBrowserStorage.onChanged.addListener(() => {
   processResults();
 });
 
@@ -140,7 +152,6 @@ if (searchEngineConfig.ajaxResults) {
   // Observe resize event on result wrapper
   var isResized: any;
   const resizeObserver = new ResizeObserver((entries: any) => {
-    
     window.clearTimeout( isResized );
     isResized = setTimeout(() => {
       processResults();

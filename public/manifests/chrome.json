@@ -2,12 +2,7 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "2.0",
-  "developer": {
-    "name": "Tomasz Pisarek",
-    "url": "https://github.com/pistom"
-  },
-
+  "version": "2.0.2",
   "description": "Highlight or hide search engine results from specific domains.",
 
   "icons": {
@@ -55,11 +50,5 @@
     }
   ],
 
-  "content_security_policy": "script-src 'self'; object-src 'self';",  
-  "applications": {
-    "gecko": {
-      "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
-      "strict_min_version": "52.0"
-    }
-  }
+  "content_security_policy": "script-src 'self'; object-src 'self';"
 }
