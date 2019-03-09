@@ -28,8 +28,8 @@ The page will be loaded with a fake domains list from `BrowserStorageSyncMock.ts
 
 ## Build
 ```js
-$ yarn buil:firefox   // The package will be built in the "build/firefox" directory.
-$ yarn buil:chrome    // The package will be built in the "build/chrome" directory.
+$ yarn build:firefox   // The package will be built in the "build/firefox" directory.
+$ yarn build:chrome    // The package will be built in the "build/chrome" directory.
 ```
 
 
