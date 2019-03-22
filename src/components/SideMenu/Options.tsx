@@ -8,6 +8,9 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import ErrorIcon from '@material-ui/icons/ErrorOutline';
 import NewIcon from '@material-ui/icons/FiberNew';
 import CafeIcon from '@material-ui/icons/LocalCafeOutlined';
+import ExportImportIcon from '@material-ui/icons/ImportExport';
+import UploadIcon from '@material-ui/icons/CloudUpload';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
 
 interface Props {
   options: any;
@@ -29,6 +32,14 @@ class Options extends React.Component<Props, State> {
 
   handleIssue = () => {
     window.open("https://github.com/pistom/hohser/issues");
+  }
+
+  handleExport = () => {
+    window.alert('Export');
+  }
+
+  handleImport = () => {
+    window.alert('Import');
   }
 
   handleGift = () => {
@@ -69,6 +80,21 @@ class Options extends React.Component<Props, State> {
             </ListItem>
           </List>
         </Collapse>
+        <Divider />
+        <ListItem button onClick={this.handleExport}>
+          <ListItemIcon>
+            <ExportImportIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Export domain's list" />
+          <DownloadIcon fontSize="small" />
+        </ListItem>
+        <ListItem button onClick={this.handleImport}>
+          <ListItemIcon>
+            <ExportImportIcon />
+          </ListItemIcon>
+          <ListItemText inset primary="Import domain's list" />
+          <UploadIcon fontSize="small" />
+        </ListItem>
         <Divider />
         <ListItem button onClick={this.handleIssue}>
           <ListItemIcon>
