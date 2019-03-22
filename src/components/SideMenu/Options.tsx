@@ -54,7 +54,7 @@ class Options extends React.Component<Props, State> {
           {this.state.open ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+          <List component="nav" disablePadding>
             <ListItem>
               <ListItemIcon>
                 <PowerOffIcon />
