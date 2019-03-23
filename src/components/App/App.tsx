@@ -86,6 +86,7 @@ class App extends React.Component<Props, State> {
         toggle={() => this.toggleDrawer()}
         toggleShowAll={() => this.toggleShowAll()}
         options={this.props.options}
+        addDomain={this.props.addDomain}
       />,
       <DomainsList
         domainsList={this.props.domainsList}

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -11,19 +11,27 @@ import CafeIcon from '@material-ui/icons/LocalCafeOutlined';
 import ExportImportIcon from '@material-ui/icons/ImportExport';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
+import { DisplayStyle, Color } from 'src/types';
+import { browserName } from 'src/popup';
+import { CHROME } from 'src/constants';
 
 interface Props {
   options: any;
   toggleShowAll: () => void;
+  addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
 }
 
 interface State {
   open: boolean;
+  openImportDialog: boolean;
+  domainsListString: string;
 }
 
 class Options extends React.Component<Props, State> {
   state = {
     open: false,
+    openImportDialog: false,
+    domainsListString: ''
   };
 
   handleClick = () => {
@@ -38,8 +46,8 @@ class Options extends React.Component<Props, State> {
     window.alert('Export');
   }
 
-  handleImport = () => {
-    window.alert('Import');
+  handleImportMenuItem = () => {
+    this.setState({ openImportDialog: true });
   }
 
   handleGift = () => {
@@ -54,9 +62,22 @@ class Options extends React.Component<Props, State> {
     return version;
   }
 
+  handleCloseImportDialog = () => {
+    this.setState({ openImportDialog: false });
+  }
+
+  handleChangeDomainListTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({domainsListString: event.target.value});
+  }
+
+  handleImportDomains = () => {
+    alert('Imported');
+    // this.props.addDomain(this.state.domainName, display);
+  }
+
   render () {
-    return (
-      <List component="nav">
+    return [
+      <List component="nav" key="list">
         <ListItem button onClick={this.handleClick}>
           <ListItemIcon>
             <SettingsIcon />
@@ -88,7 +109,7 @@ class Options extends React.Component<Props, State> {
           <ListItemText inset primary="Export domain's list" />
           <DownloadIcon fontSize="small" />
         </ListItem>
-        <ListItem button onClick={this.handleImport}>
+        <ListItem button onClick={this.handleImportMenuItem}>
           <ListItemIcon>
             <ExportImportIcon />
           </ListItemIcon>
@@ -121,8 +142,56 @@ class Options extends React.Component<Props, State> {
         <ListItem>
           <ListItemText inset secondary={`HoHSer ${this.getExtensionVersion()}`} />
         </ListItem>
-      </List>
-    );
+      </List>,
+      <Dialog
+        fullScreen={true}
+        key="dialog"
+        open={this.state.openImportDialog}
+        onClose={this.handleCloseImportDialog}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Import domain's list from file</DialogTitle>
+        <DialogContent>
+          { browserName === CHROME ?
+            <div>
+              <DialogContentText>
+                Select your JSON file
+              </DialogContentText>
+              <input type="file" />
+            </div> :
+            <div>
+              <DialogContentText>
+                Copy your JSON formated text
+              </DialogContentText>
+              <DialogContentText variant="caption">
+                For some reason Firefox doesn't support correctly file imports for extensions popup.
+                You must copy plaintext from your json file and paste it in the text area.
+                Follow the bug <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1292701">here</a>.
+              </DialogContentText>
+              <TextField
+                id="filled-multiline-flexible"
+                label="Domain's list"
+                multiline
+                rows="8"
+                value={this.state.domainsListString}
+                onChange={this.handleChangeDomainListTextField}
+                margin="normal"
+                variant="outlined"
+                style={{width: "100%"}}
+              />
+            </div>
+          }
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCloseImportDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.handleImportDomains} color="primary">
+            Import
+          </Button>
+        </DialogActions>
+      </Dialog>
+    ];
   }
 }
 

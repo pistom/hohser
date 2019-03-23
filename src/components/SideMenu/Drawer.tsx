@@ -2,10 +2,12 @@ import * as React from 'react';
 import { SwipeableDrawer, withStyles, Toolbar, IconButton } from '@material-ui/core';
 import Options from './Options';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { DisplayStyle, Color } from 'src/types';
 
 interface Props {
   toggle: () => void;
   toggleShowAll: () => void;
+  addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   classes: any;
   open: boolean;
   options: any;
@@ -47,6 +49,7 @@ const Drawer = (props: Props) => {
         <Options
           options={props.options}
           toggleShowAll={() => props.toggleShowAll()}
+          addDomain={props.addDomain}
         />
       </div>
     </SwipeableDrawer>
