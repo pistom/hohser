@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField, RadioGroup, FormControlLabel, Radio, FormLabel, FormControl } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -11,9 +11,9 @@ import CafeIcon from '@material-ui/icons/LocalCafeOutlined';
 import ExportImportIcon from '@material-ui/icons/ImportExport';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
-import { DisplayStyle, Color } from 'src/types';
+import { DisplayStyle, Color, Domain } from 'src/types';
 import { browserName } from 'src/popup';
-import { CHROME } from 'src/constants';
+import { CHROME, COLOR_1, HIGHLIGHT } from 'src/constants';
 
 interface Props {
   options: any;
@@ -25,13 +25,15 @@ interface State {
   open: boolean;
   openImportDialog: boolean;
   domainsListString: string;
+  nonDefinedDisplayStyle: string;
 }
 
 class Options extends React.Component<Props, State> {
   state = {
     open: false,
     openImportDialog: false,
-    domainsListString: ''
+    domainsListString: '',
+    nonDefinedDisplayStyle: "PARTIAL_HIDE"
   };
 
   handleClick = () => {
@@ -57,8 +59,8 @@ class Options extends React.Component<Props, State> {
   getExtensionVersion = () => {
     let version: string = "";
     try {
-       version = "v." + browser.runtime.getManifest().version;
-    } catch (e) {}
+      version = "v." + browser.runtime.getManifest().version;
+    } catch (e) { }
     return version;
   }
 
@@ -67,12 +69,47 @@ class Options extends React.Component<Props, State> {
   }
 
   handleChangeDomainListTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({domainsListString: event.target.value});
+    this.setState({ domainsListString: event.target.value });
   }
 
   handleImportDomains = () => {
-    alert('Imported');
-    // this.props.addDomain(this.state.domainName, display);
+    console.log(this.state.domainsListString);
+    let domainsList: Array<Domain>;
+    let importedDomainsList: Array<any> = [];
+    try {
+      importedDomainsList = JSON.parse(this.state.domainsListString);
+      domainsList = importedDomainsList.map(element => ({
+        domainName: element.domainName,
+        display: element.display || this.state.nonDefinedDisplayStyle,
+        color: element.display === HIGHLIGHT ? element.color || COLOR_1 : undefined
+      } as Domain)
+      );
+      domainsList.forEach(domain => {
+        this.props.addDomain(domain.domainName, domain.display, domain.color);
+      });
+      this.setState({ openImportDialog: false });
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+  readFileContent = (files: any) => {
+    console.log(files);
+    if (files.length > 0) {
+      const fr = new FileReader();
+      fr.onload = (e: any) => {
+        if (e.target) {
+          this.setState({ domainsListString: e.target.result });
+        }
+      };
+      fr.readAsText(files.item(0));
+    } else {
+      alert('Select a file');
+    }
+  }
+
+  handleChangeNonDefinedDisplayStyle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ nonDefinedDisplayStyle: event.target.value });
   }
 
   render () {
@@ -152,35 +189,48 @@ class Options extends React.Component<Props, State> {
       >
         <DialogTitle id="form-dialog-title">Import domain's list from file</DialogTitle>
         <DialogContent>
-          { browserName === CHROME ?
+          {browserName === CHROME ?
             <div>
               <DialogContentText>
                 Select your JSON file
               </DialogContentText>
-              <input type="file" />
+              <input type="file" id="file-import" onChange={(e) => this.readFileContent(e.target.files)} />
             </div> :
             <div>
               <DialogContentText>
                 Copy your JSON formated text
               </DialogContentText>
-              <DialogContentText variant="caption">
-                For some reason Firefox doesn't support correctly file imports for extensions popup.
+              <DialogContentText variant="caption" style={{ marginBottom: 10 }}>
+                For some reason Firefox doesn't support correctly file import for extension's popup.
                 You must copy plaintext from your json file and paste it in the text area.
                 Follow the bug <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1292701">here</a>.
               </DialogContentText>
               <TextField
-                id="filled-multiline-flexible"
                 label="Domain's list"
                 multiline
-                rows="8"
+                rows="4"
                 value={this.state.domainsListString}
                 onChange={this.handleChangeDomainListTextField}
-                margin="normal"
                 variant="outlined"
-                style={{width: "100%"}}
+                style={{ width: "100%" }}
               />
             </div>
           }
+          <FormControl component="span" style={{ marginTop: 15 }}>
+            <FormLabel component="caption">
+              Items with no display style defined
+            </FormLabel>
+            <RadioGroup
+              aria-label="Items with no display style defined"
+              name="display"
+              value={this.state.nonDefinedDisplayStyle}
+              onChange={this.handleChangeNonDefinedDisplayStyle}
+              row
+            >
+              <FormControlLabel value="PARTIAL_HIDE" control={<Radio />} label="Transparent" />
+              <FormControlLabel value="FULL_HIDE" control={<Radio />} label="Hidden" />
+            </RadioGroup>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleCloseImportDialog} color="primary">
