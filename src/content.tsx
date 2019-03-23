@@ -108,6 +108,9 @@ function applyResultStyle (
     result.classList.add("hohser_highlight");
     result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .12)`;
     result.style.transition = `.5s`;
+    if (searchEngine === 'google') {
+      result.style.boxShadow = `0 0 0 5px rgba(${domainColors[color].join(', ') || null}, .12)`;
+    }
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
   } else if (displayStyle === FULL_HIDE && !options.showAll) {
@@ -125,6 +128,7 @@ function removeResultStyle (
   result.classList.remove("hohser_partial_hide");
   result.classList.remove("hohser_full_hide");
   result.style.backgroundColor = null;
+  result.style.boxShadow = null;
 }
 
 // Initial process results
