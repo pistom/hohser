@@ -6,6 +6,7 @@
 - [Qwant](https://www.qwant.com)
 - [Google](https://www.google.com)
 - [Yahoo](https://fr.search.yahoo.com)
+- [Bing](https://www.bing.com/)
 
 ## Development
 The extension is created with ReactJs, Redux, Material UI and TypeScript.
