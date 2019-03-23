@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "2.0.2",
+  "version": "2.1",
   "description": "Highlight or hide search engine results from specific domains.",
 
   "icons": {
@@ -43,7 +43,8 @@
         "*://*.google.no/*",
         "*://*.google.ua/*",
         "*://*.yahoo.com/*",
-        "*://*.qwant.com/*"
+        "*://*.qwant.com/*",
+        "*://*.bing.com/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]
