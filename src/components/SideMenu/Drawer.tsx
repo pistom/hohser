@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SwipeableDrawer, withStyles, Toolbar, IconButton } from '@material-ui/core';
 import Options from './Options';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { DisplayStyle, Color } from 'src/types';
+import { DisplayStyle, Color, Domain } from 'src/types';
 
 interface Props {
   toggle: () => void;
@@ -11,6 +11,7 @@ interface Props {
   classes: any;
   open: boolean;
   options: any;
+  domainsList: Array<Domain>;
 }
 
 const styles = (theme: any) => ({
@@ -50,6 +51,7 @@ const Drawer = (props: Props) => {
           options={props.options}
           toggleShowAll={() => props.toggleShowAll()}
           addDomain={props.addDomain}
+          domainsList={props.domainsList}
         />
       </div>
     </SwipeableDrawer>

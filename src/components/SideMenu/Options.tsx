@@ -19,6 +19,7 @@ interface Props {
   options: any;
   toggleShowAll: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  domainsList: Array<Domain>;
 }
 
 interface State {
@@ -44,10 +45,6 @@ class Options extends React.Component<Props, State> {
     window.open("https://github.com/pistom/hohser/issues");
   }
 
-  handleExport = () => {
-    window.alert('Export');
-  }
-
   handleImportMenuItem = () => {
     this.setState({ openImportDialog: true });
   }
@@ -70,6 +67,10 @@ class Options extends React.Component<Props, State> {
 
   handleChangeDomainListTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ domainsListString: event.target.value });
+  }
+
+  handleExportDomains = () => {
+    this.download(JSON.stringify(this.props.domainsList));
   }
 
   handleImportDomains = () => {
@@ -108,6 +109,20 @@ class Options extends React.Component<Props, State> {
     }
   }
 
+  download = (data: string) => {
+    var file = new Blob([data], { type: 'application/json' });
+    var a = document.createElement("a"),
+      url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = 'hohser-domains.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }
+
   handleChangeNonDefinedDisplayStyle = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ nonDefinedDisplayStyle: event.target.value });
   }
@@ -139,7 +154,7 @@ class Options extends React.Component<Props, State> {
           </List>
         </Collapse>
         <Divider />
-        <ListItem button onClick={this.handleExport}>
+        <ListItem button onClick={this.handleExportDomains}>
           <ListItemIcon>
             <ExportImportIcon />
           </ListItemIcon>
