@@ -1,6 +1,10 @@
 # Highlight or Hide Search Engine Results
 #### A web extension that allows to highlight or hide search results.
 
+### Available for
+- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/hohser/)
+- [Chrome](https://chrome.google.com/webstore/detail/highlight-or-hide-search/ilopipickdimglkalhckioobifbiinbk)
+
 ### Supported search engines
 - [Duckduckgo](https://duckduckgo.com)
 - [Qwant](https://www.qwant.com)
