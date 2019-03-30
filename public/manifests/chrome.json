@@ -2,9 +2,8 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "2.1",
-  "description": "Highlight or hide search engine results from specific domains.",
-
+  "version": "2.1.1",
+  "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Duckduckgo, Qwant, Google, Bing, Yahoo.",
   "icons": {
     "19": "images/hohser-19.png",
     "32": "images/hohser-32.png",
