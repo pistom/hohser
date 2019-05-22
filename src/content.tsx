@@ -61,7 +61,7 @@ async function processResults () {
       managementComponentAnchor.classList.add("hohser_result_management");
       managementComponentAnchors.push(managementComponentAnchor);
       ReactDOM.render(
-        <ResultManagement result={result} url={url} storageManager={storageManager} />,
+        <ResultManagement url={url} />,
         managementComponentAnchor as HTMLElement
       );
 

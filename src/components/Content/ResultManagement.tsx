@@ -7,15 +7,13 @@ import { IconButton } from '@material-ui/core';
 import { FULL_HIDE, PARTIAL_HIDE, HIGHLIGHT, COLOR_1, COLOR_2, COLOR_3 } from 'src/constants';
 
 interface Props {
-  result: HTMLElement;
   url: string;
-  storageManager: any;
 }
 
 export const ResultManagement = (props: Props) => {
 
   let url = props.url.split(" ")[0];
-  let domainName = `¯\_(ツ)_/¯`;
+  let domainName = `¯\\_(ツ)_/¯`;
   if (!/^https?:\/\//i.test(url)) {
     url = 'http://' + url;
   }
