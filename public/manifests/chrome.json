@@ -3,7 +3,7 @@
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
   "version": "2.2.0",
-  "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Duckduckgo, Qwant, Google, Bing, Yahoo.",
+  "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Google and other popular search engines.",
   "icons": {
     "19": "images/hohser-19.png",
     "32": "images/hohser-32.png",
@@ -44,7 +44,9 @@
         "*://*.yahoo.com/*",
         "*://*.qwant.com/*",
         "*://*.bing.com/*",
-        "*://*.startpage.com/*"
+        "*://*.startpage.com/*",
+        "*://*.ecosia.org/*",
+        "*://*.yandex.ru/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]
