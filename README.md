@@ -11,6 +11,7 @@
 - [Google](https://www.google.com)
 - [Yahoo](https://fr.search.yahoo.com)
 - [Bing](https://www.bing.com/)
+- [Startpage](https://www.startpage.com)
 
 ## Development
 The extension is created with ReactJs, Redux, Material UI and TypeScript.
@@ -48,7 +49,7 @@ You can load the extension to Firefox with a profile to be able to use the data 
 
 - Create a new directory named `browser`.
 - Create new firefox profile named `huser1` in the `browser` directory (on Windows: `Win+R` and `Firefox.exe -P`).
-  
+
 ```js
 $ yarn load:profile
 ```
