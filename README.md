@@ -12,6 +12,8 @@
 - [Yahoo](https://fr.search.yahoo.com)
 - [Bing](https://www.bing.com/)
 - [Startpage](https://www.startpage.com)
+- [Ecosia](https://www.ecosia.org)
+- [Yandex](https://www.yandex.ru)
 
 ## Development
 The extension is created with ReactJs, Redux, Material UI and TypeScript.

@@ -44,7 +44,9 @@
         "*://*.yahoo.com/*",
         "*://*.qwant.com/*",
         "*://*.bing.com/*",
-        "*://*.startpage.com/*"
+        "*://*.startpage.com/*",
+        "*://*.ecosia.org/*",
+        "*://*.yandex.ru/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]
