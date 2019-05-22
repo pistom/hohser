@@ -19,8 +19,12 @@ let searchEngineConfig: SearchEngineConfig = config[searchEngine];
 // Array of management component anchors
 const managementComponentAnchors: Array<Element> = [];
 
+// Number of attempts to process results
+let processResultsAttempt: number = 0;
+
 // Process results function
 async function processResults () {
+  try {
   const resultsList = document.querySelectorAll(
     searchEngineConfig.resultSelector
   );
@@ -41,11 +45,16 @@ async function processResults () {
   resultsList.forEach(r => {
     const result = r as HTMLElement;
     result.classList.add('hohser_result');
-    try {
       const domain = result.querySelector(
         searchEngineConfig.domainSelector
       );
       const url = (domain as HTMLElement).innerText;
+
+      const url = domain.innerText;
+
+      if (!url) {
+        throw "No domain info";
+      }
 
       // Add management component to the result
       const managementComponentAnchor = result.appendChild(document.createElement("span"));
@@ -88,8 +97,16 @@ async function processResults () {
       } else {
         removeResultStyle(result);
       }
-    } catch (e) {}
   });
+  } catch (e) {
+    console.error(e);
+    // Try to process results again
+    if (++processResultsAttempt <= 3) {
+      setTimeout(() => {
+        processResults();
+      }, 100 * Math.pow(processResultsAttempt, 3));
+    }
+  }
 }
 
 // Turn array of RGBA values into CSS `rgba` function call

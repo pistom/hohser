@@ -73,3 +73,7 @@
   margin-bottom: calc(1.25rem - var(--spacing-default));
   border-radius: var(--ui-button-radius);
 }
+
+.hohser_actions_btns button [fill] {
+  fill: none;
+}
