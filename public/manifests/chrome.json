@@ -43,7 +43,8 @@
         "*://*.google.ua/*",
         "*://*.yahoo.com/*",
         "*://*.qwant.com/*",
-        "*://*.bing.com/*"
+        "*://*.bing.com/*",
+        "*://*.startpage.com/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]

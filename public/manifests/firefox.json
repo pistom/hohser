@@ -49,14 +49,15 @@
         "*://*.google.ua/*",
         "*://*.yahoo.com/*",
         "*://*.qwant.com/*",
-        "*://*.bing.com/*"
+        "*://*.bing.com/*",
+        "*://*.startpage.com/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]
     }
   ],
 
-  "content_security_policy": "script-src 'self'; object-src 'self';",  
+  "content_security_policy": "script-src 'self'; object-src 'self';",
   "applications": {
     "gecko": {
       "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
