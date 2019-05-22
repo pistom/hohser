@@ -15,6 +15,7 @@
   top: 0;
   right: 15px;
   display: none;
+  z-index: 10;
 }
 
 .hohser_result:hover .hohser_result_management {
@@ -64,4 +65,16 @@
 .g .exp-outline {
   width: calc(100% + 30px);
   left: -15px;
+}
+
+/* Only for Startpage */
+.column--main__content > ol .search-result {
+  padding: var(--spacing-default);
+  margin: calc(0rem - var(--spacing-default));
+  margin-bottom: calc(1.25rem - var(--spacing-default));
+  border-radius: var(--ui-button-radius);
+}
+
+.hohser_actions_btns button [fill] {
+  fill: none;
 }

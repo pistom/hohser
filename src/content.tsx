@@ -19,40 +19,50 @@ let searchEngineConfig: SearchEngineConfig = config[searchEngine];
 // Array of management component anchors
 const managementComponentAnchors: Array<Element> = [];
 
+// Number of attempts to process results
+let processResultsAttempt: number = 0;
+
 // Process results function
 async function processResults () {
-  const resultsList = document.querySelectorAll(
-    searchEngineConfig.resultSelector
-  );
+  try {
+    const resultsList = document.querySelectorAll(
+      searchEngineConfig.resultSelector
+    );
 
-  // Fetching domains list and options
-  const domainsList = await storageManager.fetchDomainsList();
-  const options = await storageManager.fetchOptions();
+    // Fetching domains list and options
+    const domainsList = await storageManager.fetchDomainsList();
+    const options = await storageManager.fetchOptions();
 
-  // Clear managementComponent anchors
-  managementComponentAnchors.forEach(a => {
-    try{
-      if (a.parentNode) a.parentNode.removeChild(a);
-    } catch (e) {
-      console.log(e);
-    }
-  });
+    // Clear managementComponent anchors
+    managementComponentAnchors.forEach(a => {
+      try{
+        if (a.parentNode) a.parentNode.removeChild(a);
+      } catch (e) {
+        console.log(e);
+      }
+    });
 
-  resultsList.forEach(r => {
-    const result = r as HTMLElement;
-    result.classList.add('hohser_result');
-    try {
+    resultsList.forEach(r => {
+      const result = r as HTMLElement;
+      result.classList.add('hohser_result');
       const domain = result.querySelector(
         searchEngineConfig.domainSelector
-      );
-      const url = (domain as HTMLElement).innerText;
+      ) as HTMLElement;
+      // Skip result if no domain selector
+      if (!domain) return;
+
+      const url = domain.innerText;
+
+      if (!url) {
+        throw "No domain info";
+      }
 
       // Add management component to the result
       const managementComponentAnchor = result.appendChild(document.createElement("span"));
       managementComponentAnchor.classList.add("hohser_result_management");
       managementComponentAnchors.push(managementComponentAnchor);
       ReactDOM.render(
-        <ResultManagement result={result} url={url} storageManager={storageManager} />,
+        <ResultManagement url={url} />,
         managementComponentAnchor as HTMLElement
       );
 
@@ -88,8 +98,21 @@ async function processResults () {
       } else {
         removeResultStyle(result);
       }
-    } catch (e) {}
-  });
+    });
+  } catch (e) {
+    console.error(e);
+    // Try to process results again
+    if (++processResultsAttempt <= 3) {
+      setTimeout(() => {
+        processResults();
+      }, 100 * Math.pow(processResultsAttempt, 3));
+    }
+  }
+}
+
+// Turn array of RGBA values into CSS `rgba` function call
+function getRgbCss (color: Array<number>, alpha = 1) {
+  return `rgba(${color.map(Math.floor).join(', ') || null}, ${alpha})`;
 }
 
 // Apply styles to matches results
@@ -104,12 +127,19 @@ function applyResultStyle (
     COLOR_2: [139, 195, 74],
     COLOR_3: [3, 169, 244]
   };
+  const alpha = 0.12;
   if (displayStyle === HIGHLIGHT) {
     result.classList.add("hohser_highlight");
-    result.style.backgroundColor = `rgba(${domainColors[color].join(', ') || null}, .12)`;
+    result.style.backgroundColor = getRgbCss(domainColors[color], alpha);
     result.style.transition = `.5s`;
-    if (searchEngine === 'google') {
-      result.style.boxShadow = `0 0 0 5px rgba(${domainColors[color].join(', ') || null}, .12)`;
+    if (searchEngine === "google") {
+      result.style.boxShadow = `0 0 0 5px ${getRgbCss(domainColors[color], alpha)}`;
+    }
+    if (searchEngine === "startpage") {
+      // On Startpage, use solid but lighter color
+      // since search results can overlap
+      const lightColor = domainColors[color].map(val => val + (255 - val) * (1 - alpha));
+      result.style.backgroundColor = getRgbCss(lightColor);
     }
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
@@ -154,7 +184,7 @@ storageManager.oryginalBrowserStorage.onChanged.addListener(() => {
 if (searchEngineConfig.ajaxResults) {
 
   // Observe resize event on result wrapper
-  var isResized: any;
+  let isResized: any;
   const resizeObserver = new ResizeObserver((entries: any) => {
     window.clearTimeout( isResized );
     isResized = setTimeout(() => {
