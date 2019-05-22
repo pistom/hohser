@@ -25,30 +25,31 @@ let processResultsAttempt: number = 0;
 // Process results function
 async function processResults () {
   try {
-  const resultsList = document.querySelectorAll(
-    searchEngineConfig.resultSelector
-  );
+    const resultsList = document.querySelectorAll(
+      searchEngineConfig.resultSelector
+    );
 
-  // Fetching domains list and options
-  const domainsList = await storageManager.fetchDomainsList();
-  const options = await storageManager.fetchOptions();
+    // Fetching domains list and options
+    const domainsList = await storageManager.fetchDomainsList();
+    const options = await storageManager.fetchOptions();
 
-  // Clear managementComponent anchors
-  managementComponentAnchors.forEach(a => {
-    try{
-      if (a.parentNode) a.parentNode.removeChild(a);
-    } catch (e) {
-      console.log(e);
-    }
-  });
+    // Clear managementComponent anchors
+    managementComponentAnchors.forEach(a => {
+      try{
+        if (a.parentNode) a.parentNode.removeChild(a);
+      } catch (e) {
+        console.log(e);
+      }
+    });
 
-  resultsList.forEach(r => {
-    const result = r as HTMLElement;
-    result.classList.add('hohser_result');
+    resultsList.forEach(r => {
+      const result = r as HTMLElement;
+      result.classList.add('hohser_result');
       const domain = result.querySelector(
         searchEngineConfig.domainSelector
-      );
-      const url = (domain as HTMLElement).innerText;
+      ) as HTMLElement;
+      // Skip result if no domain selector
+      if (!domain) return;
 
       const url = domain.innerText;
 
@@ -97,7 +98,7 @@ async function processResults () {
       } else {
         removeResultStyle(result);
       }
-  });
+    });
   } catch (e) {
     console.error(e);
     // Try to process results again
@@ -183,7 +184,7 @@ storageManager.oryginalBrowserStorage.onChanged.addListener(() => {
 if (searchEngineConfig.ajaxResults) {
 
   // Observe resize event on result wrapper
-  var isResized: any;
+  let isResized: any;
   const resizeObserver = new ResizeObserver((entries: any) => {
     window.clearTimeout( isResized );
     isResized = setTimeout(() => {
