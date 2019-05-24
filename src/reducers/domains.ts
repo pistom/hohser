@@ -25,21 +25,27 @@ let domainsState = {
   domainsListError: false,
 };
 
+export const isDomainNameOnList = (domainName: string, domainsList: Array<Domain>): boolean => {
+  return domainsList.some(domain => domain.domainName === domainName);
+};
+
 export const domains = (state: DomainsState = domainsState, action: DomainAction): DomainsState => {
   switch (action.type) {
 
     case ADD_DOMAIN:
       {
         const domainsList = [...state.domainsList];
-        if(action.color) {
-          domainsList.push({ domainName: action.domainName, display: action.display, color: action.color });
-        } else {
-          domainsList.push({ domainName: action.domainName, display: action.display });
-        }
-        if (browserName === CHROME) {
-          browserStorageSync.set({domainsList}, () => {console.log('saved');});
-        } else {
-          browserStorageSync.set({domainsList});
+        if(action.domainName && !isDomainNameOnList(action.domainName, domainsList)){
+          if(action.color) {
+            domainsList.push({ domainName: action.domainName, display: action.display, color: action.color });
+          } else {
+            domainsList.push({ domainName: action.domainName, display: action.display });
+          }
+          if (browserName === CHROME) {
+            browserStorageSync.set({domainsList}, () => {console.log('saved');});
+          } else {
+            browserStorageSync.set({domainsList});
+          }
         }
         return { ...state, domainsList };
       }

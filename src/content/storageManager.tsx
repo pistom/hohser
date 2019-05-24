@@ -3,9 +3,9 @@ import 'chrome-storage-promise';
 
 export default class StorageManager {
 
-  // Browser storage object - using chrome-storage-promise on Chrome browser
+  // Browser storage object - using chrome-storage-promise in Chrome browser
   private _browserStorage = typeof browser === 'undefined' ? (chrome.storage as any).promise : browser.storage;
-  // Oryginal chrome browser storage - to be able to listen onChange events on Chrome
+  // Oryginal chrome browser storage - to be able to listen onChange events in Chrome
   private _oryginalBrowserStorage = typeof browser === 'undefined' ? (chrome.storage as any) : browser.storage;
 
   private domainsList: Array<any> = [];
@@ -55,7 +55,7 @@ export default class StorageManager {
     });
 
     // Push new entry if domain do not exists in domains list
-    if(!domainAlreadyStored) {
+    if(domainName && !domainAlreadyStored) {
       if(color) {
         this.domainsList.push({
           domainName,
