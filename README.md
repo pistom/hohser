@@ -15,6 +15,8 @@
 - [Ecosia](https://www.ecosia.org)
 - [Yandex](https://www.yandex.ru)
 
+Add an issue if you would like to use the extension with another search engine.
+
 ## Development
 The extension is created with ReactJs, Redux, Material UI and TypeScript.
 
