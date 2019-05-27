@@ -70,7 +70,7 @@ function processResult (r: Element, domainsList: any, options: any, processResul
       managementComponentAnchor as HTMLElement
     );
 
-    // Listen to management results buttons click and event stop propagation
+    // Listen to management component buttons click and stop event propagation
     managementComponentAnchor.addEventListener('click', (e: any) => {
       e.preventDefault();
       e.stopPropagation();
@@ -94,7 +94,7 @@ function processResult (r: Element, domainsList: any, options: any, processResul
       storageManager.save(domain, action, color);
     });
 
-    // Add or remove classes to the matches results
+    // Add or remove classes to matches results
     const matches = domainsList.filter((s: Domain) => url.includes(s.domainName));
     if (matches.length > 0) {
       removeResultStyle(result);
