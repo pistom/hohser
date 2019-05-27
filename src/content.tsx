@@ -97,8 +97,9 @@ function processResult (r: Element, domainsList: any, options: any, processResul
     // Add or remove classes to matches results
     const matches = domainsList.filter((s: Domain) => url.includes(s.domainName));
     if (matches.length > 0) {
+      const domain = matches.reduce(function (a: Domain, b: Domain) { return a.domainName.length > b.domainName.length ? a : b; });
       removeResultStyle(result);
-      applyResultStyle(result, matches[0].color, matches[0].display, options);
+      applyResultStyle(result, domain.color, domain.display, options);
     } else {
       removeResultStyle(result);
     }
