@@ -9,6 +9,7 @@ import DomainsList from '../DomainsList/DomainsList';
 import EditDomain from '../EditDomain/EditDomain';
 import Drawer from '../SideMenu/Drawer';
 import SnackBar from './SnackBar';
+import SearchBox from '../SearchBox/SearchBox';
 
 export interface Props {
   domainsList: Array<Domain>;
@@ -26,6 +27,8 @@ export interface Props {
 interface State {
   editedDomain: number | null;
   drawerIsOpen: boolean;
+  searchIsOpen: boolean;
+  searchedPhrase: string;
 }
 
 class App extends React.Component<Props, State> {
@@ -34,8 +37,11 @@ class App extends React.Component<Props, State> {
     super(props);
     this.state = {
       editedDomain: null,
-      drawerIsOpen: false
+      drawerIsOpen: false,
+      searchIsOpen: false,
+      searchedPhrase: ''
     };
+    this.handleOnChangeSearchTextField = this.handleOnChangeSearchTextField.bind(this);
   }
 
   componentDidMount () {
@@ -67,8 +73,18 @@ class App extends React.Component<Props, State> {
     });
   }
 
+  toggleSearch () {
+    this.setState({
+      searchIsOpen: !this.state.searchIsOpen
+    });
+  }
+
   toggleShowAll () {
     this.props.toggleShowAll();
+  }
+
+  public handleOnChangeSearchTextField (e: any): void {
+    this.setState({searchedPhrase: e.target.value});
   }
 
   public render () {
@@ -76,6 +92,7 @@ class App extends React.Component<Props, State> {
       <CssBaseline />,
       <TopBar
         toggleDrawer={() => this.toggleDrawer()}
+        toggleSearch={() => this.toggleSearch()}
       />,
       <SnackBar
         options={this.props.options}
@@ -89,10 +106,17 @@ class App extends React.Component<Props, State> {
         addDomain={this.props.addDomain}
         domainsList={this.props.domainsList}
       />,
+      <SearchBox
+        open={this.state.searchIsOpen}
+        toggle={() => this.toggleSearch()}
+        onChangeSearchTextField={this.handleOnChangeSearchTextField}
+        value={this.state.searchedPhrase}
+      />,
       <DomainsList
         domainsList={this.props.domainsList}
         removeDomainHandle={(i) => this.removeDomainHandle(i)}
         editDomainHandle={(i) => this.editDomainHandle(i)}
+        searchedPhrase={this.state.searchedPhrase}
       />,
       <EditDomain
         open={this.state.editedDomain}
