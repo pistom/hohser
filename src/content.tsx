@@ -77,21 +77,29 @@ function processResult (r: Element, domainsList: any, options: any, processResul
       let action;
       let color;
       let domain;
+      let matchedString;
       const nodeName = e.target.nodeName;
       if (e.target && nodeName === 'BUTTON') {
         action = e.target.dataset.action;
         color = e.target.dataset.color;
         domain = e.target.dataset.domain;
+        matchedString = e.target.dataset.matchedString;
       } else if (e.target && nodeName === 'SVG' || nodeName === 'svg') {
         action = e.target.parentNode.parentNode.dataset.action;
         color = e.target.parentNode.parentNode.dataset.color;
         domain = e.target.parentNode.parentNode.dataset.domain;
+        matchedString = e.target.parentNode.parentNode.dataset.matchedString;
       } else if (e.target && nodeName === 'PATH' || nodeName === 'path') {
         action = e.target.parentNode.parentNode.parentNode.dataset.action;
         color = e.target.parentNode.parentNode.parentNode.dataset.color;
         domain = e.target.parentNode.parentNode.parentNode.dataset.domain;
+        matchedString = e.target.parentNode.parentNode.parentNode.dataset.matchedString;
       }
-      storageManager.save(domain, action, color);
+      if (action === "REMOVE_DOMAIN") {
+        storageManager.removeEntry(matchedString);
+      } else if (action === "FULL_HIDE" || action === "PARTIAL_HIDE" || action === "HIGHLIGHT") {
+        storageManager.save(domain, action, color);
+      }
     });
 
     // Add or remove classes to matches results
@@ -99,7 +107,7 @@ function processResult (r: Element, domainsList: any, options: any, processResul
     if (matches.length > 0) {
       const domain = matches.reduce(function (a: Domain, b: Domain) { return a.domainName.length > b.domainName.length ? a : b; });
       removeResultStyle(result);
-      applyResultStyle(result, domain.color, domain.display, options);
+      applyResultStyle(result, domain.color, domain.display, options, domain.domainName);
     } else {
       removeResultStyle(result);
     }
@@ -124,7 +132,8 @@ function applyResultStyle (
   result: HTMLElement,
   color: Color,
   displayStyle: DisplayStyle,
-  options: Options
+  options: Options,
+  domainName: string
 ) {
   const domainColors = {
     COLOR_1: [245, 0, 87],
@@ -151,6 +160,11 @@ function applyResultStyle (
     result.classList.add("hohser_full_hide");
   } else if (displayStyle === FULL_HIDE && options.showAll) {
     result.classList.add("hohser_partial_hide");
+  }
+  // Delete entry button
+  const deleteButton = result.querySelector(".hohser_actions_domain button") as HTMLElement;
+  if(deleteButton) {
+    deleteButton.dataset.matchedString = domainName;
   }
 }
 

@@ -53,6 +53,20 @@
   margin: 0;
 }
 
+.hohser_actions_domain button {
+  margin: -6px -24px -6px 0px;
+  display: none;
+}
+
+.hohser_actions_domain button[data-matched-string] {
+  display: inline-flex;
+}
+
+.hohser_actions_domain button svg {
+  font-size: 1rem;
+  color: rgba(0,0,0,.54);
+}
+
 .hohser_actions_btns {
   text-align: center;
 }
@@ -75,6 +89,6 @@
   border-radius: var(--ui-button-radius);
 }
 
-.hohser_actions_btns button [fill] {
+.hohser_actions_btns button [fill], .hohser_actions_domain button [fill] {
   fill: none;
 }

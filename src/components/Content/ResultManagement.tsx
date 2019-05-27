@@ -3,8 +3,9 @@ import Arrow from '@material-ui/icons/KeyboardArrowDown';
 import FavoriteBorderIcon from '@material-ui/icons/Favorite';
 import OffIcon from '@material-ui/icons/VisibilityOff';
 import BlockIcon from '@material-ui/icons/Opacity';
+import DeleteIcon from '@material-ui/icons/RemoveCircle';
 import { IconButton } from '@material-ui/core';
-import { FULL_HIDE, PARTIAL_HIDE, HIGHLIGHT, COLOR_1, COLOR_2, COLOR_3 } from 'src/constants';
+import { FULL_HIDE, PARTIAL_HIDE, HIGHLIGHT, COLOR_1, COLOR_2, COLOR_3, REMOVE_DOMAIN } from 'src/constants';
 
 interface Props {
   url: string;
@@ -25,7 +26,12 @@ export const ResultManagement = (props: Props) => {
     <div>
       <Arrow />
       <div className="hohser_actions">
-        <p className="hohser_actions_domain">{domainName}</p>
+        <p className="hohser_actions_domain">
+          {domainName}
+          <IconButton data-domain={domainName} data-action={REMOVE_DOMAIN}>
+            <DeleteIcon />
+          </IconButton>
+        </p>
         <div className="hohser_actions_btns">
           <IconButton data-domain={domainName} data-action={FULL_HIDE}>
             <OffIcon fontSize="small" />
