@@ -28,7 +28,9 @@ export const ResultManagement = (props: Props) => {
       <div className="hohser_actions">
         <p className="hohser_actions_domain">
           {domainName}
-          <DeleteIcon data-domain={domainName} data-action={REMOVE_DOMAIN} />
+          <IconButton data-domain={domainName} data-action={REMOVE_DOMAIN}>
+            <DeleteIcon />
+          </IconButton>
         </p>
         <div className="hohser_actions_btns">
           <IconButton data-domain={domainName} data-action={FULL_HIDE}>

@@ -1,5 +1,6 @@
 import { DisplayStyle, Color } from 'src/types';
 import 'chrome-storage-promise';
+import { Domain } from '../types/index';
 
 export default class StorageManager {
 
@@ -43,9 +44,9 @@ export default class StorageManager {
 
     // Check if domain is already stored
     this.domainsList.forEach(d => {
-      if(d.domainName === domainName){
+      if (d.domainName === domainName) {
         domainAlreadyStored = true;
-        if(color){
+        if (color) {
           d.display = display;
           d.color = color;
         } else {
@@ -55,8 +56,8 @@ export default class StorageManager {
     });
 
     // Push new entry if domain do not exists in domains list
-    if(domainName && !domainAlreadyStored) {
-      if(color) {
+    if (domainName && !domainAlreadyStored) {
+      if (color) {
         this.domainsList.push({
           domainName,
           display,
@@ -72,6 +73,20 @@ export default class StorageManager {
 
     // Store data in storage sync
     const domainsList = this.domainsList;
-    this._browserStorage.sync.set({domainsList});
+    this._browserStorage.sync.set({ domainsList });
+  }
+
+  /*
+   * Remove entry from storage domains list
+   */
+  public async removeEntry (domainName: string) {
+    const deleteDomain = confirm(`Do you want to delete ${domainName} from domain list?`);
+    if (deleteDomain) {
+      this.domainsList = await this.fetchDomainsList();
+      const domainsList = this.domainsList.filter((d: Domain) => {
+        return d.domainName !== domainName;
+      });
+      this._browserStorage.sync.set({ domainsList });
+    }
   }
 }
