@@ -42,6 +42,7 @@ class App extends React.Component<Props, State> {
       searchedPhrase: ''
     };
     this.handleOnChangeSearchTextField = this.handleOnChangeSearchTextField.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
   }
 
   componentDidMount () {
@@ -73,13 +74,13 @@ class App extends React.Component<Props, State> {
     });
   }
 
-  toggleSearch () {
+  public toggleSearch (): void {
     this.setState({
       searchIsOpen: !this.state.searchIsOpen
     });
   }
 
-  toggleShowAll () {
+  public toggleShowAll (): void {
     this.props.toggleShowAll();
   }
 
@@ -92,7 +93,7 @@ class App extends React.Component<Props, State> {
       <CssBaseline />,
       <TopBar
         toggleDrawer={() => this.toggleDrawer()}
-        toggleSearch={() => this.toggleSearch()}
+        toggleSearch={this.toggleSearch}
       />,
       <SnackBar
         options={this.props.options}
