@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Toolbar, IconButton, Typography, AppBar, withStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
 
 interface Props {
   toggleDrawer: () => void;
+  toggleSearch: () => void;
   classes: any;
 }
 
@@ -17,6 +19,9 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
+  },
+  searchButton: {
+    marginRight: -12,
   },
   appBar: {
     bottom: 'auto',
@@ -35,6 +40,9 @@ const TopBar = (props: Props) => {
         <Typography variant="h6" color="inherit" className={classes.grow} >
           Highlight or Hide
         </Typography>
+        <IconButton className={classes.searchButton} color="inherit" aria-label="Search" onClick={() => props.toggleSearch()} >
+          <SearchIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
