@@ -11,6 +11,8 @@ import CafeIcon from '@material-ui/icons/LocalCafeOutlined';
 import ExportImportIcon from '@material-ui/icons/ImportExport';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
+import ClearIcon from '@material-ui/icons/ClearAll';
+import WarningIcon from '@material-ui/icons/Warning';
 import { DisplayStyle, Color, Domain } from 'src/types';
 import { browserName } from 'src/popup';
 import { CHROME, COLOR_1, HIGHLIGHT } from 'src/constants';
@@ -19,6 +21,7 @@ interface Props {
   options: any;
   toggleShowAll: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  clearDomainList: () => void;
   domainsList: Array<Domain>;
 }
 
@@ -127,6 +130,13 @@ class Options extends React.Component<Props, State> {
     this.setState({ nonDefinedDisplayStyle: event.target.value });
   }
 
+  handleClearDomainList = () => {
+    const clear = confirm("Are you sure?");
+    if(clear){
+      this.props.clearDomainList();
+    }
+  }
+
   render () {
     return [
       <List component="nav" key="list">
@@ -150,6 +160,13 @@ class Options extends React.Component<Props, State> {
                   checked={this.props.options.showAll}
                 />
               </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem button onClick={this.handleClearDomainList}>
+              <ListItemIcon>
+                <ClearIcon />
+              </ListItemIcon>
+              <ListItemText inset secondary="Clear domain list" />
+              <WarningIcon fontSize="small" color="error" />
             </ListItem>
           </List>
         </Collapse>

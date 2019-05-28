@@ -9,7 +9,8 @@ import {
   FETCH_DOMAINS_REJECTED,
   IMPORT_FROM_OLD_VERSION_FULFILLED,
   PARTIAL_HIDE,
-  CHROME
+  CHROME,
+  CLEAR_DOMAIN_LIST
 } from '../constants/index';
 import { browserStorageSync, browserName } from 'src/popup';
 
@@ -70,6 +71,13 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
         browserStorageSync.set({domainsList});
         return { ...state, domainsList };
       }
+
+    case CLEAR_DOMAIN_LIST:
+        {
+          const domainsList: Domain[] = [];
+          browserStorageSync.set({domainsList});
+          return { ...state, domainsList };
+        }
 
     case FETCH_DOMAINS_PENDING:
       {

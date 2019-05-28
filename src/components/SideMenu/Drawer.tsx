@@ -8,6 +8,7 @@ interface Props {
   toggle: () => void;
   toggleShowAll: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  clearDomainList: () => void;
   classes: any;
   open: boolean;
   options: any;
@@ -52,6 +53,7 @@ const Drawer = (props: Props) => {
           toggleShowAll={() => props.toggleShowAll()}
           addDomain={props.addDomain}
           domainsList={props.domainsList}
+          clearDomainList={props.clearDomainList}
         />
       </div>
     </SwipeableDrawer>

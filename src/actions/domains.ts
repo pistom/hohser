@@ -6,6 +6,7 @@ import {
   ADD_DOMAIN,
   EDIT_DOMAIN,
   REMOVE_DOMAIN,
+  CLEAR_DOMAIN_LIST,
   IMPORT_FROM_OLD_VERSION,
   IMPORT_FROM_OLD_VERSION_PENDING,
   IMPORT_FROM_OLD_VERSION_FULFILLED,
@@ -34,6 +35,10 @@ export interface RemoveDomain {
   index: number;
 }
 
+export interface ClearDomainList {
+  type: CLEAR_DOMAIN_LIST;
+}
+
 export interface ImportFromOldVersion {
   type:
     | IMPORT_FROM_OLD_VERSION
@@ -55,6 +60,7 @@ export type DomainAction =
   | AddDomain
   | EditDomain
   | RemoveDomain
+  | ClearDomainList
   | FetchDomains
   | ImportFromOldVersion;
 
@@ -91,6 +97,12 @@ export function removeDomain (index: number): RemoveDomain {
   return {
     type: REMOVE_DOMAIN,
     index
+  };
+}
+
+export function clearDomainList (): ClearDomainList {
+  return {
+    type: CLEAR_DOMAIN_LIST
   };
 }
 
