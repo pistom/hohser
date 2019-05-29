@@ -119,9 +119,10 @@ class App extends React.Component<Props, State> {
       />,
       <DomainsList
         domainsList={this.props.domainsList}
-        removeDomainHandle={(i) => this.removeDomainHandle(i)}
-        editDomainHandle={(i) => this.editDomainHandle(i)}
+        removeDomainHandle={(i: any) => this.removeDomainHandle(i)}
+        editDomainHandle={(i: any) => this.editDomainHandle(i)}
         searchedPhrase={this.state.searchedPhrase}
+        openSearch={() => this.toggleSearch()}
       />,
       <EditDomain
         open={this.state.editedDomain}
