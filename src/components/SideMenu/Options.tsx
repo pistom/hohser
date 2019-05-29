@@ -145,7 +145,7 @@ class Options extends React.Component<Props, State> {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText inset primary="Settings" />
+          <ListItemText primary="Settings" />
           {this.state.open ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
@@ -157,8 +157,20 @@ class Options extends React.Component<Props, State> {
               <ListItemText secondary="Show hidden results" />
               <ListItemSecondaryAction>
                 <Switch
+                  edge="end"
                   onChange={() => this.props.toggleShowAll()}
                   checked={this.props.options.showAll}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem aria-label="Sync storage is limited in size but the local one is not synchronized with your account">
+              <ListItemIcon>
+                <StorageIcon />
+              </ListItemIcon>
+              <ListItemText secondary="Use local storage instead of sync" />
+              <ListItemSecondaryAction>
+                <Switch
+                  edge="end"
                 />
               </ListItemSecondaryAction>
             </ListItem>
@@ -166,7 +178,7 @@ class Options extends React.Component<Props, State> {
               <ListItemIcon>
                 <ClearIcon />
               </ListItemIcon>
-              <ListItemText inset secondary={`Clear domain list (${this.props.domainsList.length})`} />
+              <ListItemText secondary={`Clear domain list (${this.props.domainsList.length})`} />
               <WarningIcon fontSize="small" color="error" />
             </ListItem>
           </List>
@@ -176,14 +188,14 @@ class Options extends React.Component<Props, State> {
           <ListItemIcon>
             <ExportImportIcon />
           </ListItemIcon>
-          <ListItemText inset primary="Export domain's list" />
+          <ListItemText primary="Export domain's list" />
           <DownloadIcon fontSize="small" />
         </ListItem>
         <ListItem button onClick={this.handleImportMenuItem}>
           <ListItemIcon>
             <ExportImportIcon />
           </ListItemIcon>
-          <ListItemText inset primary="Import domain's list" />
+          <ListItemText primary="Import domain's list" />
           <UploadIcon fontSize="small" />
         </ListItem>
         <Divider />
@@ -191,26 +203,26 @@ class Options extends React.Component<Props, State> {
           <ListItemIcon>
             <ErrorIcon />
           </ListItemIcon>
-          <ListItemText inset primary="Report an issue" />
+          <ListItemText primary="Report an issue" />
           <OpenInNewIcon fontSize="small" />
         </ListItem>
         <ListItem button onClick={this.handleIssue}>
           <ListItemIcon>
             <NewIcon />
           </ListItemIcon>
-          <ListItemText inset primary="Propose a new feature" />
+          <ListItemText primary="Propose a new feature" />
           <OpenInNewIcon fontSize="small" />
         </ListItem>
         <ListItem button onClick={this.handleGift}>
           <ListItemIcon>
             <CafeIcon />
           </ListItemIcon>
-          <ListItemText inset primary="Offer a cup of coffee" />
+          <ListItemText primary="Offer a cup of coffee" />
           <OpenInNewIcon fontSize="small" />
         </ListItem>
         <Divider />
         <ListItem>
-          <ListItemText inset secondary={`HoHSer ${this.getExtensionVersion()}`} />
+          <ListItemText secondary={`HoHSer ${this.getExtensionVersion()}`} />
         </ListItem>
       </List>,
       <Dialog

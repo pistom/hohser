@@ -124,7 +124,7 @@ class BottomBar extends React.Component<Props, State> {
       <AppBar position="fixed" color="default" className={classes.appBar}>
         <Toolbar style={{paddingBottom: '10px'}}>
           <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
-            <Grid container spacing={8}>
+            <Grid container spacing={1}>
               <Grid item xs={7}>
                 <FormControl fullWidth>
                   <TextField
@@ -167,7 +167,7 @@ class BottomBar extends React.Component<Props, State> {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <FormControl margin="dense" fullWidth className={classes.formControl}>
-                  <Button type="submit" variant="raised" size="small" color="secondary" className={classes.button}>
+                  <Button type="submit" variant="contained" size="small" color="secondary" className={classes.button}>
                     Add <AddIcon />
                   </Button>
                 </FormControl>

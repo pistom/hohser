@@ -9,7 +9,7 @@ import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from 's
 interface Props {
   classes: any;
   open: number | null;
-  domain: Domain;
+  domain: Domain | null;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   closeEditionHandle: () => void;
 }
@@ -183,7 +183,7 @@ class EditDomain extends React.Component<Props, State> {
           </Toolbar>
         </AppBar>
         <form onSubmit={this.handleSave} className={classes.root} autoComplete="off">
-          <Grid container spacing={16}>
+          <Grid container spacing={10}>
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <TextField
