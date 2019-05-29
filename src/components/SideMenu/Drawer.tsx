@@ -9,6 +9,7 @@ interface Props {
   toggleShowAll: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   clearDomainList: () => void;
+  importDomains: (domainsList: Domain[]) => void;
   classes: any;
   open: boolean;
   options: any;
@@ -54,6 +55,7 @@ const Drawer = (props: Props) => {
           addDomain={props.addDomain}
           domainsList={props.domainsList}
           clearDomainList={props.clearDomainList}
+          importDomains={props.importDomains}
         />
       </div>
     </SwipeableDrawer>

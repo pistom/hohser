@@ -10,7 +10,8 @@ import {
   IMPORT_FROM_OLD_VERSION_FULFILLED,
   PARTIAL_HIDE,
   CHROME,
-  CLEAR_DOMAIN_LIST
+  CLEAR_DOMAIN_LIST,
+  IMPORT_DOMAINS
 } from '../constants/index';
 import { browserStorageSync, browserName } from 'src/popup';
 
@@ -30,9 +31,16 @@ export const isDomainNameOnList = (domainName: string, domainsList: Array<Domain
   return domainsList.some(domain => domain.domainName === domainName);
 };
 
+const showError = (e: Error) => {
+    if(e.message.includes("QUOTA_BYTES_PER_ITEM")) {
+      alert('The sync storage is full. You can use the local storage instead.');
+    } else {
+      alert(e.message);
+    }
+}
+
 export const domains = (state: DomainsState = domainsState, action: DomainAction): DomainsState => {
   switch (action.type) {
-
     case ADD_DOMAIN:
       {
         const domainsList = [...state.domainsList];
@@ -43,9 +51,9 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
             domainsList.push({ domainName: action.domainName, display: action.display });
           }
           if (browserName === CHROME) {
-            browserStorageSync.set({domainsList}, () => {console.log('saved');});
+            browserStorageSync.set({domainsList}, () => {console.log('saved');}).catch((e: Error) => showError(e));
           } else {
-            browserStorageSync.set({domainsList});
+            browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
           }
         }
         return { ...state, domainsList };
@@ -60,7 +68,8 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
           domainsList[action.index] = { domainName: action.domainName, display: action.display };
         }
 
-        browserStorageSync.set({domainsList});
+        browserStorageSync.set({domainsList})
+          .catch((e: Error) => showError(e));
         return { ...state, domainsList };
       }
 
@@ -68,14 +77,14 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
       {
         const domainsList = [...state.domainsList];
         domainsList.splice(action.index, 1);
-        browserStorageSync.set({domainsList});
+        browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
         return { ...state, domainsList };
       }
 
     case CLEAR_DOMAIN_LIST:
         {
           const domainsList: Domain[] = [];
-          browserStorageSync.set({domainsList});
+          browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
           return { ...state, domainsList };
         }
 
@@ -124,12 +133,23 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
           }
 
           // Store domainsList object in storageSync
-          browserStorageSync.set({domainsList});
+          browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
 
           // Remove ddghurBlockedDomains from localStorage
-          browser.storage.local.remove('ddghurBlockedDomains');
+          browser.storage.local.remove('ddghurBlockedDomains').catch((e: Error) => showError(e));
         }
 
+        return {
+          ...state,
+          domainsList
+        };
+      }
+
+    case IMPORT_DOMAINS:
+      {
+        const domainsList: Domain[] = action.domainsList;
+        browserStorageSync.set({domainsList})
+        .catch((e: Error) => showError(e));
         return {
           ...state,
           domainsList
