@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware';
 import BrowserStorageSyncMock from './mock/BrowserStorageSyncMock';
 import { reducers } from './reducers';
-import { MuiThemeProvider } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { CHROME, FIREFOX } from './constants';
 import 'chrome-storage-promise';
 

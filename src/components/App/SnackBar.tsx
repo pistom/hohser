@@ -19,7 +19,7 @@ class SnackBar extends React.Component<Props, State> {
 
   componentWillUpdate (nextProps: Props) {
     if (this.props.options.showAll !== nextProps.options.showAll) {
-      if (nextProps.options.showAll) {
+      if (nextProps.options.showAll === true) {
         this.setState({open: true});
       }
     }
@@ -42,7 +42,6 @@ class SnackBar extends React.Component<Props, State> {
             horizontal: 'center',
           }}
           open={this.state.open}
-          autoHideDuration={6000}
           onClose={this.handleClose}
           ContentProps={{
             'aria-describedby': 'message-id',
