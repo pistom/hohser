@@ -37,7 +37,7 @@ const showError = (e: Error) => {
     } else {
       alert(e.message);
     }
-}
+};
 
 export const domains = (state: DomainsState = domainsState, action: DomainAction): DomainsState => {
   switch (action.type) {
