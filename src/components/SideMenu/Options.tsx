@@ -13,6 +13,7 @@ import UploadIcon from '@material-ui/icons/CloudUpload';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import ClearIcon from '@material-ui/icons/ClearAll';
 import WarningIcon from '@material-ui/icons/Warning';
+import StorageIcon from '@material-ui/icons/Storage';
 import { DisplayStyle, Color, Domain } from 'src/types';
 import { browserName } from 'src/popup';
 import { CHROME, COLOR_1, HIGHLIGHT } from 'src/constants';
@@ -155,6 +156,18 @@ class Options extends React.Component<Props, State> {
                 <PowerOffIcon />
               </ListItemIcon>
               <ListItemText secondary="Show hidden results" />
+              <ListItemSecondaryAction>
+                <Switch
+                  onChange={() => this.props.toggleShowAll()}
+                  checked={this.props.options.showAll}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem aria-label="Sync storage is limited in size but the local one is not synchronized with your account">
+              <ListItemIcon>
+                <StorageIcon />
+              </ListItemIcon>
+              <ListItemText secondary="Use local storage instead of sync" />
               <ListItemSecondaryAction>
                 <Switch
                   onChange={() => this.props.toggleShowAll()}
