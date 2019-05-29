@@ -27,7 +27,8 @@ const styles = (theme: any) => ({
     cursor: 'pointer',
     padding: 16,
     color: '#444',
-    flexGrow: 3
+    flexGrow: 3,
+    overflow: 'hidden'
   },
   icons: {
     padding: "12px 16px 12px 0",
@@ -75,13 +76,13 @@ const DomainsList = (props: Props) => {
           style={{
             maxHeight: 70,
             transition: "all .25s",
-            borderBottom: arr.length !== i + 1 ? "1px solid #aaa" : "none",
+            borderBottom: arr.length !== i + 1 ? "1px solid #ccc" : "none",
             fontFamily: 'Sans-Serif',
             display: 'flex',
             justifyContent: 'space-between'
           }}
         >
-          <span className={classes.domain} onClick={() => props.editDomainHandle(i)}>
+          <span className={classes.domain} onClick={() => props.editDomainHandle(i)} style={{wordWrap: "break-word"}}>
             {props.domainsList[item].domainName}
           </span>
           {arr.length < 100 ?
