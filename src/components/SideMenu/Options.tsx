@@ -11,14 +11,19 @@ import CafeIcon from '@material-ui/icons/LocalCafeOutlined';
 import ExportImportIcon from '@material-ui/icons/ImportExport';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
+import ClearIcon from '@material-ui/icons/ClearAll';
+import WarningIcon from '@material-ui/icons/Warning';
 import { DisplayStyle, Color, Domain } from 'src/types';
 import { browserName } from 'src/popup';
 import { CHROME, COLOR_1, HIGHLIGHT } from 'src/constants';
+import { isDomainNameOnList } from 'src/reducers';
 
 interface Props {
   options: any;
   toggleShowAll: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  clearDomainList: () => void;
+  importDomains: (domainsList: Domain[]) => void;
   domainsList: Array<Domain>;
 }
 
@@ -74,20 +79,19 @@ class Options extends React.Component<Props, State> {
   }
 
   handleImportDomains = () => {
-    console.log(this.state.domainsListString);
-    let domainsList: Array<Domain>;
+    let domainsList: Array<Domain> = this.props.domainsList;
+    let newDomainsList: Array<Domain> = [];
     let importedDomainsList: Array<any> = [];
     try {
       importedDomainsList = JSON.parse(this.state.domainsListString);
-      domainsList = importedDomainsList.map(element => ({
+      newDomainsList = importedDomainsList
+      .filter(element => !isDomainNameOnList(element.domainName, domainsList))
+      .map(element => ({
         domainName: element.domainName,
         display: element.display || this.state.nonDefinedDisplayStyle,
         color: element.display === HIGHLIGHT ? element.color || COLOR_1 : undefined
-      } as Domain)
-      );
-      domainsList.forEach(domain => {
-        this.props.addDomain(domain.domainName, domain.display, domain.color);
-      });
+      } as Domain));
+      this.props.importDomains([...domainsList, ...newDomainsList] as Domain[]);
       this.setState({ openImportDialog: false });
     } catch (e) {
       alert(e.message);
@@ -127,6 +131,13 @@ class Options extends React.Component<Props, State> {
     this.setState({ nonDefinedDisplayStyle: event.target.value });
   }
 
+  handleClearDomainList = () => {
+    const clear = confirm("Are you sure?");
+    if(clear){
+      this.props.clearDomainList();
+    }
+  }
+
   render () {
     return [
       <List component="nav" key="list">
@@ -150,6 +161,13 @@ class Options extends React.Component<Props, State> {
                   checked={this.props.options.showAll}
                 />
               </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem button onClick={this.handleClearDomainList}>
+              <ListItemIcon>
+                <ClearIcon />
+              </ListItemIcon>
+              <ListItemText inset secondary={`Clear domain list (${this.props.domainsList.length})`} />
+              <WarningIcon fontSize="small" color="error" />
             </ListItem>
           </List>
         </Collapse>

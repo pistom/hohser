@@ -18,6 +18,8 @@ export interface Props {
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   removeDomain: (index: number) => void;
+  clearDomainList: () => void;
+  importDomains: (domainsList: Domain[]) => void;
   fetchDomainsList: () => void;
   fetchOptions: () => void;
   toggleShowAll: () => void;
@@ -105,7 +107,9 @@ class App extends React.Component<Props, State> {
         toggleShowAll={() => this.toggleShowAll()}
         options={this.props.options}
         addDomain={this.props.addDomain}
+        clearDomainList={this.props.clearDomainList}
         domainsList={this.props.domainsList}
+        importDomains={this.props.importDomains}
       />,
       <SearchBox
         open={this.state.searchIsOpen}

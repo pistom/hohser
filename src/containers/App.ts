@@ -3,7 +3,7 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { State } from 'src/reducers';
-import { DisplayStyle, Color } from 'src/types';
+import { DisplayStyle, Color, Domain } from 'src/types';
 
 
 function mapStateToProps (state: State) {
@@ -23,6 +23,8 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
       dispatch(actions.editDomain(index, domainName, hideType, color));
     },
     removeDomain: (index: number) => dispatch(actions.removeDomain(index)),
+    clearDomainList: () => dispatch(actions.clearDomainList()),
+    importDomains: (domainsList: Domain[]) => dispatch(actions.importDomains(domainsList)),
     fetchDomainsList: () => dispatch(actions.fetchDomainsList()),
     importFromOldVersion: () => dispatch(actions.importFromOldVersion()),
     fetchOptions: () => dispatch(actions.fetchOptions()),

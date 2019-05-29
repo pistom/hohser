@@ -6,12 +6,14 @@ import {
   ADD_DOMAIN,
   EDIT_DOMAIN,
   REMOVE_DOMAIN,
+  CLEAR_DOMAIN_LIST,
   IMPORT_FROM_OLD_VERSION,
   IMPORT_FROM_OLD_VERSION_PENDING,
   IMPORT_FROM_OLD_VERSION_FULFILLED,
-  IMPORT_FROM_OLD_VERSION_REJECTED
+  IMPORT_FROM_OLD_VERSION_REJECTED,
+  IMPORT_DOMAINS
 } from '../constants';
-import { DisplayStyle, Color } from 'src/types';
+import { DisplayStyle, Color, Domain } from 'src/types';
 import { browserStorageSync } from 'src/popup';
 
 export interface AddDomain {
@@ -34,6 +36,10 @@ export interface RemoveDomain {
   index: number;
 }
 
+export interface ClearDomainList {
+  type: CLEAR_DOMAIN_LIST;
+}
+
 export interface ImportFromOldVersion {
   type:
     | IMPORT_FROM_OLD_VERSION
@@ -51,12 +57,19 @@ export interface FetchDomains {
   payload: any;
 }
 
+export interface ImportDomains {
+  type: IMPORT_DOMAINS;
+  domainsList: Domain[];
+}
+
 export type DomainAction =
   | AddDomain
   | EditDomain
   | RemoveDomain
+  | ClearDomainList
   | FetchDomains
-  | ImportFromOldVersion;
+  | ImportFromOldVersion
+  | ImportDomains;
 
 export const fetchDomainsList = (): FetchDomains => {
 
@@ -94,6 +107,12 @@ export function removeDomain (index: number): RemoveDomain {
   };
 }
 
+export function clearDomainList (): ClearDomainList {
+  return {
+    type: CLEAR_DOMAIN_LIST
+  };
+}
+
 export function importFromOldVersion ():  ImportFromOldVersion {
   // Check if browser object is defined
   const payload = typeof browser !== 'undefined' ?
@@ -102,5 +121,12 @@ export function importFromOldVersion ():  ImportFromOldVersion {
   return {
     type: IMPORT_FROM_OLD_VERSION,
     payload
+  };
+}
+
+export function importDomains (domainsList: Domain[]): ImportDomains {
+  return {
+    type: IMPORT_DOMAINS,
+    domainsList
   };
 }
