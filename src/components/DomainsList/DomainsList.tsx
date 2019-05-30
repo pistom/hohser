@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, withStyles, Button, Typography } from '@material-ui/core';
+import { List, withStyles, Button, Typography, Badge } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FavoriteBorderIcon from '@material-ui/icons/Favorite';
 import OffIcon from '@material-ui/icons/VisibilityOff';
@@ -9,7 +9,7 @@ import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from 'src/constants';
 
 interface Props {
   domainsList: Array<Domain>;
-  removeDomainHandle: (index: number) => void;
+  removeDomainHandle: (domainName: string) => void;
   editDomainHandle: (index: number) => void;
   openSearch: () => void;
   searchedPhrase: string;
@@ -33,7 +33,8 @@ const styles = (theme: any) => ({
     cursor: 'pointer',
     padding: 16,
     color: '#444',
-    flexGrow: 3
+    flexGrow: 3,
+    overflow: 'hidden'
   },
   icons: {
     padding: "12px 16px 12px 0",
@@ -102,7 +103,7 @@ class DomainsList extends React.Component<Props, State> {
                   {this.props.domainsList[item].display === FULL_HIDE ?
                     <OffIcon /> : null
                   }
-                  <DeleteIcon onClick={() => this.props.removeDomainHandle(i)} style={{cursor: 'pointer'}} />
+                  <DeleteIcon onClick={() => this.props.removeDomainHandle(this.props.domainsList[item].domainName)} style={{cursor: 'pointer'}} />
                 </span> :
                 <span className={classes.labels}>
                   {this.props.domainsList[item].display === HIGHLIGHT ?
@@ -114,13 +115,15 @@ class DomainsList extends React.Component<Props, State> {
                   {this.props.domainsList[item].display === FULL_HIDE ?
                     <span className={classes.label}  style={{backgroundColor: "none", border: '1px solid #aaa'}}/> : null
                   }
-                  <span className={classes.delete} onClick={() => this.props.removeDomainHandle(i)} style={{cursor: 'pointer'}} >×</span>
+                  <span className={classes.delete} onClick={() => this.props.removeDomainHandle(this.props.domainsList[item].domainName)} style={{cursor: 'pointer'}} >×</span>
                 </span>
               }
             </li>
         ) :
         <div style={{textAlign: 'center'}}>
-          <Typography variant="subtitle1">The list has more than 100 entries.</Typography>
+          <Badge style={{marginTop: 16}} badgeContent={this.props.domainsList.length} color="secondary" max={9999}>
+            <Typography variant="subtitle1">The list contains more than 100 entries</Typography>
+          </Badge>
           <Button variant="contained" color="primary" size="small" onClick={() => this.props.openSearch()}>Search for an entry</Button>&nbsp;
           <Button variant="contained" color="secondary" size="small" onClick={() => this.handleShowList()}>Show all entries</Button>
         </div>

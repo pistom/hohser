@@ -75,8 +75,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
 
     case REMOVE_DOMAIN:
       {
-        const domainsList = [...state.domainsList];
-        domainsList.splice(action.index, 1);
+        const domainsList = [...state.domainsList].filter((domain: Domain) => domain.domainName !== action.domainName);
         browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
         return { ...state, domainsList };
       }
