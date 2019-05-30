@@ -22,7 +22,7 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
     editDomain: (index: number, domainName: string, hideType: DisplayStyle, color?: Color) => {
       dispatch(actions.editDomain(index, domainName, hideType, color));
     },
-    removeDomain: (index: number) => dispatch(actions.removeDomain(index)),
+    removeDomain: (domainName: string) => dispatch(actions.removeDomain(domainName)),
     clearDomainList: () => dispatch(actions.clearDomainList()),
     importDomains: (domainsList: Domain[]) => dispatch(actions.importDomains(domainsList)),
     fetchDomainsList: () => dispatch(actions.fetchDomainsList()),

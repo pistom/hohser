@@ -33,7 +33,7 @@ export interface EditDomain {
 
 export interface RemoveDomain {
   type: REMOVE_DOMAIN;
-  index: number;
+  domainName: string;
 }
 
 export interface ClearDomainList {
@@ -100,10 +100,10 @@ export const editDomain = (index: number, domainName: string, display: DisplaySt
   };
 };
 
-export function removeDomain (index: number): RemoveDomain {
+export function removeDomain (domainName: string): RemoveDomain {
   return {
     type: REMOVE_DOMAIN,
-    index
+    domainName
   };
 }
 

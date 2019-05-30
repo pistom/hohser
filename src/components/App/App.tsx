@@ -17,7 +17,7 @@ export interface Props {
   options: any;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
-  removeDomain: (index: number) => void;
+  removeDomain: (domainName: string) => void;
   clearDomainList: () => void;
   importDomains: (domainsList: Domain[]) => void;
   fetchDomainsList: () => void;
@@ -58,8 +58,8 @@ class App extends React.Component<Props, State> {
     }
   }
 
-  removeDomainHandle (index: number) {
-    this.props.removeDomain(index);
+  handleRemoveDomain (domainName: string) {
+    this.props.removeDomain(domainName);
   }
 
   editDomainHandle (index: number) {
@@ -119,7 +119,7 @@ class App extends React.Component<Props, State> {
       />,
       <DomainsList
         domainsList={this.props.domainsList}
-        removeDomainHandle={(i: any) => this.removeDomainHandle(i)}
+        removeDomainHandle={(domainName: string) => this.handleRemoveDomain(domainName)}
         editDomainHandle={(i: any) => this.editDomainHandle(i)}
         searchedPhrase={this.state.searchedPhrase}
         openSearch={() => this.toggleSearch()}
