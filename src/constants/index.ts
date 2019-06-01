@@ -81,3 +81,9 @@ export type IMPORT_FROM_OLD_VERSION_REJECTED = typeof IMPORT_FROM_OLD_VERSION_RE
 
 export const IMPORT_DOMAINS = 'IMPORT_DOMAINS';
 export type IMPORT_DOMAINS = typeof IMPORT_DOMAINS;
+
+export const LOCAL_STORAGE = 'local';
+export type LOCAL_STORAGE = typeof LOCAL_STORAGE;
+
+export const SYNC_STORAGE = 'sync';
+export type SYNC_STORAGE = typeof SYNC_STORAGE;

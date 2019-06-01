@@ -45,7 +45,6 @@ export let browserStorageSync = browserName === FIREFOX ? browser.storage.sync :
 browserStorageSync.get('options').then((o: any) => {
   const options = o && o.options as Options;
   const useLocalStorage = !!options.useLocalStorage;
-  console.log(options);
 
   switch (browserName) {
     case FIREFOX:
