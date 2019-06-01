@@ -14,12 +14,13 @@ interface Props {
 export const ResultManagement = (props: Props) => {
 
   let url = props.url.split(" ")[0];
-  let domainName = `¯\\_(ツ)_/¯`;
+  let domainName: string | null = `¯\\_(ツ)_/¯`;
   if (!/^https?:\/\//i.test(url)) {
     url = 'http://' + url;
   }
   try {
-    domainName = (new URL(url)).hostname;
+    const matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+    domainName = matches && matches[1];
   } catch (e) {}
 
   return (
