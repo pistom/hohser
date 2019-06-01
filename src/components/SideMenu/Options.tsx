@@ -22,6 +22,7 @@ import { isDomainNameOnList } from 'src/reducers';
 interface Props {
   options: any;
   toggleShowAll: () => void;
+  toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   clearDomainList: () => void;
   importDomains: (domainsList: Domain[]) => void;
@@ -172,6 +173,8 @@ class Options extends React.Component<Props, State> {
               <ListItemSecondaryAction>
                 <Switch
                   edge="end"
+                  onChange={this.props.toggleLocalStorage}
+                  checked={this.props.options.useLocalStorage}
                 />
               </ListItemSecondaryAction>
             </ListItem>

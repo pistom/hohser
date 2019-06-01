@@ -29,6 +29,7 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
     importFromOldVersion: () => dispatch(actions.importFromOldVersion()),
     fetchOptions: () => dispatch(actions.fetchOptions()),
     toggleShowAll: () => dispatch(actions.toggleShowAll()),
+    toggleLocalStorage: () => dispatch(actions.toggleLocalStorage()),
   };
 }
 

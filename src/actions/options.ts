@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, CHROME } from '../constants';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, CHROME, TOGGLE_LOCAL_STORAGE } from '../constants';
 import { browserStorageSync, browserName } from 'src/popup';
 
 export interface FetchOptions {
@@ -14,7 +14,11 @@ export interface ToggleShowAll {
   type: TOGGLE_SHOW_ALL;
 }
 
-export type OptionAction = FetchOptions | ToggleShowAll;
+export interface ToggleLocalStorage {
+  type: TOGGLE_LOCAL_STORAGE;
+}
+
+export type OptionAction = FetchOptions | ToggleShowAll | ToggleLocalStorage;
 
 export const fetchOptions = (): FetchOptions => {
 
@@ -36,5 +40,11 @@ export const fetchOptions = (): FetchOptions => {
 export const toggleShowAll = (): ToggleShowAll => {
   return {
     type: TOGGLE_SHOW_ALL
+  };
+};
+
+export const toggleLocalStorage = (): ToggleLocalStorage => {
+  return {
+    type: TOGGLE_LOCAL_STORAGE
   };
 };
