@@ -14,7 +14,7 @@ import {
   IMPORT_DOMAINS
 } from '../constants';
 import { DisplayStyle, Color, Domain } from 'src/types';
-import { browserStorageSync } from 'src/popup';
+import { browserStorage } from 'src/popup';
 
 export interface AddDomain {
   type: ADD_DOMAIN;
@@ -75,7 +75,7 @@ export const fetchDomainsList = (): FetchDomains => {
 
   return {
     type: FETCH_DOMAINS,
-    payload: browserStorageSync.get('domainsList')
+    payload: browserStorage.get('domainsList')
       .then((res: any) => res)
       .catch((err: any) => {console.error(err);})
   };

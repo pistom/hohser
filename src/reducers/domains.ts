@@ -13,7 +13,7 @@ import {
   CLEAR_DOMAIN_LIST,
   IMPORT_DOMAINS
 } from '../constants/index';
-import { browserStorageSync, browserName } from 'src/popup';
+import { browserStorage, browserName } from 'src/popup';
 
 export interface DomainsState {
   domainsList: Array<Domain>;
@@ -51,9 +51,9 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
             domainsList.push({ domainName: action.domainName, display: action.display });
           }
           if (browserName === CHROME) {
-            browserStorageSync.set({domainsList}, () => {console.log('saved');}).catch((e: Error) => showError(e));
+            browserStorage.set({domainsList}, () => {console.log('saved');}).catch((e: Error) => showError(e));
           } else {
-            browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
+            browserStorage.set({domainsList}).catch((e: Error) => showError(e));
           }
         }
         return { ...state, domainsList };
@@ -68,7 +68,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
           domainsList[action.index] = { domainName: action.domainName, display: action.display };
         }
 
-        browserStorageSync.set({domainsList})
+        browserStorage.set({domainsList})
           .catch((e: Error) => showError(e));
         return { ...state, domainsList };
       }
@@ -76,14 +76,14 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
     case REMOVE_DOMAIN:
       {
         const domainsList = [...state.domainsList].filter((domain: Domain) => domain.domainName !== action.domainName);
-        browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
+        browserStorage.set({domainsList}).catch((e: Error) => showError(e));
         return { ...state, domainsList };
       }
 
     case CLEAR_DOMAIN_LIST:
         {
           const domainsList: Domain[] = [];
-          browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
+          browserStorage.set({domainsList}).catch((e: Error) => showError(e));
           return { ...state, domainsList };
         }
 
@@ -132,7 +132,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
           }
 
           // Store domainsList object in storageSync
-          browserStorageSync.set({domainsList}).catch((e: Error) => showError(e));
+          browserStorage.set({domainsList}).catch((e: Error) => showError(e));
 
           // Remove ddghurBlockedDomains from localStorage
           browser.storage.local.remove('ddghurBlockedDomains').catch((e: Error) => showError(e));
@@ -147,7 +147,7 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
     case IMPORT_DOMAINS:
       {
         const domainsList: Domain[] = action.domainsList;
-        browserStorageSync.set({domainsList})
+        browserStorage.set({domainsList})
         .catch((e: Error) => showError(e));
         return {
           ...state,

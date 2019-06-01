@@ -1,13 +1,14 @@
 import StorageManager from "./content/storageManager";
 import { SearchEngineConfig, DisplayStyle, Color, Domain } from "./types";
 import * as config from "./config";
-import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT } from "./constants";
+import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT, FIREFOX, LOCAL_STORAGE, SYNC_STORAGE } from "./constants";
 import './content.css';
 import { Options } from './types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ResultManagement } from './components/Content/ResultManagement';
 import { ResizeObserver } from './mock/ResizeObserver';
+import { browserName } from './popup';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
@@ -179,38 +180,46 @@ function removeResultStyle (
   result.style.boxShadow = null;
 }
 
-// Initial process results
-processResults();
+export let browserStorageSync = browserName === FIREFOX ? browser.storage.sync : (chrome.storage as any).promise.sync;
 
-// Process results on page load
-document.addEventListener('load', () => {
+browserStorageSync.get('options').then((o: any) => {
+  const options = o && o.options as Options;
+  const useLocalStorage = !!options.useLocalStorage;
+  storageManager.storageType = useLocalStorage ? LOCAL_STORAGE : SYNC_STORAGE;
+
+  // Initial process results
   processResults();
-});
 
-// Process results on DOM change
-const target = document.querySelector(searchEngineConfig.observerSelector);
-const observer = new MutationObserver(function (mutations) {
-  processResults();
-});
-if (target) observer.observe(target, { childList: true });
-
-// Process results on storage change event
-storageManager.oryginalBrowserStorage.onChanged.addListener(() => {
-  processResults();
-});
-
-if (searchEngineConfig.ajaxResults) {
-
-  // Observe resize event on result wrapper
-  let isResized: any;
-  const resizeObserver = new ResizeObserver((entries: any) => {
-    window.clearTimeout( isResized );
-    isResized = setTimeout(() => {
-      processResults();
-    }, 100);
+  // Process results on page load
+  document.addEventListener('load', () => {
+    processResults();
   });
 
-  const resultsWrapper = document.querySelector(searchEngineConfig.observerSelector);
-  resizeObserver.observe(resultsWrapper);
+  // Process results on DOM change
+  const target = document.querySelector(searchEngineConfig.observerSelector);
+  const observer = new MutationObserver(function (mutations) {
+    processResults();
+  });
+  if (target) observer.observe(target, { childList: true });
 
-}
+  // Process results on storage change event
+  storageManager.oryginalBrowserStorage.onChanged.addListener(() => {
+    processResults();
+  });
+
+  if (searchEngineConfig.ajaxResults) {
+
+    // Observe resize event on result wrapper
+    let isResized: any;
+    const resizeObserver = new ResizeObserver((entries: any) => {
+      window.clearTimeout( isResized );
+      isResized = setTimeout(() => {
+        processResults();
+      }, 100);
+    });
+
+    const resultsWrapper = document.querySelector(searchEngineConfig.observerSelector);
+    resizeObserver.observe(resultsWrapper);
+
+  }
+});

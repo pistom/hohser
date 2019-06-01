@@ -55,6 +55,9 @@ export type FETCH_OPTIONS_REJECTED = typeof FETCH_OPTIONS_REJECTED;
 export const TOGGLE_SHOW_ALL = 'TOGGLE_SHOW_ALL';
 export type TOGGLE_SHOW_ALL = typeof TOGGLE_SHOW_ALL;
 
+export const TOGGLE_LOCAL_STORAGE = 'TOGGLE_LOCAL_STORAGE';
+export type TOGGLE_LOCAL_STORAGE = typeof TOGGLE_LOCAL_STORAGE;
+
 export const REMOVE_DOMAIN = 'REMOVE_DOMAIN';
 export type REMOVE_DOMAIN = typeof REMOVE_DOMAIN;
 
@@ -78,3 +81,9 @@ export type IMPORT_FROM_OLD_VERSION_REJECTED = typeof IMPORT_FROM_OLD_VERSION_RE
 
 export const IMPORT_DOMAINS = 'IMPORT_DOMAINS';
 export type IMPORT_DOMAINS = typeof IMPORT_DOMAINS;
+
+export const LOCAL_STORAGE = 'local';
+export type LOCAL_STORAGE = typeof LOCAL_STORAGE;
+
+export const SYNC_STORAGE = 'sync';
+export type SYNC_STORAGE = typeof SYNC_STORAGE;

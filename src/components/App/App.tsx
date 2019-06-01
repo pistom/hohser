@@ -23,6 +23,7 @@ export interface Props {
   fetchDomainsList: () => void;
   fetchOptions: () => void;
   toggleShowAll: () => void;
+  toggleLocalStorage: () => void;
   importFromOldVersion: () => void;
 }
 
@@ -45,6 +46,7 @@ class App extends React.Component<Props, State> {
     };
     this.handleOnChangeSearchTextField = this.handleOnChangeSearchTextField.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
+    this.toggleLocalStorage = this.toggleLocalStorage.bind(this);
   }
 
   componentDidMount () {
@@ -86,6 +88,10 @@ class App extends React.Component<Props, State> {
     this.props.toggleShowAll();
   }
 
+  public toggleLocalStorage (): void {
+    this.props.toggleLocalStorage();
+  }
+
   public handleOnChangeSearchTextField (e: any): void {
     this.setState({searchedPhrase: e.target.value});
   }
@@ -105,6 +111,7 @@ class App extends React.Component<Props, State> {
         open={this.state.drawerIsOpen}
         toggle={() => this.toggleDrawer()}
         toggleShowAll={() => this.toggleShowAll()}
+        toggleLocalStorage={this.toggleLocalStorage}
         options={this.props.options}
         addDomain={this.props.addDomain}
         clearDomainList={this.props.clearDomainList}

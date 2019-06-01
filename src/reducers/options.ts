@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL } from '../constants/index';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_LOCAL_STORAGE } from '../constants/index';
 import { OptionAction } from 'src/actions';
 import { Options } from 'src/types';
 import { browserStorageSync } from 'src/popup';
@@ -11,7 +11,8 @@ export interface OptionsState {
 
 const optionsState = {
   options: {
-    showAll: false
+    showAll: false,
+    useLocalStorage: false
   },
   optionsLoading: true,
   optionsError: false,
@@ -57,6 +58,14 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
       {
         const options = {...state.options};
         options.showAll = !state.options.showAll;
+        browserStorageSync.set({options});
+        return { ...state, options };
+      }
+
+    case TOGGLE_LOCAL_STORAGE:
+      {
+        const options = {...state.options};
+        options.useLocalStorage = !state.options.useLocalStorage;
         browserStorageSync.set({options});
         return { ...state, options };
       }

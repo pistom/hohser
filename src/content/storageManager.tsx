@@ -1,6 +1,9 @@
 import { DisplayStyle, Color } from 'src/types';
 import 'chrome-storage-promise';
 import { Domain } from '../types/index';
+import { LOCAL_STORAGE, SYNC_STORAGE } from 'src/constants';
+
+type StorageType = LOCAL_STORAGE | SYNC_STORAGE ;
 
 export default class StorageManager {
 
@@ -8,6 +11,16 @@ export default class StorageManager {
   private _browserStorage = typeof browser === 'undefined' ? (chrome.storage as any).promise : browser.storage;
   // Oryginal chrome browser storage - to be able to listen onChange events in Chrome
   private _oryginalBrowserStorage = typeof browser === 'undefined' ? (chrome.storage as any) : browser.storage;
+
+  private _storageType: StorageType = SYNC_STORAGE;
+
+  set storageType (storageType: StorageType) {
+    this._storageType = storageType;
+  }
+
+  get storageType () {
+    return this._storageType;
+  }
 
   private domainsList: Array<any> = [];
 
@@ -23,7 +36,7 @@ export default class StorageManager {
    * Fetching domains list from sync storage
    */
   public async fetchDomainsList () {
-    return this._browserStorage.sync.get('domainsList')
+    return this._browserStorage[this.storageType].get('domainsList')
       .then((res: any) => res.domainsList as Array<any> || []);
   }
 
@@ -31,7 +44,7 @@ export default class StorageManager {
    * Fetching options from sync storage
    */
   public async fetchOptions () {
-    return this._browserStorage.sync.get('options')
+    return this._browserStorage[this.storageType].get('options')
       .then((res: any) => res.options as any || {});
   }
 
@@ -73,7 +86,7 @@ export default class StorageManager {
 
     // Store data in storage sync
     const domainsList = this.domainsList;
-    this._browserStorage.sync.set({ domainsList });
+    this._browserStorage[this.storageType].set({ domainsList });
   }
 
   /*
@@ -86,7 +99,7 @@ export default class StorageManager {
       const domainsList = this.domainsList.filter((d: Domain) => {
         return d.domainName !== domainName;
       });
-      this._browserStorage.sync.set({ domainsList });
+      this._browserStorage[this.storageType].set({ domainsList });
     }
   }
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField, RadioGroup, FormControlLabel, Radio, FormLabel, FormControl } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField, RadioGroup, FormControlLabel, Radio, FormLabel, FormControl, Snackbar } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -16,12 +16,13 @@ import WarningIcon from '@material-ui/icons/Warning';
 import StorageIcon from '@material-ui/icons/Storage';
 import { DisplayStyle, Color, Domain } from 'src/types';
 import { browserName } from 'src/popup';
-import { CHROME, COLOR_1, HIGHLIGHT } from 'src/constants';
+import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from 'src/constants';
 import { isDomainNameOnList } from 'src/reducers';
 
 interface Props {
   options: any;
   toggleShowAll: () => void;
+  toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   clearDomainList: () => void;
   importDomains: (domainsList: Domain[]) => void;
@@ -33,6 +34,7 @@ interface State {
   openImportDialog: boolean;
   domainsListString: string;
   nonDefinedDisplayStyle: string;
+  openSnackbar: boolean;
 }
 
 class Options extends React.Component<Props, State> {
@@ -40,8 +42,14 @@ class Options extends React.Component<Props, State> {
     open: false,
     openImportDialog: false,
     domainsListString: '',
-    nonDefinedDisplayStyle: "PARTIAL_HIDE"
+    nonDefinedDisplayStyle: "PARTIAL_HIDE",
+    openSnackbar: false
   };
+
+  constructor (props: Props) {
+    super(props);
+    this.handleUseLocalStorageSwithClick = this.handleUseLocalStorageSwithClick.bind(this);
+  }
 
   handleClick = () => {
     this.setState(state => ({ open: !state.open }));
@@ -139,6 +147,19 @@ class Options extends React.Component<Props, State> {
     }
   }
 
+  public handleUseLocalStorageSwithClick = () => {
+    this.setState({openSnackbar: true});
+    if (browserName === FIREFOX) {
+      browser.tabs.query({active: true, currentWindow: true}).then(() => {
+        browser.tabs.reload();
+      });
+    } else if (browserName === CHROME) {
+      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        chrome.tabs.reload(tabs[0].id as number);
+    });
+    }
+  }
+
   render () {
     return [
       <List component="nav" key="list">
@@ -172,6 +193,9 @@ class Options extends React.Component<Props, State> {
               <ListItemSecondaryAction>
                 <Switch
                   edge="end"
+                  onChange={this.props.toggleLocalStorage}
+                  checked={this.props.options.useLocalStorage}
+                  onClick={this.handleUseLocalStorageSwithClick}
                 />
               </ListItemSecondaryAction>
             </ListItem>
@@ -286,7 +310,15 @@ class Options extends React.Component<Props, State> {
             Import
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog>,
+      <Snackbar
+        open={this.state.openSnackbar}
+        autoHideDuration={6000}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Reopen the extension window and reload result pages to apply changes.</span>}
+      />
     ];
   }
 }

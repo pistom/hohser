@@ -7,6 +7,7 @@ import { DisplayStyle, Color, Domain } from 'src/types';
 interface Props {
   toggle: () => void;
   toggleShowAll: () => void;
+  toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   clearDomainList: () => void;
   importDomains: (domainsList: Domain[]) => void;
@@ -52,6 +53,7 @@ const Drawer = (props: Props) => {
         <Options
           options={props.options}
           toggleShowAll={() => props.toggleShowAll()}
+          toggleLocalStorage={props.toggleLocalStorage}
           addDomain={props.addDomain}
           domainsList={props.domainsList}
           clearDomainList={props.clearDomainList}
