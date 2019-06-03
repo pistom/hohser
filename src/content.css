@@ -81,6 +81,28 @@
   left: -15px;
 }
 
+.g.hohser_highlight .exp-outline {
+  display: none;
+}
+
+.g.hohser_highlight .AUiS2 {
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+
+.g.hohser_highlight.mnr-c {
+  background-color: transparent!important;
+  box-shadow: none!important;
+}
+
+.g.hohser_highlight .XCKyNd {
+  right: -10px;
+}
+
+.g.mnr-c.hohser_highlight .g {
+  box-shadow: none!important;
+}
+
 /* Only for Startpage */
 .column--main__content > ol .search-result {
   padding: var(--spacing-default);
