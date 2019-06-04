@@ -1,14 +1,13 @@
 import StorageManager from "./content/storageManager";
 import { SearchEngineConfig, DisplayStyle, Color, Domain } from "./types";
 import * as config from "./config";
-import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT, FIREFOX, LOCAL_STORAGE, SYNC_STORAGE } from "./constants";
+import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT, LOCAL_STORAGE, SYNC_STORAGE } from "./constants";
 import './content.css';
 import { Options } from './types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ResultManagement } from './components/Content/ResultManagement';
 import { ResizeObserver } from './mock/ResizeObserver';
-import { browserName } from './popup';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
@@ -180,7 +179,14 @@ function removeResultStyle (
   result.style.boxShadow = null;
 }
 
-export let browserStorageSync = browserName === FIREFOX ? browser.storage.sync : (chrome.storage as any).promise.sync;
+// const browserName = typeof browser === 'undefined' ? typeof chrome === 'undefined' ? null : CHROME : FIREFOX;
+// let browserStorageSync = browserName === FIREFOX ? browser.storage.sync : (chrome.storage as any).promise.sync;
+
+// if (typeof browser !== 'undefined') browserStorageSync = browser.storage.sync;
+// else if (typeof chrome !== 'undefined') browserStorageSync = browser.storage.sync;
+
+let browserStorageSync = ((typeof browser !== 'undefined') && browser.storage.sync) ||
+                         ((typeof chrome !== 'undefined') && (chrome.storage as any).promise.sync);
 
 browserStorageSync.get('options').then((o: any) => {
   const options = o && o.options as Options;
