@@ -3,7 +3,7 @@
 }
 
 .hohser_full_hide {
-  display: none;
+  display: none!important;
 }
 
 .hohser_result {
