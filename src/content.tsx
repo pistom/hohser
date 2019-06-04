@@ -11,6 +11,7 @@ import { ResizeObserver } from './mock/ResizeObserver';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
+let options: Options;
 
 // Determine search engine and apply right config
 const searchEngine = (location.host.match(/([^.]+)\.\w{2,3}(?:\.\w{2})?$/) || [])[1];
@@ -20,14 +21,10 @@ let searchEngineConfig: SearchEngineConfig = config[searchEngine];
 const managementComponentAnchors: Array<Element> = [];
 
 // Process results function
-async function processResults () {
+async function processResults (domainList: Domain[], options: Options) {
   const resultsList = document.querySelectorAll(
     searchEngineConfig.resultSelector
   );
-
-  // Fetching domains list and options
-  const domainsList = await storageManager.fetchDomainsList();
-  const options = await storageManager.fetchOptions();
 
   // Clear managementComponent anchors
   managementComponentAnchors.forEach(a => {
@@ -41,12 +38,12 @@ async function processResults () {
   resultsList.forEach(r => {
     // Number of attempts to process results
     let processResultsAttempt: number = 0;
-    processResult(r, domainsList, options, processResultsAttempt);
+    processResult(r, domainList, options, processResultsAttempt);
   });
 }
 
 // Process one result
-function processResult (r: Element, domainsList: any, options: any, processResultsAttempt: number): void {
+function processResult (r: Element, domainList: any, options: any, processResultsAttempt: number): void {
   try {
     const result = r as HTMLElement;
     result.classList.add('hohser_result');
@@ -103,7 +100,7 @@ function processResult (r: Element, domainsList: any, options: any, processResul
     });
 
     // Add or remove classes to matches results
-    const matches = domainsList.filter((s: Domain) => url.includes(s.domainName));
+    const matches = domainList.filter((s: Domain) => url.includes(s.domainName));
     if (matches.length > 0) {
       const domain = matches.reduce(function (a: Domain, b: Domain) { return a.domainName.length > b.domainName.length ? a : b; });
       removeResultStyle(result);
@@ -116,7 +113,7 @@ function processResult (r: Element, domainsList: any, options: any, processResul
     // Try to process result again
     if (++processResultsAttempt <= 3) {
       setTimeout(() => {
-        processResult(r, domainsList, options, processResultsAttempt);
+        processResult(r, domainList, options, processResultsAttempt);
       }, 100 * Math.pow(processResultsAttempt, 3));
     }
   }
@@ -179,53 +176,54 @@ function removeResultStyle (
   result.style.boxShadow = null;
 }
 
-// const browserName = typeof browser === 'undefined' ? typeof chrome === 'undefined' ? null : CHROME : FIREFOX;
-// let browserStorageSync = browserName === FIREFOX ? browser.storage.sync : (chrome.storage as any).promise.sync;
-
-// if (typeof browser !== 'undefined') browserStorageSync = browser.storage.sync;
-// else if (typeof chrome !== 'undefined') browserStorageSync = browser.storage.sync;
-
+// Check if Firefox or Chrome and assign the right storage object
 let browserStorageSync = ((typeof browser !== 'undefined') && browser.storage.sync) ||
                          ((typeof chrome !== 'undefined') && (chrome.storage as any).promise.sync);
 
-browserStorageSync.get('options').then((o: any) => {
-  const options = o && o.options as Options;
-  const useLocalStorage = options && !!options.useLocalStorage;
-  storageManager.storageType = useLocalStorage ? LOCAL_STORAGE : SYNC_STORAGE;
+browserStorageSync.get('options')
+  .then((o: any) => {
+    options = o && o.options as Options;
+    const useLocalStorage = options && !!options.useLocalStorage;
+    storageManager.storageType = useLocalStorage ? LOCAL_STORAGE : SYNC_STORAGE;
+    return storageManager.fetchDomainsList();
+  })
+  .then((d: Domain[]) => {
+    let domainList = d;
+    // Initial process results
+    processResults(domainList, options);
 
-  // Initial process results
-  processResults();
-
-  // Process results on page load
-  document.addEventListener('load', () => {
-    processResults();
-  });
-
-  // Process results on DOM change
-  const target = document.querySelector(searchEngineConfig.observerSelector);
-  const observer = new MutationObserver(function (mutations) {
-    processResults();
-  });
-  if (target) observer.observe(target, { childList: true });
-
-  // Process results on storage change event
-  storageManager.oryginalBrowserStorage.onChanged.addListener(() => {
-    processResults();
-  });
-
-  if (searchEngineConfig.ajaxResults) {
-
-    // Observe resize event on result wrapper
-    let isResized: any;
-    const resizeObserver = new ResizeObserver((entries: any) => {
-      window.clearTimeout( isResized );
-      isResized = setTimeout(() => {
-        processResults();
-      }, 100);
+    // Process results on page load
+    document.addEventListener('load', () => {
+      processResults(domainList, options);
     });
 
-    const resultsWrapper = document.querySelector(searchEngineConfig.observerSelector);
-    resizeObserver.observe(resultsWrapper);
+    // Process results on DOM change
+    const target = document.querySelector(searchEngineConfig.observerSelector);
+    const observer = new MutationObserver(function (mutations) {
+      processResults(domainList, options);
+    });
+    if (target) observer.observe(target, { childList: true });
 
-  }
-});
+    // Process results on storage change event
+    storageManager.oryginalBrowserStorage.onChanged.addListener((storage: any) => {
+      domainList = (storage.domainsList && storage.domainsList.newValue) || domainList;
+      options = (storage.options && storage.options.newValue) || options;
+      processResults(domainList, options);
+    });
+
+    if (searchEngineConfig.ajaxResults) {
+
+      // Observe resize event on result wrapper
+      let isResized: any;
+      const resizeObserver = new ResizeObserver((entries: any) => {
+        window.clearTimeout( isResized );
+        isResized = setTimeout(() => {
+          processResults(domainList, options);
+        }, 100);
+      });
+
+      const resultsWrapper = document.querySelector(searchEngineConfig.observerSelector);
+      resizeObserver.observe(resultsWrapper);
+
+    }
+  });
