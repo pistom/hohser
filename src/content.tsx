@@ -153,9 +153,9 @@ function applyResultStyle (
     }
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
-  } else if (displayStyle === FULL_HIDE && !options.showAll) {
+  } else if (displayStyle === FULL_HIDE && (!options || !options.showAll)) {
     result.classList.add("hohser_full_hide");
-  } else if (displayStyle === FULL_HIDE && options.showAll) {
+  } else if (displayStyle === FULL_HIDE && options && options.showAll) {
     result.classList.add("hohser_partial_hide");
   }
   // Delete entry button
