@@ -86,7 +86,7 @@ class DomainsList extends React.Component<Props, State> {
     <List style={{ position: "absolute", top: 54, bottom: 116, overflowY: "scroll", overflowX: "hidden", width: "100%" }}>
       {this.props.domainsList.length < 100 || this.state.showList || this.props.searchedPhrase.length >= 3 ?
         Object.keys(this.props.domainsList)
-          .filter(item => this.props.domainsList[item].domainName.includes(this.props.searchedPhrase))
+          .filter(item => this.props.domainsList[item].domainName && this.props.domainsList[item].domainName.includes(this.props.searchedPhrase))
           .map((item, i, arr) =>
             <li key={`item_${i.toString()}`} className={classes.entry} style={{borderBottom: arr.length === i + 1 ? "none" : ""}} >
               <span className={classes.domain} onClick={() => this.props.editDomainHandle(i)} style={{wordWrap: "break-word"}}>
