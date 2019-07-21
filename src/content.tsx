@@ -55,7 +55,7 @@ function processResult (r: Element, domainList: any, options: any, processResult
 
     const url = domain.innerText;
     if (!url) {
-      throw "No domain info";
+      throw new Error("No domain info");
     }
 
     // Add management component to the result

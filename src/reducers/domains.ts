@@ -120,11 +120,11 @@ export const domains = (state: DomainsState = domainsState, action: DomainAction
         if (oldDomainsList) {
 
           // This loops verify if imported domain is already on the list and add it if it is not.
-          oldDomainsList:
+          oldDL:
           for(let i = 0; i<oldDomainsList.length; i++) {
             for(let j = 0; j<domainsList.length; j++) {
               if(oldDomainsList[i] === domainsList[j].domainName) {
-                continue oldDomainsList;
+                continue oldDL;
               }
             }
             const domainEntry = ({domainName: oldDomainsList[i], display: PARTIAL_HIDE } as Domain);

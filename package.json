@@ -105,7 +105,9 @@
   "eslintConfig": {
     "extends": "react-app",
     "rules": {
-      "no-restricted-globals": 0
+      "no-restricted-globals": 0,
+      "no-useless-escape": 0,
+      "no-mixed-operators": 0
     },
     "globals": {
       "browser": "readonly",
