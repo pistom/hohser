@@ -3,8 +3,8 @@ import { Toolbar, AppBar, withStyles, Grid, FormControl, TextField, InputLabel, 
 import ColorIcon from '@material-ui/icons/InvertColors';
 import NoColorIcon from '@material-ui/icons/InvertColorsOff';
 import CloseIcon from '@material-ui/icons/Close';
-import { DisplayStyle, Color, Domain } from 'src/types';
-import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from 'src/constants';
+import { DisplayStyle, Color, Domain } from '../../types';
+import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from '../../constants';
 
 interface Props {
   classes: any;

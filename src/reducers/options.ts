@@ -1,7 +1,7 @@
 import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_LOCAL_STORAGE } from '../constants/index';
-import { OptionAction } from 'src/actions';
-import { Options } from 'src/types';
-import { browserStorageSync } from 'src/popup';
+import { OptionAction } from '../actions';
+import { Options } from '../types';
+import { browserStorageSync } from '../popup';
 
 export interface OptionsState {
   options: Options;

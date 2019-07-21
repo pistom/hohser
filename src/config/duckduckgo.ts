@@ -1,4 +1,4 @@
-import { SearchEngineConfig } from 'src/types';
+import { SearchEngineConfig } from '../types';
 
 export const duckduckgo: SearchEngineConfig = {
   resultSelector: '.result',

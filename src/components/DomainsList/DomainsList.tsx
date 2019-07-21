@@ -4,8 +4,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FavoriteBorderIcon from '@material-ui/icons/Favorite';
 import OffIcon from '@material-ui/icons/VisibilityOff';
 import BlockIcon from '@material-ui/icons/Opacity';
-import { Domain } from 'src/types';
-import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from 'src/constants';
+import { Domain } from '../../types';
+import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from '../../constants';
 
 interface Props {
   domainsList: Array<Domain>;

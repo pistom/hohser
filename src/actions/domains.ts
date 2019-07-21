@@ -13,8 +13,8 @@ import {
   IMPORT_FROM_OLD_VERSION_REJECTED,
   IMPORT_DOMAINS
 } from '../constants';
-import { DisplayStyle, Color, Domain } from 'src/types';
-import { browserStorage } from 'src/popup';
+import { DisplayStyle, Color, Domain } from '../types';
+import { browserStorage } from '../popup';
 
 export interface AddDomain {
   type: ADD_DOMAIN;

@@ -13,7 +13,7 @@ import {
   CLEAR_DOMAIN_LIST,
   IMPORT_DOMAINS
 } from '../constants/index';
-import { browserStorage, browserName } from 'src/popup';
+import { browserStorage, browserName } from '../popup';
 
 export interface DomainsState {
   domainsList: Array<Domain>;

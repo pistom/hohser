@@ -14,10 +14,10 @@ import DownloadIcon from '@material-ui/icons/CloudDownload';
 import ClearIcon from '@material-ui/icons/ClearAll';
 import WarningIcon from '@material-ui/icons/Warning';
 import StorageIcon from '@material-ui/icons/Storage';
-import { DisplayStyle, Color, Domain } from 'src/types';
-import { browserName } from 'src/popup';
-import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from 'src/constants';
-import { isDomainNameOnList } from 'src/reducers';
+import { DisplayStyle, Color, Domain } from '../../types';
+import { browserName } from '../../popup';
+import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
+import { isDomainNameOnList } from '../../reducers';
 
 interface Props {
   options: any;

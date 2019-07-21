@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SwipeableDrawer, withStyles, Toolbar, IconButton } from '@material-ui/core';
 import Options from './Options';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { DisplayStyle, Color, Domain } from 'src/types';
+import { DisplayStyle, Color, Domain } from '../../types';
 
 interface Props {
   toggle: () => void;

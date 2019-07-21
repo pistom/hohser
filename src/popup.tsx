@@ -4,7 +4,7 @@ import App from './containers/App';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware';
-import browserStorageMock from './mock/browserStorageMock';
+import browserStorageMock from './mock/BrowserStorageMock';
 import { reducers } from './reducers';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { CHROME, FIREFOX } from './constants';
