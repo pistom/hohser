@@ -10,7 +10,8 @@ function mapStateToProps (state: State) {
   return {
     domainsList: state.domains.domainsList,
     domainsListLoading: state.domains.domainsListLoading,
-    options: state.options.options
+    options: state.options.options,
+    currentTabUrl: state.options.currentTabUrl
   };
 }
 
@@ -30,6 +31,7 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
     fetchOptions: () => dispatch(actions.fetchOptions()),
     toggleShowAll: () => dispatch(actions.toggleShowAll()),
     toggleLocalStorage: () => dispatch(actions.toggleLocalStorage()),
+    getCurrentUrl: () => dispatch(actions.getCurrentUrl()),
   };
 }
 

@@ -58,10 +58,7 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "windows": "Ctrl+Alt+H",
-        "mac": "Command+Alt+H",
-        "chromeos": "Ctrl+Alt+H",
-        "linux": "Ctrl+Alt+H"
+        "default": "Ctrl+Shift+1"
       }
     }
   }

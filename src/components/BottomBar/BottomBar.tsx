@@ -1,14 +1,16 @@
 import * as React from 'react';
-import { Toolbar, AppBar, withStyles, Grid, FormControl, TextField, InputLabel, Select, MenuItem, Button } from '@material-ui/core';
+import { Toolbar, AppBar, withStyles, Grid, FormControl, TextField, InputLabel, Select, MenuItem, Button, InputAdornment } from '@material-ui/core';
 import ColorIcon from '@material-ui/icons/InvertColors';
 import NoColorIcon from '@material-ui/icons/InvertColorsOff';
 import AddIcon from '@material-ui/icons/Add';
+import AddLocationIcon from '@material-ui/icons/AddLocation';
 import { DisplayStyle, Color } from '../../types';
 import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from '../..//constants';
 
 interface Props {
   classes: any;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  currentTabUrl: string | null;
 }
 
 interface State {
@@ -38,6 +40,8 @@ const styles = {
 
 class BottomBar extends React.Component<Props, State> {
 
+  domainNameTextInputRef = React.createRef() as React.RefObject<HTMLElement>;
+
   constructor (props: any) {
     super(props);
     this.state = {
@@ -52,6 +56,38 @@ class BottomBar extends React.Component<Props, State> {
     this.handleDisplayChange = this.handleDisplayChange.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGetCurrentUrl = this.handleGetCurrentUrl.bind(this);
+
+  }
+
+  componentDidMount () {
+    addEventListener("keyup", (e: KeyboardEvent) => {
+      const input = this.domainNameTextInputRef && 
+                    this.domainNameTextInputRef.current &&
+                    this.domainNameTextInputRef.current.firstChild as HTMLElement;
+      const activeElementTagName = document.activeElement && document.activeElement.tagName;
+      if (input && activeElementTagName === 'BODY' && ["1", "2", "3", "4", "5"].includes(e.key)) {
+        this.handleGetCurrentUrl();
+        switch (e.key) {
+          case "1":
+            this.setState({display: 1, color: 1});
+            break;
+          case "2":
+            this.setState({display: 1, color: 2});
+            break;
+          case "3":
+            this.setState({display: 1, color: 3});
+            break;
+          case "4":
+            this.setState({display: 2, color: 0, disableColors: true});
+            break;
+          case "5":
+            this.setState({display: 3, color: 0, disableColors: true});
+            break;
+        }
+        input.focus();
+      }
+    })
   }
 
   handleDomainNameChange (event: any) {
@@ -68,7 +104,7 @@ class BottomBar extends React.Component<Props, State> {
     this.setState({
       display,
       disableColors: false,
-      color: this.state.color !==0 ? this.state.color : 1
+      color: this.state.color !== 0 ? this.state.color : 1
     });
 
     // Disable color field for non highlighted domains
@@ -118,6 +154,14 @@ class BottomBar extends React.Component<Props, State> {
 
   }
 
+  handleGetCurrentUrl () {
+    if (this.props.currentTabUrl) {
+      this.setState({
+        domainName: this.props.currentTabUrl
+      })
+    };
+  }
+
   render () {
     const classes = this.props.classes;
     return (
@@ -129,11 +173,16 @@ class BottomBar extends React.Component<Props, State> {
                 <FormControl fullWidth>
                   <TextField
                     error={this.state.emptyDomain}
-                    label="Domain name or phrase"
-                    id="margin-none"
+                    label="Domain name"
                     className={classes.textField}
                     value={this.state.domainName}
                     onChange={this.handleDomainNameChange}
+                    InputProps={{
+                      ref: this.domainNameTextInputRef,
+                      endAdornment: <InputAdornment position="end">
+                        <AddLocationIcon color="primary" onClick={this.handleGetCurrentUrl} style={{cursor: "pointer"}} />
+                      </InputAdornment>,
+                    }}
                   />
                 </FormControl>
               </Grid>

@@ -87,3 +87,9 @@ export type LOCAL_STORAGE = typeof LOCAL_STORAGE;
 
 export const SYNC_STORAGE = 'sync';
 export type SYNC_STORAGE = typeof SYNC_STORAGE;
+
+export const GET_CURRENT_URL = 'GET_CURRENT_URL';
+export type GET_CURRENT_URL = typeof GET_CURRENT_URL;
+
+export const GET_CURRENT_URL_FULFILLED = 'GET_CURRENT_URL_FULFILLED';
+export type GET_CURRENT_URL_FULFILLED = typeof GET_CURRENT_URL_FULFILLED;

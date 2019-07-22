@@ -1,12 +1,14 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_LOCAL_STORAGE } from '../constants/index';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED } from '../constants/index';
 import { OptionAction } from '../actions';
 import { Options } from '../types';
 import { browserStorageSync } from '../popup';
+import { getShortUrl } from '../components/Content/ResultManagement';
 
 export interface OptionsState {
   options: Options;
   optionsLoading: boolean;
   optionsError: boolean;
+  currentTabUrl: string | null;
 }
 
 const optionsState = {
@@ -16,6 +18,7 @@ const optionsState = {
   },
   optionsLoading: true,
   optionsError: false,
+  currentTabUrl: null
 };
 
 export const options = (state: OptionsState = optionsState, action: OptionAction): OptionsState => {
@@ -43,7 +46,7 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
           optionsLoading: false
         };
       }
-      }
+    }
 
     case FETCH_OPTIONS_REJECTED:
       {
@@ -68,6 +71,19 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
         options.useLocalStorage = !state.options.useLocalStorage;
         browserStorageSync.set({options});
         return { ...state, options };
+      }
+    
+    case GET_CURRENT_URL_FULFILLED:
+        {
+          let url = (action.payload && action.payload[0] && action.payload[0].url);
+          let currentTabUrl = null;
+          if (url) {
+            currentTabUrl = getShortUrl(url);
+          }
+          return {
+            ...state,
+            currentTabUrl
+          };
       }
   }
   return state;
