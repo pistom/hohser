@@ -36,7 +36,8 @@ export class ResizeObserver {
         obj.size.height = currentHeight;
         obj.size.width = currentWidth;
         return true;
-      }
+      };
+      return false;
     }).map((obj) => obj.el);
     if (changedEntries.length > 0) {
       this.callback(changedEntries);

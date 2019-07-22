@@ -1,4 +1,4 @@
-import { Domain, DisplayStyle, Color } from 'src/types';
+import { Domain, DisplayStyle, Color } from '../../types';
 import * as React from 'react';
 // import AddDomain from '../AddDomain/AddDomain';
 import { CssBaseline } from '@material-ui/core';

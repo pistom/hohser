@@ -2,8 +2,8 @@ import App from '../components/App/App';
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { State } from 'src/reducers';
-import { DisplayStyle, Color, Domain } from 'src/types';
+import { State } from '../reducers';
+import { DisplayStyle, Color, Domain } from '../types';
 
 
 function mapStateToProps (state: State) {

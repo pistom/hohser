@@ -1,4 +1,4 @@
-import { SearchEngineConfig } from 'src/types';
+import { SearchEngineConfig } from '../types';
 
 export const ecosia: SearchEngineConfig = {
   resultSelector: '.result',

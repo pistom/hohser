@@ -1,5 +1,5 @@
 import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, CHROME, TOGGLE_LOCAL_STORAGE } from '../constants';
-import { browserStorageSync, browserName } from 'src/popup';
+import { browserStorageSync, browserName } from '../popup';
 
 export interface FetchOptions {
   type:

@@ -1,10 +1,11 @@
-import { DisplayStyle, Color } from 'src/types';
+import { DisplayStyle, Color } from '../types';
 import 'chrome-storage-promise';
 import { Domain } from '../types/index';
-import { LOCAL_STORAGE, SYNC_STORAGE } from 'src/constants';
+import { LOCAL_STORAGE, SYNC_STORAGE } from '../constants';
+
 
 type StorageType = LOCAL_STORAGE | SYNC_STORAGE ;
-
+ 
 export default class StorageManager {
 
   // Browser storage object - using chrome-storage-promise in Chrome browser
