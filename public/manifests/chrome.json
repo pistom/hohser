@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Google and other popular search engines.",
   "icons": {
     "19": "images/hohser-19.png",
@@ -53,5 +53,16 @@
     }
   ],
 
-  "content_security_policy": "script-src 'self'; object-src 'self';"
+  "content_security_policy": "script-src 'self'; object-src 'self';",
+
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Alt+H",
+        "mac": "Command+Alt+H",
+        "chromeos": "Ctrl+Alt+H",
+        "linux": "Ctrl+Alt+H"
+      }
+    }
+  }
 }
