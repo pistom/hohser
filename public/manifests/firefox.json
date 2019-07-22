@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "developer": {
     "name": "Tomasz Pisarek",
     "url": "https://github.com/pistom"
@@ -64,6 +64,17 @@
     "gecko": {
       "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
       "strict_min_version": "52.0"
+    }
+  },
+
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Alt+H",
+        "mac": "Command+Alt+H",
+        "chromeos": "Ctrl+Alt+H",
+        "linux": "Ctrl+Alt+H"
+      }
     }
   }
 }
