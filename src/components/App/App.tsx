@@ -15,6 +15,7 @@ export interface Props {
   domainsList: Array<Domain>;
   domainsListLoading: boolean;
   options: any;
+  currentTabUrl: string | null;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   removeDomain: (domainName: string) => void;
@@ -22,6 +23,7 @@ export interface Props {
   importDomains: (domainsList: Domain[]) => void;
   fetchDomainsList: () => void;
   fetchOptions: () => void;
+  getCurrentUrl: () => void;
   toggleShowAll: () => void;
   toggleLocalStorage: () => void;
   importFromOldVersion: () => void;
@@ -52,6 +54,7 @@ class App extends React.Component<Props, State> {
   componentDidMount () {
     this.props.fetchDomainsList();
     this.props.fetchOptions();
+    this.props.getCurrentUrl();
   }
 
   componentWillUpdate (nextProps: Props) {
@@ -137,7 +140,9 @@ class App extends React.Component<Props, State> {
         domain={this.state.editedDomain !== null ? this.props.domainsList[this.state.editedDomain] : null}
         editDomain={(index: number, domainName: string, display: DisplayStyle, color?: Color) => this.props.editDomain(index, domainName, display, color)}
       />,
-      <BottomBar addDomain={this.props.addDomain} />
+      <BottomBar 
+        addDomain={this.props.addDomain}
+        currentTabUrl={this.props.currentTabUrl} />
     ];
   }
 }

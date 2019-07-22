@@ -11,9 +11,8 @@ interface Props {
   url: string;
 }
 
-export const ResultManagement = (props: Props) => {
-
-  let url = props.url.split(" ")[0];
+export const getShortUrl = (u: string) => {
+  let url = u.split(" ")[0];
   let domainName: string | null = `¯\\_(ツ)_/¯`;
   if (!/^https?:\/\//i.test(url)) {
     url = 'http://' + url;
@@ -22,6 +21,12 @@ export const ResultManagement = (props: Props) => {
     const matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
     domainName = matches && matches[1];
   } catch (e) {}
+  return domainName
+}
+
+export const ResultManagement = (props: Props) => {
+
+  let domainName: string | null = getShortUrl(props.url);
 
   return (
     <div>
