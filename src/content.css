@@ -18,6 +18,14 @@
   z-index: 10;
 }
 
+@media (pointer: coarse) {
+  .hohser_result_management {
+    right: 0px;
+    display: block;
+    margin: 6px;
+  }
+}
+
 .hohser_result:hover .hohser_result_management {
   display: block;
 }
