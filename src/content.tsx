@@ -211,6 +211,11 @@ browserStorageSync.get('options')
       processResults(domainList, options);
     });
 
+    // Process results on add new page by AutoPagerize extension
+    document.addEventListener("AutoPagerize_DOMNodeInserted", function (event) {
+      processResults(domainList, options);
+    }, false);
+
     if (searchEngineConfig.ajaxResults) {
 
       // Observe resize event on result wrapper
