@@ -136,7 +136,7 @@ class Options extends React.Component<Props, State> {
     }, 0);
   }
 
-  handleChangeNonDefinedDisplayStyle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeNonDefinedDisplayStyle = (event: React.ChangeEvent<any>) => {
     this.setState({ nonDefinedDisplayStyle: event.target.value });
   }
 
