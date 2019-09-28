@@ -21,8 +21,8 @@ export const getShortUrl = (u: string) => {
     const matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
     domainName = matches && matches[1];
   } catch (e) {}
-  return domainName
-}
+  return domainName;
+};
 
 export const ResultManagement = (props: Props) => {
 
@@ -39,19 +39,19 @@ export const ResultManagement = (props: Props) => {
           </IconButton>
         </p>
         <div className="hohser_actions_btns">
-          <IconButton data-domain={domainName} data-action={FULL_HIDE}>
+          <IconButton title="Hide" data-domain={domainName} data-action={FULL_HIDE}>
             <OffIcon fontSize="small" />
           </IconButton>
-          <IconButton data-domain={domainName} data-action={PARTIAL_HIDE}>
+          <IconButton title="Transparent" data-domain={domainName} data-action={PARTIAL_HIDE}>
             <BlockIcon fontSize="small" />
           </IconButton>
-          <IconButton data-domain={domainName} data-action={HIGHLIGHT} data-color={COLOR_1}>
+          <IconButton title="Highlight (red)" data-domain={domainName} data-action={HIGHLIGHT} data-color={COLOR_1}>
             <FavoriteBorderIcon style={{color: "#f50057"}} fontSize="small" />
           </IconButton>
-          <IconButton data-domain={domainName} data-action={HIGHLIGHT} data-color={COLOR_2}>
+          <IconButton title="Highlight (green)" data-domain={domainName} data-action={HIGHLIGHT} data-color={COLOR_2}>
             <FavoriteBorderIcon style={{color: "#8BC34A"}} fontSize="small" />
           </IconButton>
-          <IconButton data-domain={domainName} data-action={HIGHLIGHT} data-color={COLOR_3}>
+          <IconButton title="Highlight (blue)" data-domain={domainName} data-action={HIGHLIGHT} data-color={COLOR_3}>
             <FavoriteBorderIcon style={{color: "#03A9F4"}} fontSize="small" />
           </IconButton>
         </div>
