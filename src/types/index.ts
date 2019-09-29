@@ -29,3 +29,7 @@ export interface StoreState {
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   removeDomain: () => void;
 }
+
+export interface DomainsCounters {
+  fullHide: number;
+}

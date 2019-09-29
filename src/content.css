@@ -79,6 +79,23 @@
   text-align: center;
 }
 
+#hohser_domains_counter {
+  display: block;
+  position: fixed;
+  padding: 8px;
+  font-size: .8rem;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .65);
+  color: white;
+  opacity: 1;
+  transition: opacity .5s;
+}
+
+#hohser_domains_counter:hover {
+  opacity: 0;
+}
+
 /* Only for Google */
 .g {
   border-radius: 1px;
