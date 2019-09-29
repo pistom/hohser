@@ -25,6 +25,7 @@ export interface Props {
   fetchOptions: () => void;
   getCurrentUrl: () => void;
   toggleShowAll: () => void;
+  toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   importFromOldVersion: () => void;
 }
@@ -91,6 +92,10 @@ class App extends React.Component<Props, State> {
     this.props.toggleShowAll();
   }
 
+  public toggleShowCounter (): void {
+    this.props.toggleShowCounter();
+  }
+
   public toggleLocalStorage (): void {
     this.props.toggleLocalStorage();
   }
@@ -114,6 +119,7 @@ class App extends React.Component<Props, State> {
         open={this.state.drawerIsOpen}
         toggle={() => this.toggleDrawer()}
         toggleShowAll={() => this.toggleShowAll()}
+        toggleShowCounter={() => this.toggleShowCounter()}
         toggleLocalStorage={this.toggleLocalStorage}
         options={this.props.options}
         addDomain={this.props.addDomain}
@@ -140,7 +146,7 @@ class App extends React.Component<Props, State> {
         domain={this.state.editedDomain !== null ? this.props.domainsList[this.state.editedDomain] : null}
         editDomain={(index: number, domainName: string, display: DisplayStyle, color?: Color) => this.props.editDomain(index, domainName, display, color)}
       />,
-      <BottomBar 
+      <BottomBar
         addDomain={this.props.addDomain}
         currentTabUrl={this.props.currentTabUrl} />
     ];

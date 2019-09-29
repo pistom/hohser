@@ -11,6 +11,7 @@ export interface Domain {
 
 export interface Options {
   showAll: boolean;
+  showCounter: boolean;
   useLocalStorage?: boolean;
 }
 

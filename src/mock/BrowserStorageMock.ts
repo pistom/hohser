@@ -14,7 +14,8 @@ export default class {
       {domainName: "www.END_OF_LIST.pl", display: "FULL_HIDE"},
     ],
     options: {
-      showAll: false
+      showAll: false,
+      showCounter: false
     }
   };
 

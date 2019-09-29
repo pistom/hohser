@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED } from '../constants/index';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED } from '../constants/index';
 import { OptionAction } from '../actions';
 import { Options } from '../types';
 import { browserStorageSync } from '../popup';
@@ -14,6 +14,7 @@ export interface OptionsState {
 const optionsState = {
   options: {
     showAll: false,
+    showCounter: false,
     useLocalStorage: false
   },
   optionsLoading: true,
@@ -65,6 +66,14 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
         return { ...state, options };
       }
 
+    case TOGGLE_SHOW_COUNTER:
+      {
+        const options = {...state.options};
+        options.showCounter = !state.options.showCounter;
+        browserStorageSync.set({options});
+        return { ...state, options };
+      }
+
     case TOGGLE_LOCAL_STORAGE:
       {
         const options = {...state.options};
@@ -72,7 +81,7 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
         browserStorageSync.set({options});
         return { ...state, options };
       }
-    
+
     case GET_CURRENT_URL_FULFILLED:
         {
           let url = (action.payload && action.payload[0] && action.payload[0].url);
