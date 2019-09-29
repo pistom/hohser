@@ -14,6 +14,7 @@ import DownloadIcon from '@material-ui/icons/CloudDownload';
 import ClearIcon from '@material-ui/icons/ClearAll';
 import WarningIcon from '@material-ui/icons/Warning';
 import StorageIcon from '@material-ui/icons/Storage';
+import Counter from '@material-ui/icons/Filter9Plus';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
@@ -22,6 +23,7 @@ import { isDomainNameOnList } from '../../reducers';
 interface Props {
   options: any;
   toggleShowAll: () => void;
+  toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   clearDomainList: () => void;
@@ -182,6 +184,19 @@ class Options extends React.Component<Props, State> {
                   edge="end"
                   onChange={() => this.props.toggleShowAll()}
                   checked={this.props.options.showAll}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <Counter />
+              </ListItemIcon>
+              <ListItemText secondary="Show hidden results counter" />
+              <ListItemSecondaryAction>
+                <Switch
+                  edge="end"
+                  onChange={() => this.props.toggleShowCounter()}
+                  checked={this.props.options.showCounter}
                 />
               </ListItemSecondaryAction>
             </ListItem>

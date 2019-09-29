@@ -1,5 +1,5 @@
 import StorageManager from "./content/storageManager";
-import { SearchEngineConfig, DisplayStyle, Color, Domain } from "./types";
+import { SearchEngineConfig, DisplayStyle, Color, Domain, DomainsCounters } from "./types";
 import * as config from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT, LOCAL_STORAGE, SYNC_STORAGE } from "./constants";
 import './content.css';
@@ -8,6 +8,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ResultManagement } from './components/Content/ResultManagement';
 import { ResizeObserver } from './mock/ResizeObserver';
+import { DomainsCounter } from './components/Content/DomainsCounter';
 
 // Initialize storage manager
 const storageManager = new StorageManager();
@@ -22,6 +23,8 @@ const managementComponentAnchors: Array<Element> = [];
 
 // Process results function
 async function processResults (domainList: Domain[], options: Options) {
+  let domainsCounters: DomainsCounters = {fullHide: 0};
+
   const resultsList = document.querySelectorAll(
     searchEngineConfig.resultSelector
   );
@@ -38,12 +41,32 @@ async function processResults (domainList: Domain[], options: Options) {
   resultsList.forEach(r => {
     // Number of attempts to process results
     let processResultsAttempt: number = 0;
-    processResult(r, domainList, options, processResultsAttempt);
+    let displayStyle = processResult(r, domainList, options, processResultsAttempt);
+    if (displayStyle === FULL_HIDE) {
+      domainsCounters.fullHide++;
+    }
   });
+
+  // Show hidden results counter
+  if (options.showCounter && domainsCounters.fullHide > 0){
+    if (!document.getElementById('hohser_domains_counter')) {
+      const counterElement = document.body.appendChild(document.createElement("span"));
+      counterElement.id ='hohser_domains_counter';
+    }
+    ReactDOM.render(
+      <DomainsCounter domainsCounters={domainsCounters} />,
+      document.getElementById('hohser_domains_counter') as HTMLElement
+    );
+  } else if(document.getElementById('hohser_domains_counter')) {
+    let element = document.getElementById('hohser_domains_counter');
+    if (element && element.parentNode) element.parentNode.removeChild(element);
+  }
+
 }
 
 // Process one result
-function processResult (r: Element, domainList: any, options: any, processResultsAttempt: number): void {
+function processResult (r: Element, domainList: any, options: any, processResultsAttempt: number): DisplayStyle | null {
+  let displayStyle: DisplayStyle | null = null;
   try {
     const result = r as HTMLElement;
     result.classList.add('hohser_result');
@@ -51,7 +74,7 @@ function processResult (r: Element, domainList: any, options: any, processResult
       searchEngineConfig.domainSelector
     ) as HTMLElement;
     // Skip result if no domain selector
-    if (!domain) return;
+    if (!domain) return displayStyle;
 
     const url = domain.innerText;
     if (!url) {
@@ -105,6 +128,7 @@ function processResult (r: Element, domainList: any, options: any, processResult
       const domain = matches.reduce(function (a: Domain, b: Domain) { return a.domainName.length > b.domainName.length ? a : b; });
       removeResultStyle(result);
       applyResultStyle(result, domain.color, domain.display, options, domain.domainName);
+      displayStyle = domain.display;
     } else {
       removeResultStyle(result);
     }
@@ -117,6 +141,7 @@ function processResult (r: Element, domainList: any, options: any, processResult
       }, 100 * Math.pow(processResultsAttempt, 3));
     }
   }
+  return displayStyle;
 }
 
 // Turn array of RGBA values into CSS `rgba` function call

@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, CHROME, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, GET_CURRENT_URL } from '../constants';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, CHROME, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, GET_CURRENT_URL } from '../constants';
 import { browserStorageSync, browserName } from '../popup';
 
 export interface FetchOptions {
@@ -14,6 +14,10 @@ export interface ToggleShowAll {
   type: TOGGLE_SHOW_ALL;
 }
 
+export interface ToggleShowCounter {
+  type: TOGGLE_SHOW_COUNTER;
+}
+
 export interface ToggleLocalStorage {
   type: TOGGLE_LOCAL_STORAGE;
 }
@@ -25,7 +29,7 @@ export interface GetCurrentUrl {
   payload: any;
 }
 
-export type OptionAction = FetchOptions | ToggleShowAll | ToggleLocalStorage | GetCurrentUrl;
+export type OptionAction = FetchOptions | ToggleShowAll | ToggleShowCounter | ToggleLocalStorage | GetCurrentUrl;
 
 export const fetchOptions = (): FetchOptions => {
 
@@ -50,6 +54,12 @@ export const toggleShowAll = (): ToggleShowAll => {
   };
 };
 
+export const toggleShowCounter = (): ToggleShowCounter => {
+  return {
+    type: TOGGLE_SHOW_COUNTER
+  };
+};
+
 export const toggleLocalStorage = (): ToggleLocalStorage => {
   return {
     type: TOGGLE_LOCAL_STORAGE
@@ -61,7 +71,7 @@ export const getCurrentUrl = (): GetCurrentUrl => {
   let payload: any;
 
   if (browserName === CHROME) {
-    
+
     payload = new Promise((resolve, reject) => {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
           let err = chrome.runtime.lastError;
