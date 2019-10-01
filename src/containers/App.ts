@@ -30,6 +30,7 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
     importFromOldVersion: () => dispatch(actions.importFromOldVersion()),
     fetchOptions: () => dispatch(actions.fetchOptions()),
     toggleShowAll: () => dispatch(actions.toggleShowAll()),
+    toggleShowCounter: () => dispatch(actions.toggleShowCounter()),
     toggleLocalStorage: () => dispatch(actions.toggleLocalStorage()),
     getCurrentUrl: () => dispatch(actions.getCurrentUrl()),
   };

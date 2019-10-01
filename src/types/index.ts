@@ -11,6 +11,7 @@ export interface Domain {
 
 export interface Options {
   showAll: boolean;
+  showCounter: boolean;
   useLocalStorage?: boolean;
 }
 
@@ -27,4 +28,8 @@ export interface StoreState {
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   removeDomain: () => void;
+}
+
+export interface DomainsCounters {
+  fullHide: number;
 }

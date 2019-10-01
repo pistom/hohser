@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "developer": {
     "name": "Tomasz Pisarek",
     "url": "https://github.com/pistom"
@@ -232,6 +232,7 @@
         "*://*.google.co.zw/*",
         "*://*.duckduckgo.com/*",
         "*://*.yahoo.com/*",
+        "*://*.yahoo.co.jp/*",
         "*://*.qwant.com/*",
         "*://*.bing.com/*",
         "*://*.startpage.com/*",
