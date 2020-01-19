@@ -74,7 +74,7 @@ export const getCurrentUrl = (): GetCurrentUrl => {
 
     payload = new Promise((resolve, reject) => {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-          let err = chrome.runtime.lastError;
+          const err = chrome.runtime.lastError;
           if (err) {
               reject(err);
           } else {

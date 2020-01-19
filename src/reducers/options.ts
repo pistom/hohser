@@ -84,7 +84,7 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
 
     case GET_CURRENT_URL_FULFILLED:
         {
-          let url = (action.payload && action.payload[0] && action.payload[0].url);
+          const url = (action.payload && action.payload[0] && action.payload[0].url);
           let currentTabUrl = null;
           if (url) {
             currentTabUrl = getShortUrl(url);

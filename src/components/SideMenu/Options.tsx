@@ -53,23 +53,23 @@ class Options extends React.Component<Props, State> {
     this.handleUseLocalStorageSwithClick = this.handleUseLocalStorageSwithClick.bind(this);
   }
 
-  handleClick = () => {
+  handleClick = (): void => {
     this.setState(state => ({ open: !state.open }));
   }
 
-  handleIssue = () => {
+  handleIssue = (): void => {
     window.open("https://github.com/pistom/hohser/issues");
   }
 
-  handleImportMenuItem = () => {
+  handleImportMenuItem = (): void => {
     this.setState({ openImportDialog: true });
   }
 
-  handleGift = () => {
+  handleGift = (): void => {
     window.open("https://paypal.me/pools/c/89TvfGqSHW");
   }
 
-  getExtensionVersion = () => {
+  getExtensionVersion = (): string => {
     let version: string = "";
     try {
       version = "v." + browser.runtime.getManifest().version;
@@ -77,20 +77,20 @@ class Options extends React.Component<Props, State> {
     return version;
   }
 
-  handleCloseImportDialog = () => {
+  handleCloseImportDialog = (): void => {
     this.setState({ openImportDialog: false });
   }
 
-  handleChangeDomainListTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleChangeDomainListTextField = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ domainsListString: event.target.value });
   }
 
-  handleExportDomains = () => {
+  handleExportDomains = (): void => {
     this.download(JSON.stringify(this.props.domainsList));
   }
 
-  handleImportDomains = () => {
-    let domainsList: Array<Domain> = this.props.domainsList;
+  handleImportDomains = (): void => {
+    const domainsList: Array<Domain> = this.props.domainsList;
     let newDomainsList: Array<Domain> = [];
     let importedDomainsList: Array<any> = [];
     try {
@@ -109,11 +109,11 @@ class Options extends React.Component<Props, State> {
     }
   }
 
-  readFileContent = (files: any) => {
+  readFileContent = (files: any): void => {
     console.log(files);
     if (files.length > 0) {
       const fr = new FileReader();
-      fr.onload = (e: any) => {
+      fr.onload = (e: any): void => {
         if (e.target) {
           this.setState({ domainsListString: e.target.result });
         }
@@ -124,9 +124,9 @@ class Options extends React.Component<Props, State> {
     }
   }
 
-  download = (data: string) => {
-    var file = new Blob([data], { type: 'application/json' });
-    var a = document.createElement("a"),
+  download = (data: string): void => {
+    const file = new Blob([data], { type: 'application/json' });
+    const a = document.createElement("a"),
       url = URL.createObjectURL(file);
     a.href = url;
     a.download = 'hohser-domains.json';
@@ -138,18 +138,18 @@ class Options extends React.Component<Props, State> {
     }, 0);
   }
 
-  handleChangeNonDefinedDisplayStyle = (event: React.ChangeEvent<any>) => {
+  handleChangeNonDefinedDisplayStyle = (event: React.ChangeEvent<any>): void => {
     this.setState({ nonDefinedDisplayStyle: event.target.value });
   }
 
-  handleClearDomainList = () => {
+  handleClearDomainList = (): void => {
     const clear = confirm("Are you sure?");
     if(clear){
       this.props.clearDomainList();
     }
   }
 
-  public handleUseLocalStorageSwithClick = () => {
+  public handleUseLocalStorageSwithClick = (): void => {
     this.setState({openSnackbar: true});
     if (browserName === FIREFOX) {
       browser.tabs.query({active: true, currentWindow: true}).then(() => {
@@ -162,7 +162,7 @@ class Options extends React.Component<Props, State> {
     }
   }
 
-  render () {
+  render (): JSX.Element[] {
     return [
       <List component="nav" key="list">
         <ListItem button onClick={this.handleClick}>
@@ -182,7 +182,7 @@ class Options extends React.Component<Props, State> {
               <ListItemSecondaryAction>
                 <Switch
                   edge="end"
-                  onChange={() => this.props.toggleShowAll()}
+                  onChange={(): void => this.props.toggleShowAll()}
                   checked={this.props.options.showAll}
                 />
               </ListItemSecondaryAction>
@@ -195,7 +195,7 @@ class Options extends React.Component<Props, State> {
               <ListItemSecondaryAction>
                 <Switch
                   edge="end"
-                  onChange={() => this.props.toggleShowCounter()}
+                  onChange={(): void => this.props.toggleShowCounter()}
                   checked={this.props.options.showCounter}
                 />
               </ListItemSecondaryAction>
@@ -279,7 +279,7 @@ class Options extends React.Component<Props, State> {
               <DialogContentText>
                 Select your JSON file
               </DialogContentText>
-              <input type="file" id="file-import" onChange={(e) => this.readFileContent(e.target.files)} />
+              <input type="file" id="file-import" onChange={(e): void => this.readFileContent(e.target.files)} />
             </div> :
             <div>
               <DialogContentText>
