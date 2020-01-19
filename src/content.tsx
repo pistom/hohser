@@ -197,8 +197,8 @@ function removeResultStyle (
   result.classList.remove("hohser_highlight");
   result.classList.remove("hohser_partial_hide");
   result.classList.remove("hohser_full_hide");
-  result.style.backgroundColor = null;
-  result.style.boxShadow = null;
+  result.style.backgroundColor = '';
+  result.style.boxShadow = '';
 }
 
 // Check if Firefox or Chrome and assign the right storage object
