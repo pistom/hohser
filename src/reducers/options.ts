@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED } from '../constants/index';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, UPDATE_HIGHLIGHT_CUSTOM_COLORS } from '../constants/index';
 import { OptionAction } from '../actions';
 import { Options } from '../types';
 import { browserStorageSync } from '../popup';
@@ -15,7 +15,8 @@ const optionsState = {
   options: {
     showAll: false,
     showCounter: false,
-    useLocalStorage: false
+    useLocalStorage: false,
+    highlightColors: []
   },
   optionsLoading: true,
   optionsError: false,
@@ -93,6 +94,14 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
             ...state,
             currentTabUrl
           };
+      }
+
+    case UPDATE_HIGHLIGHT_CUSTOM_COLORS:
+      {
+        const options = {...state.options};
+        options.highlightColors = action.payload;
+        browserStorageSync.set({options});
+        return { ...state, options };
       }
   }
   return state;

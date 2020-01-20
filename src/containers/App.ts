@@ -33,6 +33,7 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
     toggleShowCounter: () => dispatch(actions.toggleShowCounter()),
     toggleLocalStorage: () => dispatch(actions.toggleLocalStorage()),
     getCurrentUrl: () => dispatch(actions.getCurrentUrl()),
+    updateHighlightCustomColors: (colors: string[]) => dispatch(actions.updateHighlightCustomColors(colors)),
   };
 }
 

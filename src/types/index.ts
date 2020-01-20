@@ -13,6 +13,7 @@ export interface Options {
   showAll: boolean;
   showCounter: boolean;
   useLocalStorage?: boolean;
+  highlightColors: string[];
 }
 
 export interface SearchEngineConfig {

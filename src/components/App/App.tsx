@@ -28,6 +28,7 @@ export interface Props {
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   importFromOldVersion: () => void;
+  updateHighlightCustomColors: (colors: string[]) => void;
 }
 
 interface State {
@@ -100,6 +101,10 @@ class App extends React.Component<Props, State> {
     this.props.toggleLocalStorage();
   }
 
+  public updateHighlightCustomColors (colors: string[]): void {
+    this.props.updateHighlightCustomColors(colors);
+  }
+
   public handleOnChangeSearchTextField (e: any): void {
     this.setState({searchedPhrase: e.target.value});
   }
@@ -120,6 +125,7 @@ class App extends React.Component<Props, State> {
         toggle={() => this.toggleDrawer()}
         toggleShowAll={() => this.toggleShowAll()}
         toggleShowCounter={() => this.toggleShowCounter()}
+        updateHighlightCustomColors={(colors: string[]) => this.updateHighlightCustomColors(colors)}
         toggleLocalStorage={this.toggleLocalStorage}
         options={this.props.options}
         addDomain={this.props.addDomain}

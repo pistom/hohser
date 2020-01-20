@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, CHROME, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, GET_CURRENT_URL } from '../constants';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, CHROME, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, GET_CURRENT_URL, UPDATE_HIGHLIGHT_CUSTOM_COLORS } from '../constants';
 import { browserStorageSync, browserName } from '../popup';
 
 export interface FetchOptions {
@@ -22,6 +22,11 @@ export interface ToggleLocalStorage {
   type: TOGGLE_LOCAL_STORAGE;
 }
 
+export interface UpdateHighlightCustomColors {
+  type: UPDATE_HIGHLIGHT_CUSTOM_COLORS;
+  payload: string[];
+}
+
 export interface GetCurrentUrl {
   type:
   | GET_CURRENT_URL
@@ -29,7 +34,7 @@ export interface GetCurrentUrl {
   payload: any;
 }
 
-export type OptionAction = FetchOptions | ToggleShowAll | ToggleShowCounter | ToggleLocalStorage | GetCurrentUrl;
+export type OptionAction = FetchOptions | ToggleShowAll | ToggleShowCounter | ToggleLocalStorage | GetCurrentUrl | UpdateHighlightCustomColors;
 
 export const fetchOptions = (): FetchOptions => {
 
@@ -38,7 +43,7 @@ export const fetchOptions = (): FetchOptions => {
     payload = browserStorageSync.get('options', (res: any) => res);
   } else {
     payload = browserStorageSync.get('options')
-      .then((res: any) => res)
+      .then((res: any) => {console.log(res); return res;})
       .catch((err: any) => { console.error(err); });
   }
 
@@ -66,6 +71,13 @@ export const toggleLocalStorage = (): ToggleLocalStorage => {
   };
 };
 
+export const updateHighlightCustomColors = (colors: string[]): UpdateHighlightCustomColors => {
+  return {
+    type: UPDATE_HIGHLIGHT_CUSTOM_COLORS,
+    payload: colors
+  };
+};
+
 export const getCurrentUrl = (): GetCurrentUrl => {
 
   let payload: any;
@@ -73,13 +85,13 @@ export const getCurrentUrl = (): GetCurrentUrl => {
   if (browserName === CHROME) {
 
     payload = new Promise((resolve, reject) => {
-      chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-          const err = chrome.runtime.lastError;
-          if (err) {
-              reject(err);
-          } else {
-              resolve(tabs);
-          }
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const err = chrome.runtime.lastError;
+        if (err) {
+          reject(err);
+        } else {
+          resolve(tabs);
+        }
       });
     });
 

@@ -15,6 +15,7 @@ import ClearIcon from '@material-ui/icons/ClearAll';
 import WarningIcon from '@material-ui/icons/Warning';
 import StorageIcon from '@material-ui/icons/Storage';
 import Counter from '@material-ui/icons/Filter9Plus';
+import PaletteIcon from '@material-ui/icons/Palette';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
@@ -28,6 +29,7 @@ interface Props {
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   clearDomainList: () => void;
   importDomains: (domainsList: Domain[]) => void;
+  updateHighlightCustomColors: (colors: string[]) => void;
   domainsList: Array<Domain>;
 }
 
@@ -162,6 +164,10 @@ class Options extends React.Component<Props, State> {
     }
   }
 
+  public handleClickEditColors = (): void => {
+    this.props.updateHighlightCustomColors(['a', 'b', 'c']);
+  }
+
   render (): JSX.Element[] {
     return [
       <List component="nav" key="list">
@@ -174,6 +180,12 @@ class Options extends React.Component<Props, State> {
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="nav" disablePadding>
+            <ListItem button onClick={this.handleClickEditColors}>
+              <ListItemIcon>
+                <PaletteIcon />
+              </ListItemIcon>
+              <ListItemText secondary="Edit custom highlight colors" />
+            </ListItem>
             <ListItem>
               <ListItemIcon>
                 <PowerOffIcon />
