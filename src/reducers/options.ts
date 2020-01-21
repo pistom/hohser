@@ -84,16 +84,16 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
       }
 
     case GET_CURRENT_URL_FULFILLED:
-        {
-          const url = (action.payload && action.payload[0] && action.payload[0].url);
-          let currentTabUrl = null;
-          if (url) {
-            currentTabUrl = getShortUrl(url);
-          }
-          return {
-            ...state,
-            currentTabUrl
-          };
+      {
+        const url = (action.payload && action.payload[0] && action.payload[0].url);
+        let currentTabUrl = null;
+        if (url) {
+          currentTabUrl = getShortUrl(url);
+        }
+        return {
+          ...state,
+          currentTabUrl
+        };
       }
 
     case UPDATE_HIGHLIGHT_CUSTOM_COLORS:
