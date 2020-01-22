@@ -1,7 +1,7 @@
 import { PARTIAL_HIDE, FULL_HIDE, COLOR_1, COLOR_2, COLOR_3, HIGHLIGHT } from '../constants';
 
 export type DisplayStyle = HIGHLIGHT | PARTIAL_HIDE | FULL_HIDE;
-export type Color = COLOR_1 | COLOR_2 | COLOR_3;
+export type Color = COLOR_1 | COLOR_2 | COLOR_3 | string;
 
 export interface Domain {
   domainName: string;

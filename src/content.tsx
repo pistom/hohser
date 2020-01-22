@@ -50,7 +50,7 @@ function applyResultStyle (
     if (searchEngine === "startpage") {
       // On Startpage, use solid but lighter color
       // since search results can overlap
-      const lightColor = domainColors[color].map(val => val + (255 - val) * (1 - alpha));
+      const lightColor = domainColors[color].map((val: number) => val + (255 - val) * (1 - alpha));
       result.style.backgroundColor = getRgbCss(lightColor);
     }
   } else if (displayStyle === PARTIAL_HIDE) {

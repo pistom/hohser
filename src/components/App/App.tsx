@@ -141,6 +141,7 @@ class App extends React.Component<Props, State> {
       />,
       <DomainsList
         domainsList={this.props.domainsList}
+        highlightColors={this.props.options.highlightColors}
         removeDomainHandle={(domainName: string) => this.handleRemoveDomain(domainName)}
         editDomainHandle={(i: any) => this.editDomainHandle(i)}
         searchedPhrase={this.state.searchedPhrase}
@@ -154,6 +155,7 @@ class App extends React.Component<Props, State> {
       />,
       <BottomBar
         addDomain={this.props.addDomain}
+        options={this.props.options}
         currentTabUrl={this.props.currentTabUrl} />
     ];
   }

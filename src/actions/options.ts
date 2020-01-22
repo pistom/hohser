@@ -43,7 +43,7 @@ export const fetchOptions = (): FetchOptions => {
     payload = browserStorageSync.get('options', (res: any) => res);
   } else {
     payload = browserStorageSync.get('options')
-      .then((res: any) => {console.log(res); return res;})
+      .then((res: any) => res)
       .catch((err: any) => { console.error(err); });
   }
 

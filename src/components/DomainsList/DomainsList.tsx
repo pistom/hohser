@@ -9,6 +9,7 @@ import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from '../../constants';
 
 interface Props {
   domainsList: Array<Domain>;
+  highlightColors: Array<string>;
   removeDomainHandle: (domainName: string) => void;
   editDomainHandle: (index: number) => void;
   openSearch: () => void;
@@ -78,6 +79,20 @@ class DomainsList extends React.Component<Props, State> {
 
   public handleShowList () {
     this.setState({showList: true});
+  }
+
+  componentDidMount (): void {
+    this.props.highlightColors.forEach( (color, i) => {
+      this.domainColors['COLOR_' + (i+4)] = `#${color}`;
+    });
+  }
+
+  componentWillReceiveProps (nextProps: any): void {
+    if (this.props.highlightColors.length !== nextProps.highlightColors.length) {
+      nextProps.highlightColors.forEach( (color: string, i: number) => {
+        this.domainColors['COLOR_' + (i+4)] = `#${color}`;
+      });
+    }
   }
 
   render () {
