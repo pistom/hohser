@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField, RadioGroup, FormControlLabel, Radio, FormLabel, FormControl, Snackbar, IconButton, Paper, InputBase } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField, RadioGroup, FormControlLabel, Radio, FormLabel, FormControl, Snackbar, IconButton, Paper, InputBase, Tooltip } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -421,13 +421,15 @@ class Options extends React.Component<Props, State> {
             component="form"
             style={{ padding: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', backgroundColor: this.state.newColorError ? 'pink' : 'transparent'}}
           >
-            <InputBase
-              placeholder="color"
-              inputProps={{ 'aria-label': 'hex format' }}
-              onChange={this.handleChangeColor}
-              value={this.state.newColor}
-              style={{marginLeft: 12, flex: 1}}
-            />
+            <Tooltip title="Examples: ff0000 for red or 0000ff for blue">
+              <InputBase
+                placeholder="Hexadecimal color code"
+                inputProps={{ 'aria-label': 'hex format' }}
+                onChange={this.handleChangeColor}
+                value={this.state.newColor}
+                style={{marginLeft: 12, flex: 1}}
+              />
+            </Tooltip>
             <IconButton aria-label="add" onClick={this.addColor} style={{padding: 10}}>
               <AddIcon />
             </IconButton>
