@@ -83,29 +83,29 @@ class App extends React.Component<Props, State> {
     });
   }
 
-  public toggleSearch (): void {
+  toggleSearch (): void {
     this.setState({
       searchIsOpen: !this.state.searchIsOpen
     });
   }
 
-  public toggleShowAll (): void {
+  toggleShowAll (): void {
     this.props.toggleShowAll();
   }
 
-  public toggleShowCounter (): void {
+  toggleShowCounter (): void {
     this.props.toggleShowCounter();
   }
 
-  public toggleLocalStorage (): void {
+  toggleLocalStorage (): void {
     this.props.toggleLocalStorage();
   }
 
-  public updateHighlightCustomColors (colors: string[]): void {
+  updateHighlightCustomColors (colors: string[]): void {
     this.props.updateHighlightCustomColors(colors);
   }
 
-  public handleOnChangeSearchTextField (e: any): void {
+  handleOnChangeSearchTextField (e: any): void {
     this.setState({searchedPhrase: e.target.value});
   }
 
@@ -152,6 +152,7 @@ class App extends React.Component<Props, State> {
         closeEditionHandle={() => this.closeEditionHandle()}
         domain={this.state.editedDomain !== null ? this.props.domainsList[this.state.editedDomain] : null}
         editDomain={(index: number, domainName: string, display: DisplayStyle, color?: Color) => this.props.editDomain(index, domainName, display, color)}
+        options={this.props.options}
       />,
       <BottomBar
         addDomain={this.props.addDomain}

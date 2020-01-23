@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { List, withStyles, Button, Typography, Badge } from '@material-ui/core';
+import { List, withStyles, Button, Typography, Badge, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FavoriteBorderIcon from '@material-ui/icons/Favorite';
+import WarningIcon from '@material-ui/icons/Warning';
 import OffIcon from '@material-ui/icons/VisibilityOff';
 import BlockIcon from '@material-ui/icons/Opacity';
 import { Domain } from '../../types';
@@ -64,7 +65,7 @@ class DomainsList extends React.Component<Props, State> {
 
   // TODO Make colors as variables
   domainColors = {
-    COLOR_0 :"#ffffff",
+    COLOR_0 :"#aaaaaa",
     COLOR_1 :"#f50057",
     COLOR_2 :"#8BC34A",
     COLOR_3 :"#03A9F4",
@@ -77,7 +78,7 @@ class DomainsList extends React.Component<Props, State> {
     };
   }
 
-  public handleShowList () {
+  handleShowList () {
     this.setState({showList: true});
   }
 
@@ -110,7 +111,12 @@ class DomainsList extends React.Component<Props, State> {
               {arr.length < 100 ? // Remplace icon with spans if list too long
                 <span className={classes.icons} >
                   {this.props.domainsList[item].display === HIGHLIGHT ?
-                    <FavoriteBorderIcon style={{color: `${this.domainColors[this.props.domainsList[item].color] || this.domainColors.COLOR_0}`}} /> : null
+                    (this.domainColors[this.props.domainsList[item]?.color] ?
+                      <FavoriteBorderIcon style={{color: `${this.domainColors[this.props.domainsList[item].color]}`}} /> :
+                      <Tooltip title={`${this.props.domainsList[item].color} is not defined. Go to Settings: Edit custom colors.`}>
+                        <WarningIcon style={{color: `this.domainColors.COLOR_0}`}} />
+                      </Tooltip>
+                      ) : null
                   }
                   {this.props.domainsList[item].display === PARTIAL_HIDE ?
                     <BlockIcon /> : null
