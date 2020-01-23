@@ -5,12 +5,13 @@ import NoColorIcon from '@material-ui/icons/InvertColorsOff';
 import AddIcon from '@material-ui/icons/Add';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import { DisplayStyle, Color } from '../../types';
-import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from '../..//constants';
+import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1 } from '../..//constants';
 
 interface Props {
   classes: any;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   currentTabUrl: string | null;
+  options: any;
 }
 
 interface State {
@@ -62,7 +63,7 @@ class BottomBar extends React.Component<Props, State> {
 
   componentDidMount () {
     addEventListener("keyup", (e: KeyboardEvent) => {
-      const input = this.domainNameTextInputRef && 
+      const input = this.domainNameTextInputRef &&
                     this.domainNameTextInputRef.current &&
                     this.domainNameTextInputRef.current.firstChild as HTMLElement;
       const activeElementTagName = document.activeElement && document.activeElement.tagName;
@@ -87,7 +88,7 @@ class BottomBar extends React.Component<Props, State> {
         }
         input.focus();
       }
-    })
+    });
   }
 
   handleDomainNameChange (event: any) {
@@ -130,12 +131,7 @@ class BottomBar extends React.Component<Props, State> {
       case 3: display = FULL_HIDE; break;
     }
 
-    let color: Color = COLOR_1;
-    switch (this.state.color) {
-      case 1: color = COLOR_1; break;
-      case 2: color = COLOR_2; break;
-      case 3: color = COLOR_3; break;
-    }
+    const color: Color = this.state.color ? 'COLOR_' + this.state.color : COLOR_1;
 
     // Check if domain field is not empty
     if (this.state.domainName.length !== 0) {
@@ -158,8 +154,8 @@ class BottomBar extends React.Component<Props, State> {
     if (this.props.currentTabUrl) {
       this.setState({
         domainName: this.props.currentTabUrl
-      })
-    };
+      });
+    }
   }
 
   render () {
@@ -211,6 +207,9 @@ class BottomBar extends React.Component<Props, State> {
                     <MenuItem value="1"><ColorIcon className={classes.colorIcon} style={{color: '#f50057'}} /></MenuItem>
                     <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{color: '#8BC34A'}} /></MenuItem>
                     <MenuItem value="3"><ColorIcon className={classes.colorIcon} style={{color: '#03A9F4'}} /></MenuItem>
+                    { this.props.options.highlightColors.map((color: string, i: number) => (
+                      <MenuItem value={i+4}><ColorIcon className={classes.colorIcon} style={{color: `#${color}`}} /></MenuItem>
+                      ))}
                   </Select>
                 </FormControl>
               </Grid>

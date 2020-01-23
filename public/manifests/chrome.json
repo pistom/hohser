@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Google and other popular search engines.",
   "icons": {
     "19": "images/hohser-19.png",
@@ -231,7 +231,8 @@
         "*://*.bing.com/*",
         "*://*.startpage.com/*",
         "*://*.ecosia.org/*",
-        "*://*.yandex.ru/*"
+        "*://*.yandex.ru/*",
+        "*://*.yandex.com/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]

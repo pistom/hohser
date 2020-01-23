@@ -28,6 +28,7 @@ export interface Props {
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   importFromOldVersion: () => void;
+  updateHighlightCustomColors: (colors: string[]) => void;
 }
 
 interface State {
@@ -82,25 +83,29 @@ class App extends React.Component<Props, State> {
     });
   }
 
-  public toggleSearch (): void {
+  toggleSearch (): void {
     this.setState({
       searchIsOpen: !this.state.searchIsOpen
     });
   }
 
-  public toggleShowAll (): void {
+  toggleShowAll (): void {
     this.props.toggleShowAll();
   }
 
-  public toggleShowCounter (): void {
+  toggleShowCounter (): void {
     this.props.toggleShowCounter();
   }
 
-  public toggleLocalStorage (): void {
+  toggleLocalStorage (): void {
     this.props.toggleLocalStorage();
   }
 
-  public handleOnChangeSearchTextField (e: any): void {
+  updateHighlightCustomColors (colors: string[]): void {
+    this.props.updateHighlightCustomColors(colors);
+  }
+
+  handleOnChangeSearchTextField (e: any): void {
     this.setState({searchedPhrase: e.target.value});
   }
 
@@ -120,6 +125,7 @@ class App extends React.Component<Props, State> {
         toggle={() => this.toggleDrawer()}
         toggleShowAll={() => this.toggleShowAll()}
         toggleShowCounter={() => this.toggleShowCounter()}
+        updateHighlightCustomColors={(colors: string[]) => this.updateHighlightCustomColors(colors)}
         toggleLocalStorage={this.toggleLocalStorage}
         options={this.props.options}
         addDomain={this.props.addDomain}
@@ -135,6 +141,7 @@ class App extends React.Component<Props, State> {
       />,
       <DomainsList
         domainsList={this.props.domainsList}
+        highlightColors={this.props.options.highlightColors}
         removeDomainHandle={(domainName: string) => this.handleRemoveDomain(domainName)}
         editDomainHandle={(i: any) => this.editDomainHandle(i)}
         searchedPhrase={this.state.searchedPhrase}
@@ -145,9 +152,11 @@ class App extends React.Component<Props, State> {
         closeEditionHandle={() => this.closeEditionHandle()}
         domain={this.state.editedDomain !== null ? this.props.domainsList[this.state.editedDomain] : null}
         editDomain={(index: number, domainName: string, display: DisplayStyle, color?: Color) => this.props.editDomain(index, domainName, display, color)}
+        options={this.props.options}
       />,
       <BottomBar
         addDomain={this.props.addDomain}
+        options={this.props.options}
         currentTabUrl={this.props.currentTabUrl} />
     ];
   }

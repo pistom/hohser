@@ -11,7 +11,7 @@ interface Props {
   url: string;
 }
 
-export const getShortUrl = (u: string) => {
+export const getShortUrl = (u: string): string | null => {
   let url = u.split(" ")[0];
   let domainName: string | null = `¯\\_(ツ)_/¯`;
   if (!/^https?:\/\//i.test(url)) {
@@ -24,9 +24,9 @@ export const getShortUrl = (u: string) => {
   return domainName;
 };
 
-export const ResultManagement = (props: Props) => {
+export const ResultManagement = (props: Props): JSX.Element => {
 
-  let domainName: string | null = getShortUrl(props.url);
+  const domainName: string | null = getShortUrl(props.url);
 
   return (
     <div>

@@ -21,7 +21,7 @@ export interface DomainsState {
   domainsListError: boolean;
 }
 
-let domainsState = {
+const domainsState = {
   domainsList: [],
   domainsListLoading: true,
   domainsListError: false,
@@ -31,7 +31,7 @@ export const isDomainNameOnList = (domainName: string, domainsList: Array<Domain
   return domainsList.some(domain => domain.domainName === domainName);
 };
 
-const showError = (e: Error) => {
+const showError = (e: Error): void => {
     if(e.message.includes("QUOTA_BYTES_PER_ITEM")) {
       alert('The sync storage is full. You can use the local storage instead.');
     } else {
