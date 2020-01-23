@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField, RadioGroup, FormControlLabel, Radio, FormLabel, FormControl, Snackbar } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, Collapse, ListItemText, ListItemSecondaryAction, Switch, Divider, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, TextField, RadioGroup, FormControlLabel, Radio, FormLabel, FormControl, Snackbar, IconButton, Paper, InputBase } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -15,6 +15,10 @@ import ClearIcon from '@material-ui/icons/ClearAll';
 import WarningIcon from '@material-ui/icons/Warning';
 import StorageIcon from '@material-ui/icons/Storage';
 import Counter from '@material-ui/icons/Filter9Plus';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import PaletteIcon from '@material-ui/icons/Palette';
+import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
@@ -28,29 +32,45 @@ interface Props {
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
   clearDomainList: () => void;
   importDomains: (domainsList: Domain[]) => void;
+  updateHighlightCustomColors: (colors: string[]) => void;
   domainsList: Array<Domain>;
 }
 
 interface State {
   open: boolean;
   openImportDialog: boolean;
+  openColorsDialog: boolean;
   domainsListString: string;
   nonDefinedDisplayStyle: string;
   openSnackbar: boolean;
+  newColor: string;
+  colors: string[];
+  fixColors: string[];
+  newColorError: boolean;
 }
 
 class Options extends React.Component<Props, State> {
   state = {
     open: false,
     openImportDialog: false,
+    openColorsDialog: false,
     domainsListString: '',
     nonDefinedDisplayStyle: "PARTIAL_HIDE",
-    openSnackbar: false
+    openSnackbar: false,
+    newColor: '',
+    colors: [],
+    fixColors:['f50057','8BC34A','03A9F4'],
+    newColorError: false
   };
 
   constructor (props: Props) {
     super(props);
     this.handleUseLocalStorageSwithClick = this.handleUseLocalStorageSwithClick.bind(this);
+    this.handleChangeColor = this.handleChangeColor.bind(this);
+  }
+
+  componentDidMount (): void {
+    this.setState({colors: [...this.props.options.highlightColors]});
   }
 
   handleClick = (): void => {
@@ -63,6 +83,10 @@ class Options extends React.Component<Props, State> {
 
   handleImportMenuItem = (): void => {
     this.setState({ openImportDialog: true });
+  }
+
+  handleColorsMenuItem = (): void => {
+    this.setState({ openColorsDialog: true });
   }
 
   handleGift = (): void => {
@@ -79,6 +103,10 @@ class Options extends React.Component<Props, State> {
 
   handleCloseImportDialog = (): void => {
     this.setState({ openImportDialog: false });
+  }
+
+  handleCloseColorsDialog = (): void => {
+    this.setState({ openColorsDialog: false });
   }
 
   handleChangeDomainListTextField = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -162,6 +190,31 @@ class Options extends React.Component<Props, State> {
     }
   }
 
+  public handleClickEditColors = (): void => {
+    this.props.updateHighlightCustomColors([...this.state.colors]);
+    this.handleCloseColorsDialog();
+  }
+
+  public addColor = (): void => {
+    if (/^[0-9A-F]{6}$/i.test(this.state.newColor)) {
+      const colors: string[] = [...this.state.colors];
+      colors.push(this.state.newColor);
+      this.setState({colors, newColor: '', newColorError: false});
+    } else {
+      this.setState({newColorError: true});
+    }
+  }
+
+  public removeColor = (): void => {
+    const colors: string[] = [...this.state.colors];
+    colors.splice(-1,1);
+    this.setState({colors});
+  }
+
+  public handleChangeColor = (event: any): void => {
+    this.setState({newColor: event.target.value});
+  }
+
   render (): JSX.Element[] {
     return [
       <List component="nav" key="list">
@@ -174,6 +227,12 @@ class Options extends React.Component<Props, State> {
         </ListItem>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="nav" disablePadding>
+            <ListItem button onClick={this.handleColorsMenuItem}>
+              <ListItemIcon>
+                <PaletteIcon />
+              </ListItemIcon>
+              <ListItemText secondary="Edit custom highlight colors" />
+            </ListItem>
             <ListItem>
               <ListItemIcon>
                 <PowerOffIcon />
@@ -323,6 +382,63 @@ class Options extends React.Component<Props, State> {
           </Button>
           <Button onClick={this.handleImportDomains} color="primary">
             Import
+          </Button>
+        </DialogActions>
+      </Dialog>,
+      <Dialog
+        fullScreen
+        open={this.state.openColorsDialog}
+        onClose={this.handleCloseColorsDialog}>
+        <DialogTitle id="form-dialog-title">Edit hightlight colors</DialogTitle>
+        <DialogContent>
+        <List dense={true}>
+          { this.state.fixColors.map((color: string, i: number) => (
+            <ListItem>
+              <ListItemIcon>
+                <InvertColorsIcon style={{ color: '#'+color }} />
+              </ListItemIcon>
+              <ListItemText primary={ `Color ${i+1} (${color})` } />
+            </ListItem>
+          ))}
+          <Divider />
+          { this.state.colors.map((color: string, i: number) => (
+            <ListItem>
+              <ListItemIcon>
+                <InvertColorsIcon style={{ color: '#'+color }} />
+              </ListItemIcon>
+              <ListItemText primary={ `Color ${i+4} (${color})` } />
+              { this.state.colors.length === i + 1 ?
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="delete" onClick={this.removeColor}>
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction> : null
+              }
+            </ListItem>
+          ))}
+          </List>
+          <Paper
+            component="form"
+            style={{ padding: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', backgroundColor: this.state.newColorError ? 'pink' : 'transparent'}}
+          >
+            <InputBase
+              placeholder="color"
+              inputProps={{ 'aria-label': 'hex format' }}
+              onChange={this.handleChangeColor}
+              value={this.state.newColor}
+              style={{marginLeft: 12, flex: 1}}
+            />
+            <IconButton aria-label="add" onClick={this.addColor} style={{padding: 10}}>
+              <AddIcon />
+            </IconButton>
+          </Paper>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCloseColorsDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.handleClickEditColors} color="primary">
+            Save
           </Button>
         </DialogActions>
       </Dialog>,

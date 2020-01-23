@@ -26,6 +26,13 @@ function getRgbCss (color: Array<number>, alpha = 1): string {
   return `rgba(${color.map(Math.floor).join(', ') || null}, ${alpha})`;
 }
 
+function hexToRgb (h: any): Array<number> {
+  const r = "0x" + h[0] + h[1];
+  const g = "0x" + h[2] + h[3];
+  const b = "0x" + h[4] + h[5];
+  return [+r, +g, +b];
+}
+
 // Apply styles to matches results
 function applyResultStyle (
   result: HTMLElement,
@@ -39,6 +46,10 @@ function applyResultStyle (
     COLOR_2: [139, 195, 74],
     COLOR_3: [3, 169, 244]
   };
+  // Add custom highlight colors to the domainColors list
+  options?.highlightColors.forEach((color: string, i: number) => {
+    domainColors[`COLOR_${i+4}`] = hexToRgb(color);
+  });
   const alpha = 0.12;
   if (displayStyle === HIGHLIGHT) {
     result.classList.add("hohser_highlight");
@@ -50,14 +61,14 @@ function applyResultStyle (
     if (searchEngine === "startpage") {
       // On Startpage, use solid but lighter color
       // since search results can overlap
-      const lightColor = domainColors[color].map(val => val + (255 - val) * (1 - alpha));
+      const lightColor = domainColors[color].map((val: number) => val + (255 - val) * (1 - alpha));
       result.style.backgroundColor = getRgbCss(lightColor);
     }
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
-  } else if (displayStyle === FULL_HIDE && (!options || !options.showAll)) {
+  } else if (displayStyle === FULL_HIDE && (!options || !options?.showAll)) {
     result.classList.add("hohser_full_hide");
-  } else if (displayStyle === FULL_HIDE && options && options.showAll) {
+  } else if (displayStyle === FULL_HIDE && options && options?.showAll) {
     result.classList.add("hohser_partial_hide");
   }
   // Delete entry button
@@ -185,7 +196,7 @@ async function processResults (domainList: Domain[], options: Options): Promise<
   });
 
   // Show hidden results counter
-  if (options.showCounter && domainsCounters.fullHide > 0){
+  if (options?.showCounter && domainsCounters.fullHide > 0){
     if (!document.getElementById('hohser_domains_counter')) {
       const counterElement = document.body.appendChild(document.createElement("span"));
       counterElement.id ='hohser_domains_counter';
