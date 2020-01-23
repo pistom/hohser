@@ -4,7 +4,7 @@ import ColorIcon from '@material-ui/icons/InvertColors';
 import NoColorIcon from '@material-ui/icons/InvertColorsOff';
 import CloseIcon from '@material-ui/icons/Close';
 import { DisplayStyle, Color, Domain } from '../../types';
-import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1, COLOR_2, COLOR_3 } from '../../constants';
+import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1 } from '../../constants';
 
 interface Props {
   classes: any;
@@ -12,6 +12,7 @@ interface Props {
   domain: Domain | null;
   editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
   closeEditionHandle: () => void;
+  options: any;
 }
 
 interface State {
@@ -70,12 +71,9 @@ class EditDomain extends React.Component<Props, State> {
           case PARTIAL_HIDE: display = 2; break;
           case FULL_HIDE: display = 3; break;
         }
-        let color: number = 0;
-        switch (nextProps.domain.color) {
-          case COLOR_1: color = 1; break;
-          case COLOR_2: color = 2; break;
-          case COLOR_3: color = 3; break;
-        }
+
+        const color: number = nextProps.domain.color?.split("_").pop() ?? 0;
+
         this.setState({
           domainName: nextProps.domain.domainName,
           color: color,
@@ -133,12 +131,7 @@ class EditDomain extends React.Component<Props, State> {
       case 3: display = FULL_HIDE; break;
     }
 
-    let color: Color = COLOR_1;
-    switch (this.state.color) {
-      case 1: color = COLOR_1; break;
-      case 2: color = COLOR_2; break;
-      case 3: color = COLOR_3; break;
-    }
+    const color: Color = this.state.color ? 'COLOR_' + this.state.color : COLOR_1;
 
     if (this.props.open !== null) {
       // Check if domain field is not empty
@@ -221,6 +214,9 @@ class EditDomain extends React.Component<Props, State> {
                   <MenuItem value="1"><ColorIcon className={classes.colorIcon} style={{ color: '#f50057' }} /></MenuItem>
                   <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{ color: '#8BC34A' }} /></MenuItem>
                   <MenuItem value="3"><ColorIcon className={classes.colorIcon} style={{ color: '#03A9F4' }} /></MenuItem>
+                  { this.props.options.highlightColors.map((color: string, i: number) => (
+                      <MenuItem value={i+4}><ColorIcon className={classes.colorIcon} style={{color: `#${color}`}} /></MenuItem>
+                      ))}
                 </Select>
               </FormControl>
             </Grid>

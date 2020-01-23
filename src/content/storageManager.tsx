@@ -5,7 +5,7 @@ import { LOCAL_STORAGE, SYNC_STORAGE } from '../constants';
 
 
 type StorageType = LOCAL_STORAGE | SYNC_STORAGE ;
- 
+
 export default class StorageManager {
 
   // Browser storage object - using chrome-storage-promise in Chrome browser
