@@ -47,7 +47,7 @@ function applyResultStyle (
     COLOR_3: [3, 169, 244]
   };
   // Add custom highlight colors to the domainColors list
-  options?.highlightColors.forEach((color: string, i: number) => {
+  options?.highlightColors?.forEach((color: string, i: number) => {
     domainColors[`COLOR_${i+4}`] = hexToRgb(color);
   });
   const alpha = 0.12;

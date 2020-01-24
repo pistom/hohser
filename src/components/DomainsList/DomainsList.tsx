@@ -89,8 +89,8 @@ class DomainsList extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps (nextProps: any): void {
-    if (this.props?.highlightColors.length !== nextProps.highlightColors?.length) {
-      nextProps.highlightColors.forEach( (color: string, i: number) => {
+    if (this.props?.highlightColors?.length !== nextProps.highlightColors?.length) {
+      nextProps.highlightColors?.forEach( (color: string, i: number) => {
         this.domainColors['COLOR_' + (i+4)] = `#${color}`;
       });
     }
