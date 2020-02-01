@@ -95,13 +95,17 @@ function processResult (r: Element, domainList: any, options: any, processResult
   try {
     const result = r as HTMLElement;
     result.classList.add('hohser_result');
-    const domain = result.querySelector(
-      searchEngineConfig.domainSelector
-    ) as HTMLElement;
+    const domain = searchEngineConfig.resultUrlSelector &&
+      result.querySelector(
+        searchEngineConfig.resultUrlSelector
+      ) as HTMLAnchorElement ||
+      result.querySelector(
+        searchEngineConfig.domainSelector
+      ) as HTMLElement;
     // Skip result if no domain selector
     if (!domain) return displayStyle;
 
-    const url = domain.innerText;
+    const url = (domain as HTMLAnchorElement).href || (domain as HTMLElement).innerText;
     if (!url) {
       throw new Error("No domain info");
     }
