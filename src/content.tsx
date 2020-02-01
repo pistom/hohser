@@ -47,7 +47,7 @@ function applyResultStyle (
     COLOR_3: [3, 169, 244]
   };
   // Add custom highlight colors to the domainColors list
-  options?.highlightColors.forEach((color: string, i: number) => {
+  options?.highlightColors?.forEach((color: string, i: number) => {
     domainColors[`COLOR_${i+4}`] = hexToRgb(color);
   });
   const alpha = 0.12;
@@ -95,13 +95,17 @@ function processResult (r: Element, domainList: any, options: any, processResult
   try {
     const result = r as HTMLElement;
     result.classList.add('hohser_result');
-    const domain = result.querySelector(
-      searchEngineConfig.domainSelector
-    ) as HTMLElement;
+    const domain = searchEngineConfig.resultUrlSelector &&
+      result.querySelector(
+        searchEngineConfig.resultUrlSelector
+      ) as HTMLAnchorElement ||
+      result.querySelector(
+        searchEngineConfig.domainSelector
+      ) as HTMLElement;
     // Skip result if no domain selector
     if (!domain) return displayStyle;
 
-    const url = domain.innerText;
+    const url = (domain as HTMLAnchorElement).href || (domain as HTMLElement).innerText;
     if (!url) {
       throw new Error("No domain info");
     }

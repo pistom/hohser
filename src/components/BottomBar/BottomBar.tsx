@@ -207,7 +207,7 @@ class BottomBar extends React.Component<Props, State> {
                     <MenuItem value="1"><ColorIcon className={classes.colorIcon} style={{color: '#f50057'}} /></MenuItem>
                     <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{color: '#8BC34A'}} /></MenuItem>
                     <MenuItem value="3"><ColorIcon className={classes.colorIcon} style={{color: '#03A9F4'}} /></MenuItem>
-                    { this.props.options.highlightColors.map((color: string, i: number) => (
+                    { this.props.options.highlightColors?.map((color: string, i: number) => (
                       <MenuItem value={i+4}><ColorIcon className={classes.colorIcon} style={{color: `#${color}`}} /></MenuItem>
                       ))}
                   </Select>
