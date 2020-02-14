@@ -237,11 +237,13 @@ browserStorageSync.get('options')
     });
 
     // Process results on DOM change
-    const target = document.querySelector(searchEngineConfig.observerSelector);
-    const observer = new MutationObserver(function () {
-      processResults(domainList, options);
+    const targets = document.querySelectorAll(searchEngineConfig.observerSelector);
+    targets.forEach(target => {
+      const observer = new MutationObserver(function () {
+        processResults(domainList, options);
+      });
+      if (target) observer.observe(target, { childList: true });
     });
-    if (target) observer.observe(target, { childList: true });
 
     // Process results on storage change event
     storageManager.oryginalBrowserStorage.onChanged.addListener((storage: any) => {
@@ -263,11 +265,13 @@ browserStorageSync.get('options')
         window.clearTimeout( isResized );
         isResized = setTimeout(() => {
           processResults(domainList, options);
-        }, 100);
+        }, 500);
       });
 
-      const resultsWrapper = document.querySelector(searchEngineConfig.observerSelector);
-      resizeObserver.observe(resultsWrapper);
+      const resultsWrappers = document.querySelectorAll(searchEngineConfig.observerSelector);
+      resultsWrappers.forEach(resultsWrapper => {
+        resizeObserver.observe(resultsWrapper);
+      });
 
     }
   });
