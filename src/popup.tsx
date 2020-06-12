@@ -58,7 +58,7 @@ browserStorageSync.get('options').then((o: any) => {
       browserStorageSync = new browserStorageMock();
   }
 
-  const store = createStore(reducers, applyMiddleware(promise()));
+  const store = createStore(reducers, applyMiddleware(promise));
 
   ReactDOM.render(
     <Provider store={store}>

@@ -30,32 +30,7 @@ $ cd hohser
 $ yarn
 ```
 
-### Develop popup as a simple page
-```js
-$ yarn start
-```
-The page will be loaded with a fake domains list from `BrowserStorageSyncMock.ts` file.
-
 ## Build
 ```js
-$ yarn build:firefox   // The package will be built in the "build/firefox" directory.
-$ yarn build:chrome    // The package will be built in the "build/chrome" directory.
+$ yarn build   // Packages will be built in the "build" directory.
 ```
-
-
-### Load to Firefox
-```js
-$ yarn load   // Run firefox and load built extension
-```
-
-### Optional
-You can load the extension to Firefox with a profile to be able to use the data stored in the previous session.
-
-- Create a new directory named `browser`.
-- Create new firefox profile named `huser1` in the `browser` directory (on Windows: `Win+R` and `Firefox.exe -P`).
-
-```js
-$ yarn load:profile
-```
-
-If needed, you can change the `package.json` script, but **do not commit this change**.

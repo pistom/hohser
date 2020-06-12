@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "module": "commonjs",
-    "typeRoots": ["node_modules/@types", "node_modules/web-ext-types"]
-  }
-}
