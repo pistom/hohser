@@ -1,7 +1,7 @@
 import { Domain, DisplayStyle, Color } from '../../types';
 import * as React from 'react';
 // import AddDomain from '../AddDomain/AddDomain';
-import { CssBaseline } from '@material-ui/core';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import TopBar from '../TopBar/TopBar';
 import BottomBar from '../BottomBar/BottomBar';

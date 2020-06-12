@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { List, withStyles, Button, Typography, Badge, Tooltip } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
+import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FavoriteBorderIcon from '@material-ui/icons/Favorite';
 import WarningIcon from '@material-ui/icons/Warning';
