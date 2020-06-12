@@ -2,7 +2,7 @@ import StorageManager from "./content/storageManager";
 import { SearchEngineConfig, DisplayStyle, Color, Domain, DomainsCounters } from "./types";
 import * as config from "./config";
 import { PARTIAL_HIDE, FULL_HIDE, HIGHLIGHT, LOCAL_STORAGE, SYNC_STORAGE } from "./constants";
-import './content.css';
+import './content.scss';
 import { Options } from './types';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';

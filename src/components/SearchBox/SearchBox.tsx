@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { SwipeableDrawer, withStyles, TextField, InputAdornment, IconButton, FormControl } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 
 interface Props {
