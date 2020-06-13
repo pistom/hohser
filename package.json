@@ -16,9 +16,10 @@
   },
   "scripts": {
     "build": "webpack",
-    "build:chrome": "cross-env BROWSER=chrome yarn build",
-    "build:firefox": "cross-env BROWSER=firefox yarn build",
-    "load": "cd ./build/firefox && web-ext run"
+    "load": "web-ext run"
+  },
+  "webExt": {
+    "sourceDir": "build/firefox/"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
