@@ -19,6 +19,12 @@
       "38": "images/hohser-38.png"
     }
   },
+  
+  "options_ui": {
+    "page": "popup.html",
+    "open_in_tab": true,
+    "chrome_style": false
+  },
 
   "permissions": ["storage", "tabs"],
 
