@@ -5,10 +5,12 @@
   "version": "4.0.0",
   "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Google and other popular search engines.",
   "icons": {
+    "16": "images/hohser-16.png",
     "19": "images/hohser-19.png",
     "32": "images/hohser-32.png",
     "48": "images/hohser-48.png",
-    "96": "images/hohser-96.png"
+    "96": "images/hohser-96.png",
+    "128": "images/hohser-128.png"
   },
 
   "browser_action": {
