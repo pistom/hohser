@@ -24,38 +24,23 @@ The extension is created with ReactJs, Redux, Material UI and TypeScript.
 - [Node.js](https://nodejs.org/) (latest)
 - [Yarn](https://yarnpkg.com/) (latest)
 
-```js
+```shell
 $ git clone git@github.com:pistom/hohser.git
 $ cd hohser
 $ yarn
 ```
 
-### Develop popup as a simple page
-```js
-$ yarn start
-```
-The page will be loaded with a fake domains list from `BrowserStorageSyncMock.ts` file.
-
 ## Build
-```js
-$ yarn build:firefox   // The package will be built in the "build/firefox" directory.
-$ yarn build:chrome    // The package will be built in the "build/chrome" directory.
+```shell
+$ yarn build   // Packages will be built in the "build" directory.
 ```
 
-
-### Load to Firefox
-```js
-$ yarn load   // Run firefox and load built extension
+## Load a built extension to Firefox
+```shell
+$ yarn load
 ```
-
-### Optional
-You can load the extension to Firefox with a profile to be able to use the data stored in the previous session.
-
-- Create a new directory named `browser`.
-- Create new firefox profile named `huser1` in the `browser` directory (on Windows: `Win+R` and `Firefox.exe -P`).
-
-```js
-$ yarn load:profile
+or, if other than the default version of firefox
+```shell
+$ yarn load -- --firefox=<a full path to the binary file>
 ```
-
-If needed, you can change the `package.json` script, but **do not commit this change**.
+If you need more options (e.g. load with custom firefox profile), please refer to this article: [Getting started with web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/)

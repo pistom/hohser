@@ -1,4 +1,7 @@
 export class ResizeObserver {
+  private observables;
+  private boundCheck;
+  private callback;
   constructor (callback) {
     this.observables = [];
     this.boundCheck = this.check.bind(this);

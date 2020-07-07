@@ -4,7 +4,7 @@ import FavoriteBorderIcon from '@material-ui/icons/Favorite';
 import OffIcon from '@material-ui/icons/VisibilityOff';
 import BlockIcon from '@material-ui/icons/Opacity';
 import DeleteIcon from '@material-ui/icons/RemoveCircle';
-import { IconButton } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 import { FULL_HIDE, PARTIAL_HIDE, HIGHLIGHT, COLOR_1, COLOR_2, COLOR_3, REMOVE_DOMAIN } from '../../constants';
 
 interface Props {
