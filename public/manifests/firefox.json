@@ -244,7 +244,8 @@
         "*://*.startpage.com/*",
         "*://*.ecosia.org/*",
         "*://*.yandex.ru/*",
-        "*://*.yandex.com/*"
+        "*://*.yandex.com/*",
+        "*://*.onesearch.com/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]
