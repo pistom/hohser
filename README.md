@@ -14,6 +14,7 @@
 - [Startpage](https://www.startpage.com)
 - [Ecosia](https://www.ecosia.org)
 - [Yandex](https://www.yandex.ru)
+- [OneSearch](https://www.onesearch.com/)
 
 Add an issue if you would like to use the extension with another search engine.
 

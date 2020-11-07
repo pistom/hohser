@@ -6,3 +6,4 @@ export * from './bing';
 export * from './startpage';
 export * from './ecosia';
 export * from './yandex';
+export * from './onesearch';
