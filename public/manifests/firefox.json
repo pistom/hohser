@@ -254,13 +254,14 @@
   ],
 
   "content_security_policy": "script-src 'self'; object-src 'self';",
-  "applications": {
+
+  "browser_specific_settings": {
     "gecko": {
       "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
-      "strict_min_version": "52.0"
+      "strict_min_version": "79.0"
     }
   },
-
+  
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
