@@ -1,7 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const WebpackShellPlugin = require('webpack-shell-plugin');
+const WebpackHookPlugin = require('webpack-hook-plugin');
 
 module.exports = {
   entry: {
@@ -61,7 +61,7 @@ module.exports = {
         { from: path.resolve(__dirname, 'public/manifests/chrome.json'), to: path.resolve(__dirname, 'build/chrome/manifest.json') },
       ],
     }),
-    new WebpackShellPlugin({
+    new WebpackHookPlugin({
       onBuildEnd: ['node src/utils/build.js']
     })
   ],
