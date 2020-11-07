@@ -7,3 +7,4 @@ export * from './startpage';
 export * from './ecosia';
 export * from './yandex';
 export * from './onesearch';
+export * from './baidu';

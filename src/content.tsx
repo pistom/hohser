@@ -105,7 +105,9 @@ function processResult (r: Element, domainList: any, options: any, processResult
     // Skip result if no domain selector
     if (!domain) return displayStyle;
 
-    const url = (domain as HTMLAnchorElement).href || (domain as HTMLElement).innerText;
+    const url = searchEngineConfig.domainSelectorForceText ?
+      (domain as HTMLElement).innerText :
+      (domain as HTMLAnchorElement).href || (domain as HTMLElement).innerText;
     if (!url) {
       throw new Error("No domain info");
     }

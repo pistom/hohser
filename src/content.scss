@@ -96,7 +96,7 @@
   opacity: 0;
 }
 
-/* Only for Google */
+/* Google specific */
 .g {
   border-radius: 1px;
 }
@@ -128,7 +128,7 @@
   box-shadow: none!important;
 }
 
-/* Only for Startpage */
+/* Startpage specific */
 .column--main__content > ol .search-result {
   padding: var(--spacing-default);
   margin: calc(0rem - var(--spacing-default));
@@ -138,4 +138,12 @@
 
 .hohser_actions_btns button [fill], .hohser_actions_domain button [fill] {
   fill: none;
+}
+
+/* Baidu specific */
+#wrapper_wrapper {
+  .MuiSvgIcon-root {
+    height: 20px;
+    width: 20px;
+  }
 }

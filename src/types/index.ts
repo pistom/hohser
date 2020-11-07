@@ -22,6 +22,7 @@ export interface SearchEngineConfig {
   observerSelector: string;
   ajaxResults?: boolean;
   resultUrlSelector?: string;
+  domainSelectorForceText?: boolean;
 }
 
 export interface StoreState {
