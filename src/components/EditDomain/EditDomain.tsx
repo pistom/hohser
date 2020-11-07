@@ -210,7 +210,7 @@ class EditDomain extends React.Component<Props, State> {
                   onChange={this.handleDisplayChange}
                 >
                   <MenuItem value="1">Highlight</MenuItem>
-                  <MenuItem value="2">Set back</MenuItem>
+                  <MenuItem value="2">Transparent</MenuItem>
                   <MenuItem value="3">Hide</MenuItem>
                 </Select>
               </FormControl>
