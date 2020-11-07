@@ -241,7 +241,8 @@
         "*://*.ecosia.org/*",
         "*://*.yandex.ru/*",
         "*://*.yandex.com/*",
-        "*://*.onesearch.com/*"
+        "*://*.onesearch.com/*",
+        "*://*.baidu.com/*"
       ],
       "js": ["static/js/content.js"],
       "css": ["static/css/content.css"]
