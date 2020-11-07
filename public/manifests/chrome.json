@@ -242,6 +242,7 @@
         "*://*.yandex.ru/*",
         "*://*.yandex.com/*",
         "*://*.onesearch.com/*",
+        "*://*.baidu.cn/*",
         "*://*.baidu.com/*"
       ],
       "js": ["static/js/content.js"],
