@@ -48,10 +48,10 @@ function applyResultStyle (
   };
   // Add custom highlight colors to the domainColors list
   options?.highlightColors?.forEach((color: string, i: number) => {
-    domainColors[`COLOR_${i+4}`] = hexToRgb(color);
+    domainColors[`COLOR_${i+4}`] = color.includes('super') ? color : hexToRgb(color);
   });
   const alpha = 0.12;
-  if (displayStyle === HIGHLIGHT) {
+  if (displayStyle === HIGHLIGHT && Array.isArray(domainColors[color])) {
     result.classList.add("hohser_highlight");
     result.style.backgroundColor = getRgbCss(domainColors[color], alpha);
     result.style.transition = `.5s`;
@@ -70,6 +70,8 @@ function applyResultStyle (
     result.classList.add("hohser_full_hide");
   } else if (displayStyle === FULL_HIDE && options && options?.showAll) {
     result.classList.add("hohser_partial_hide");
+  } else if (!Array.isArray(domainColors[color])) {
+    result.classList.add(domainColors[color]);
   }
   // Delete entry button
   const deleteButton = result.querySelector(".hohser_actions_domain button") as HTMLElement;
