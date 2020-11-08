@@ -63,7 +63,12 @@ const styles = (theme: any) => ({
     padding: '0 10px',
     fontWeigth: 'bold',
     color: '#aaa'
-  }
+  },
+  rainbow: {
+    backgroundImage: 'linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red)',
+    color: 'transparent',
+    borderRadius: 15
+  },
 });
 
 class DomainsList extends React.Component<Props, State> {
@@ -117,7 +122,9 @@ class DomainsList extends React.Component<Props, State> {
                 <span className={classes.icons} >
                   {this.props.domainsList[item].display === HIGHLIGHT ?
                     (this.domainColors[this.props.domainsList[item]?.color] ?
-                      <FavoriteBorderIcon style={{color: `${this.domainColors[this.props.domainsList[item].color]}`}} /> :
+                      <FavoriteBorderIcon
+                        style={{color: this.domainColors[this.props.domainsList[item]?.color].includes('super') ? undefined : `${this.domainColors[this.props.domainsList[item].color]}`}}
+                        className={ this.domainColors[this.props.domainsList[item]?.color].includes('super') ? this.props.classes.rainbow : '' } /> :
                       <Tooltip title={`${this.props.domainsList[item].color} is not defined. Go to Settings: Edit custom colors.`}>
                         <WarningIcon style={{color: `this.domainColors.COLOR_0}`}} />
                       </Tooltip>

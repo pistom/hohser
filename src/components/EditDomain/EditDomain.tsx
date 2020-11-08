@@ -48,6 +48,13 @@ const styles = {
     marginTop: -6,
     marginBottom: -6
   },
+  rainbow: {
+    marginTop: -6,
+    marginBottom: -6,
+    backgroundImage: 'linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red)',
+    color: 'transparent!important',
+    borderRadius: 15
+  },
   flex: {
     flex: 1,
   },
@@ -228,7 +235,11 @@ class EditDomain extends React.Component<Props, State> {
                   <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{ color: '#8BC34A' }} /></MenuItem>
                   <MenuItem value="3"><ColorIcon className={classes.colorIcon} style={{ color: '#03A9F4' }} /></MenuItem>
                   { this.props.options.highlightColors?.map((color: string, i: number) => (
-                      <MenuItem value={i+4}><ColorIcon className={classes.colorIcon} style={{color: `#${color}`}} /></MenuItem>
+                      <MenuItem value={i+4}>
+                        <ColorIcon
+                          className={ color.includes('super') ? classes.rainbow : classes.colorIcon}
+                          style={{color: `#${color}`}} />
+                      </MenuItem>
                       ))}
                 </Select>
               </FormControl>

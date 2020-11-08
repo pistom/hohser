@@ -43,6 +43,7 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PaletteIcon from '@material-ui/icons/Palette';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
+import { withStyles } from '@material-ui/core/styles';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
@@ -58,6 +59,7 @@ interface Props {
   importDomains: (domainsList: Domain[]) => void;
   updateHighlightCustomColors: (colors: string[]) => void;
   domainsList: Array<Domain>;
+  classes: any;
 }
 
 interface State {
@@ -72,6 +74,14 @@ interface State {
   fixColors: string[];
   newColorError: boolean;
 }
+
+const styles = (theme: any) => ({
+  rainbow: {
+    backgroundImage: 'linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red)',
+    color: 'transparent',
+    borderRadius: 15
+  },
+});
 
 class Options extends React.Component<Props, State> {
   state = {
@@ -220,7 +230,7 @@ class Options extends React.Component<Props, State> {
   }
 
   public addColor = (): void => {
-    if (/^[0-9A-F]{6}$/i.test(this.state.newColor)) {
+    if (/^[0-9A-F]{6}$/i.test(this.state.newColor) || /^super\d{1,2}$/i.test(this.state.newColor) ) {
       const colors: string[] = [...this.state.colors];
       colors.push(this.state.newColor);
       this.setState({colors, newColor: '', newColorError: false});
@@ -428,7 +438,9 @@ class Options extends React.Component<Props, State> {
           { this.state.colors.map((color: string, i: number) => (
             <ListItem>
               <ListItemIcon>
-                <InvertColorsIcon style={{ color: '#'+color }} />
+              <InvertColorsIcon
+                  className={ color.includes('super') ? this.props.classes.rainbow : '' }
+                  style={{ color: color.includes('super') ? undefined : '#'+color }} />
               </ListItemIcon>
               <ListItemText primary={ `Color ${i+4} (${color})` } />
               { this.state.colors.length === i + 1 ?
@@ -480,5 +492,5 @@ class Options extends React.Component<Props, State> {
   }
 }
 
-export default (Options);
+export default withStyles(styles)(Options);
 
