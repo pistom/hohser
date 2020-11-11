@@ -6,6 +6,7 @@
   "dependencies": {
     "@material-ui/core": "^4.0.1",
     "@material-ui/icons": "^4.0.1",
+    "archiver": "^5.0.2",
     "chrome-storage-promise": "^0.1.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

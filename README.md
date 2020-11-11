@@ -15,6 +15,7 @@
 - [Ecosia](https://www.ecosia.org)
 - [Yandex](https://www.yandex.ru)
 - [OneSearch](https://www.onesearch.com/)
+- [Baidu](http://www.baidu.com/) (partially)
 
 Add an issue if you would like to use the extension with another search engine.
 

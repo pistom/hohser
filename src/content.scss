@@ -41,10 +41,10 @@
   background: rgba(255, 255, 255, .85);
   padding: 0 8px;
   min-width: 260px;
-  border: 1px solid rgba(0, 0, 0, .25);
-  border-radius: 2px;
+  border-radius: 4px;
   box-sizing: border-box;
   opacity: 0;
+  box-shadow: 5px 5px 1px rgba(80, 80, 128, 0.15);
 }
 
 .hohser_result_management:hover .hohser_actions {
@@ -59,6 +59,7 @@
   text-align: center;
   padding: 0;
   margin: 0;
+  color: rgba(80, 80, 128, 0.6);
 }
 
 .hohser_actions_domain button {
@@ -72,11 +73,14 @@
 
 .hohser_actions_domain button svg {
   font-size: 1rem;
-  color: rgba(0,0,0,.54);
+  color: rgba(80, 80, 128, 0.6);
 }
 
 .hohser_actions_btns {
   text-align: center;
+  button {
+    color: rgba(80, 80, 128, 0.6);
+  }
 }
 
 #hohser_domains_counter {
@@ -141,7 +145,7 @@
 }
 
 /* Baidu specific */
-#wrapper_wrapper {
+.hohser_result-baidu {
   .MuiSvgIcon-root {
     height: 20px;
     width: 20px;
@@ -149,7 +153,6 @@
 }
 
 /* DuckDuckGo specific */
-
 .super1:not(:hover) .result__snippet {
   color: black!important;
 }

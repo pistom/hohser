@@ -55,15 +55,7 @@ function applyResultStyle (
     result.classList.add("hohser_highlight");
     result.style.backgroundColor = getRgbCss(domainColors[color], alpha);
     result.style.transition = `.5s`;
-    if (searchEngine === "google") {
-      result.style.boxShadow = `0 0 0 5px ${getRgbCss(domainColors[color], alpha)}`;
-    }
-    if (searchEngine === "startpage") {
-      // On Startpage, use solid but lighter color
-      // since search results can overlap
-      const lightColor = domainColors[color].map((val: number) => val + (255 - val) * (1 - alpha));
-      result.style.backgroundColor = getRgbCss(lightColor);
-    }
+    result.style.boxShadow = `0 0 0 5px ${getRgbCss(domainColors[color], alpha)}`;
   } else if (displayStyle === PARTIAL_HIDE) {
     result.classList.add("hohser_partial_hide");
   } else if (displayStyle === FULL_HIDE && (!options || !options?.showAll)) {
@@ -96,7 +88,7 @@ function processResult (r: Element, domainList: any, options: any, processResult
   let displayStyle: DisplayStyle | null = null;
   try {
     const result = r as HTMLElement;
-    result.classList.add('hohser_result');
+    result.classList.add('hohser_result', 'hohser_result-' + searchEngine);
     const domain = searchEngineConfig.resultUrlSelector &&
       result.querySelector(
         searchEngineConfig.resultUrlSelector
