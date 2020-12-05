@@ -4,6 +4,7 @@
 ### Available for
 - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/hohser/)
 - [Chrome](https://chrome.google.com/webstore/detail/highlight-or-hide-search/ilopipickdimglkalhckioobifbiinbk)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/highlight-or-hide-search-/bgbmlgjieadialcabijglgoigkjdfalk)
 
 ### Supported search engines
 - [Duckduckgo](https://duckduckgo.com)
