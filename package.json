@@ -15,7 +15,7 @@
     "redux-promise-middleware": "6.1.2"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --stats-children",
     "load": "web-ext run"
   },
   "webExt": {
@@ -37,8 +37,8 @@
     "file-loader": "6.0.0",
     "mini-css-extract-plugin": "^1.0.0",
     "ncp": "^2.0.0",
-    "node-sass": "^7.0.0",
     "resolve": "1.17.0",
+    "sass": "^1.47.0",
     "sass-loader": "^10.0.0",
     "source-map-loader": "^1.0.0",
     "style-loader": "^2.0.0",
