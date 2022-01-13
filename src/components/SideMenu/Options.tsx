@@ -52,6 +52,7 @@ import { isDomainNameOnList } from '../../reducers';
 interface Props {
   options: any;
   toggleShowAll: () => void;
+  toggleForceColors: () => void;
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
@@ -313,6 +314,19 @@ class Options extends React.Component<Props, State> {
               </ListItemIcon>
               <ListItemText secondary={`Clear domain list (${this.props.domainsList.length})`} />
               <WarningIcon fontSize="small" color="error" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <PowerOffIcon />
+              </ListItemIcon>
+              <ListItemText secondary="Force extension colors" />
+              <ListItemSecondaryAction>
+                <Switch
+                  edge="end"
+                  onChange={(): void => this.props.toggleForceColors()}
+                  checked={this.props.options.forceColors}
+                />
+              </ListItemSecondaryAction>
             </ListItem>
           </List>
         </Collapse>

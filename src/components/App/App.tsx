@@ -25,6 +25,7 @@ export interface Props {
   fetchOptions: () => void;
   getCurrentUrl: () => void;
   toggleShowAll: () => void;
+  toggleForceColors: () => void;
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   importFromOldVersion: () => void;
@@ -93,6 +94,10 @@ class App extends React.Component<Props, State> {
     this.props.toggleShowAll();
   }
 
+  toggleForceColors (): void {
+    this.props.toggleForceColors();
+  }
+
   toggleShowCounter (): void {
     this.props.toggleShowCounter();
   }
@@ -124,6 +129,7 @@ class App extends React.Component<Props, State> {
         open={this.state.drawerIsOpen}
         toggle={() => this.toggleDrawer()}
         toggleShowAll={() => this.toggleShowAll()}
+        toggleForceColors={() => this.toggleForceColors()}
         toggleShowCounter={() => this.toggleShowCounter()}
         updateHighlightCustomColors={(colors: string[]) => this.updateHighlightCustomColors(colors)}
         toggleLocalStorage={this.toggleLocalStorage}
