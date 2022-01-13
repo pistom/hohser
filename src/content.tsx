@@ -53,7 +53,7 @@ function applyResultStyle (
   const alpha = 0.12;
   if (displayStyle === HIGHLIGHT && Array.isArray(domainColors[color])) {
     result.classList.add("hohser_highlight");
-    result.setAttribute('style', `background-color: ${getRgbCss(domainColors[color], alpha)}!important`)
+    result.setAttribute('style', `background-color: ${getRgbCss(domainColors[color], alpha)}${!options || options?.forceColors ? '!important' : ''}`)
     result.style.transition = `.5s`;
     result.style.boxShadow = `0 0 0 5px ${getRgbCss(domainColors[color], alpha)}`;
   } else if (displayStyle === PARTIAL_HIDE) {
