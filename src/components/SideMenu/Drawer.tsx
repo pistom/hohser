@@ -10,6 +10,7 @@ import { DisplayStyle, Color, Domain } from '../../types';
 interface Props {
   toggle: () => void;
   toggleShowAll: () => void;
+  toggleForceColors: () => void;
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
@@ -58,6 +59,7 @@ const Drawer = (props: Props) => {
         <Options
           options={props.options}
           toggleShowAll={() => props.toggleShowAll()}
+          toggleForceColors={() => props.toggleForceColors()}
           toggleShowCounter={() => props.toggleShowCounter()}
           toggleLocalStorage={props.toggleLocalStorage}
           updateHighlightCustomColors={props.updateHighlightCustomColors}
