@@ -46,3 +46,23 @@ or, if other than the default version of firefox
 $ yarn load -- --firefox=<a full path to the binary file>
 ```
 If you need more options (e.g. load with custom firefox profile), please refer to this article: [Getting started with web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/)
+
+## Import domains JSON structure
+```json
+[
+  {
+    "domainName":"www.domain1.com",
+    "display":"HIGHLIGHT",
+    "color":"COLOR_1"
+  },
+  {
+    "domainName":"www.domain2.com",
+    "display":"PARTIAL_HIDE"
+  },
+  {
+    "domainName":"www.domain3.com",
+    "display":"FULL_HIDE"
+  },
+  ...
+]
+```
