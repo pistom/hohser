@@ -48,6 +48,7 @@ import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
 import { isDomainNameOnList } from '../../reducers';
+import { Link } from '@material-ui/core';
 
 interface Props {
   options: any;
@@ -124,8 +125,12 @@ class Options extends React.Component<Props, State> {
     this.setState({ openColorsDialog: true });
   }
 
-  handleGift = (): void => {
-    window.open("https://paypal.me/pools/c/89TvfGqSHW");
+  handleJsonStructure = (): void => {
+    window.open("https://github.com/pistom/hohser#import-domains-json-structure");
+  }
+
+  handleWindowMode = (): void => {
+    chrome.tabs.create({'url': "/popup.html" });
   }
 
   getExtensionVersion = (): string => {
@@ -360,13 +365,6 @@ class Options extends React.Component<Props, State> {
           <ListItemText primary="Propose a new feature" />
           <OpenInNewIcon fontSize="small" />
         </ListItem>
-        <ListItem button onClick={this.handleGift}>
-          <ListItemIcon>
-            <CafeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Offer a cup of coffee" />
-          <OpenInNewIcon fontSize="small" />
-        </ListItem>
         <Divider />
         <ListItem>
           <ListItemText secondary={`HoHSer ${this.getExtensionVersion()}`} />
@@ -379,23 +377,25 @@ class Options extends React.Component<Props, State> {
         onClose={this.handleCloseImportDialog}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Import domain's list from file</DialogTitle>
+        <DialogTitle id="form-dialog-title">Import domain's list</DialogTitle>
         <DialogContent>
-          {browserName === CHROME ?
             <div>
-              <DialogContentText>
+              <DialogContentText style={{ marginBottom: 0 }}>
                 Select your JSON file
               </DialogContentText>
-              <input type="file" id="file-import" onChange={(e): void => this.readFileContent(e.target.files)} />
-            </div> :
+              <DialogContentText variant="caption" style={{ marginBottom: 4 }}>
+                (It works in <Link href="#" onClick={this.handleWindowMode}>window mode</Link> only)
+              </DialogContentText>
+              <DialogContentText variant="caption" style={{ marginBottom: 4 }}>
+                <input type="file" id="file-import" onChange={(e): void => this.readFileContent(e.target.files)} />
+              </DialogContentText>
+            </div> 
             <div>
-              <DialogContentText>
-                Copy your JSON formated text
+              <DialogContentText style={{ marginBottom: 0 }}>
+                or put your JSON formated text belowe
               </DialogContentText>
               <DialogContentText variant="caption" style={{ marginBottom: 10 }}>
-                For some reason Firefox doesn't support correctly file import for extension's popup.
-                You must copy plaintext from your json file and paste it in the text area.
-                Follow the bug <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1292701">here</a>.
+                (an example of the JSON data structure <Link href="#" onClick={this.handleJsonStructure}>here</Link>)
               </DialogContentText>
               <TextField
                 label="Domain's list"
@@ -407,7 +407,6 @@ class Options extends React.Component<Props, State> {
                 style={{ width: "100%" }}
               />
             </div>
-          }
           <FormControl component="span" style={{ marginTop: 15 }}>
             <FormLabel component="caption">
               Items with no display style defined
