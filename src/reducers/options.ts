@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, UPDATE_HIGHLIGHT_CUSTOM_COLORS, TOGGLE_FORCE_COLORS } from '../constants/index';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, UPDATE_HIGHLIGHT_CUSTOM_COLORS, TOGGLE_FORCE_COLORS, SET_PARTIAL_HIDE_OPACITY } from '../constants/index';
 import { OptionAction } from '../actions';
 import { Options } from '../types';
 import { browserStorageSync } from '../popup';
@@ -18,6 +18,7 @@ const optionsState = {
     useLocalStorage: false,
     highlightColors: [],
     forceColors: true,
+    partialHideOpacity: 25,
   },
   optionsLoading: true,
   optionsError: false,
@@ -109,6 +110,14 @@ export const options = (state: OptionsState = optionsState, action: OptionAction
       {
         const options = {...state.options};
         options.forceColors = !state.options.forceColors;
+        browserStorageSync.set({options});
+        return { ...state, options };
+      }
+
+    case SET_PARTIAL_HIDE_OPACITY:
+      {
+        const options = {...state.options};
+        options.partialHideOpacity = action.payload;
         browserStorageSync.set({options});
         return { ...state, options };
       }

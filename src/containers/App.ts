@@ -31,6 +31,7 @@ function mapDispatchToProps (dispatch: Dispatch<actions.DomainAction | actions.O
     fetchOptions: () => dispatch(actions.fetchOptions()),
     toggleShowAll: () => dispatch(actions.toggleShowAll()),
     toggleForceColors: () => dispatch(actions.toggleForceColors()),
+    setPartialHideOpacity: (opacity) => dispatch(actions.setPartialHideOpacity(opacity)),
     toggleShowCounter: () => dispatch(actions.toggleShowCounter()),
     toggleLocalStorage: () => dispatch(actions.toggleLocalStorage()),
     getCurrentUrl: () => dispatch(actions.getCurrentUrl()),
