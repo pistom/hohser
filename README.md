@@ -37,16 +37,6 @@ $ yarn
 $ yarn build   // Packages will be built in the "build" directory.
 ```
 
-## Load a built extension to Firefox
-```shell
-$ yarn load
-```
-or, if other than the default version of firefox
-```shell
-$ yarn load -- --firefox=<a full path to the binary file>
-```
-If you need more options (e.g. load with custom firefox profile), please refer to this article: [Getting started with web-ext](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/)
-
 ## Import domains JSON structure
 ```json
 [
