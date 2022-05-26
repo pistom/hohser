@@ -44,6 +44,7 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PaletteIcon from '@material-ui/icons/Palette';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
+import OpacityIcon from '@material-ui/icons/Opacity';
 import { withStyles } from '@material-ui/core/styles';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
@@ -337,7 +338,7 @@ class Options extends React.Component<Props, State> {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <PowerOffIcon />
+                <OpacityIcon />
               </ListItemIcon>
               <ListItemText 
                 secondary={
