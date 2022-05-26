@@ -11,6 +11,7 @@ interface Props {
   toggle: () => void;
   toggleShowAll: () => void;
   toggleForceColors: () => void;
+  setPartialHideOpacity: (opacity: number) => void;
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
@@ -60,6 +61,7 @@ const Drawer = (props: Props) => {
           options={props.options}
           toggleShowAll={() => props.toggleShowAll()}
           toggleForceColors={() => props.toggleForceColors()}
+          setPartialHideOpacity={opacity => props.setPartialHideOpacity(opacity)}
           toggleShowCounter={() => props.toggleShowCounter()}
           toggleLocalStorage={props.toggleLocalStorage}
           updateHighlightCustomColors={props.updateHighlightCustomColors}

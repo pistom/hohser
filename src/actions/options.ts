@@ -1,4 +1,4 @@
-import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, CHROME, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, GET_CURRENT_URL, UPDATE_HIGHLIGHT_CUSTOM_COLORS, TOGGLE_FORCE_COLORS } from '../constants';
+import { FETCH_OPTIONS_PENDING, FETCH_OPTIONS_FULFILLED, FETCH_OPTIONS_REJECTED, FETCH_OPTIONS, TOGGLE_SHOW_ALL, TOGGLE_SHOW_COUNTER, CHROME, TOGGLE_LOCAL_STORAGE, GET_CURRENT_URL_FULFILLED, GET_CURRENT_URL, UPDATE_HIGHLIGHT_CUSTOM_COLORS, TOGGLE_FORCE_COLORS, SET_PARTIAL_HIDE_OPACITY } from '../constants';
 import { browserStorageSync, browserName } from '../popup';
 
 export interface FetchOptions {
@@ -16,6 +16,11 @@ export interface ToggleShowAll {
 
 export interface ToggleForceColors {
   type: TOGGLE_FORCE_COLORS;
+}
+
+export interface SetPartialHideOpacity {
+  type: SET_PARTIAL_HIDE_OPACITY;
+  payload: number;
 }
 
 export interface ToggleShowCounter {
@@ -38,7 +43,7 @@ export interface GetCurrentUrl {
   payload: any;
 }
 
-export type OptionAction = FetchOptions | ToggleShowAll | ToggleShowCounter | ToggleLocalStorage | GetCurrentUrl | UpdateHighlightCustomColors | ToggleForceColors;
+export type OptionAction = FetchOptions | ToggleShowAll | ToggleShowCounter | ToggleLocalStorage | GetCurrentUrl | UpdateHighlightCustomColors | ToggleForceColors | SetPartialHideOpacity;
 
 export const fetchOptions = (): FetchOptions => {
 
@@ -66,6 +71,13 @@ export const toggleShowAll = (): ToggleShowAll => {
 export const toggleForceColors = (): ToggleForceColors => {
   return {
     type: TOGGLE_FORCE_COLORS
+  };
+};
+
+export const setPartialHideOpacity = (opacity: number): SetPartialHideOpacity => {
+  return {
+    type: SET_PARTIAL_HIDE_OPACITY,
+    payload: opacity,
   };
 };
 

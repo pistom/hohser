@@ -6,6 +6,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Switch from '@material-ui/core/Switch';
+import Slider from '@material-ui/core/Slider';
 import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -54,6 +55,7 @@ interface Props {
   options: any;
   toggleShowAll: () => void;
   toggleForceColors: () => void;
+  setPartialHideOpacity: (opacity: number) => void;
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
@@ -331,6 +333,28 @@ class Options extends React.Component<Props, State> {
                   onChange={(): void => this.props.toggleForceColors()}
                   checked={this.props.options.forceColors}
                 />
+              </ListItemSecondaryAction>
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <PowerOffIcon />
+              </ListItemIcon>
+              <ListItemText 
+                secondary={
+                  <>
+                    Set partial hide opacity<br />
+                    <Slider
+                      defaultValue={this.props.options.partialHideOpacity}
+                      onChange={(event, value): void => {
+                        this.props.setPartialHideOpacity(value as number);
+                      }}
+                      min={0}
+                      max={100}
+                    />
+                  </>
+                }
+              />
+              <ListItemSecondaryAction>
               </ListItemSecondaryAction>
             </ListItem>
           </List>

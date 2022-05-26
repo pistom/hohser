@@ -12,7 +12,8 @@
     "react-dom": "^17.0.0",
     "react-redux": "7.2.0",
     "redux-observable": "^1.0.0",
-    "redux-promise-middleware": "6.1.2"
+    "redux-promise-middleware": "6.1.2",
+    "web-ext-types": "^3.2.1"
   },
   "scripts": {
     "build": "webpack --stats-children",
@@ -46,8 +47,6 @@
     "tslint": "^6.1.2",
     "typescript": "^3.7.5",
     "url-loader": "4.1.0",
-    "web-ext": "^6.0.0",
-    "web-ext-types": "^3.0.0",
     "webpack": "^5.0.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^4.7.2",

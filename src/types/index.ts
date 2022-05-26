@@ -12,6 +12,7 @@ export interface Domain {
 export interface Options {
   showAll: boolean;
   forceColors: boolean;
+  partialHideOpacity: number;
   showCounter: boolean;
   useLocalStorage?: boolean;
   highlightColors: string[];

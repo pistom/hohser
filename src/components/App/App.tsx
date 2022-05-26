@@ -26,6 +26,7 @@ export interface Props {
   getCurrentUrl: () => void;
   toggleShowAll: () => void;
   toggleForceColors: () => void;
+  setPartialHideOpacity: (opacity: number) => void;
   toggleShowCounter: () => void;
   toggleLocalStorage: () => void;
   importFromOldVersion: () => void;
@@ -98,6 +99,10 @@ class App extends React.Component<Props, State> {
     this.props.toggleForceColors();
   }
 
+  setPartialHideOpacity (opacity: number): void {
+    this.props.setPartialHideOpacity(opacity);
+  }
+
   toggleShowCounter (): void {
     this.props.toggleShowCounter();
   }
@@ -130,6 +135,7 @@ class App extends React.Component<Props, State> {
         toggle={() => this.toggleDrawer()}
         toggleShowAll={() => this.toggleShowAll()}
         toggleForceColors={() => this.toggleForceColors()}
+        setPartialHideOpacity={opacity => this.setPartialHideOpacity(opacity)}
         toggleShowCounter={() => this.toggleShowCounter()}
         updateHighlightCustomColors={(colors: string[]) => this.updateHighlightCustomColors(colors)}
         toggleLocalStorage={this.toggleLocalStorage}
