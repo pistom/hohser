@@ -144,6 +144,26 @@
   fill: none;
 }
 
+
+
+/* Kagi specific */
+.hohser_result-kagi {
+  .__sri-title-box {
+    max-width: calc(100% - 72px);
+  }
+
+  .hohser_result_management {
+    right: 52px;
+    top: 1px;
+  }
+
+  .opt_url_above {
+    .hohser_result_management {
+      top: 21px;
+    }
+  }
+}
+
 /* Baidu specific */
 .hohser_result-baidu {
   .MuiSvgIcon-root {
