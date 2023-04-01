@@ -47,7 +47,7 @@
     "tslint": "^6.1.2",
     "typescript": "^3.7.5",
     "url-loader": "4.1.0",
-    "webpack": "^5.0.0",
+    "webpack": "^5.76.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^4.7.2",
     "webpack-hook-plugin": "^1.0.7",
