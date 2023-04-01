@@ -10,21 +10,7 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader',
-        options: {
-          useBabel: true,
-          babelOptions: {
-            babelrc: false, /* Important line */
-            presets: [
-              ["@babel/preset-env", { "targets": "last 2 versions, ie 11", "modules": false }]
-            ]
-          },
-          babelCore: "@babel/core", // needed for Babel v7
-        },
-        exclude: /node_modules/,
-      },
+      { test: /\.([cm]?ts|tsx)$/, loader: "ts-loader" },
       {
         test: /\.s[ac]ss$/i,
         use: [

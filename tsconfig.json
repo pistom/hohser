@@ -8,6 +8,8 @@
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": false,
+    "types": ["node", "@types/firefox-webext-browser", "@types/chrome", "@types/react-redux"],
+    "strictNullChecks": false,
   },
   "include": [
     "src"

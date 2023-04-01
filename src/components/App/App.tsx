@@ -119,7 +119,7 @@ class App extends React.Component<Props, State> {
     this.setState({searchedPhrase: e.target.value});
   }
 
-  public render () {
+  public render (): {} {
     return [
       <CssBaseline />,
       <TopBar

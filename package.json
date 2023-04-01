@@ -25,7 +25,8 @@
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
-    "@types/chrome": "^0.0.114",
+    "@types/chrome": "^0.0.227",
+    "@types/firefox-webext-browser": "^111.0.1",
     "@types/node": "^14.0.13",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
@@ -43,7 +44,7 @@
     "sass-loader": "^10.0.0",
     "source-map-loader": "^1.0.0",
     "style-loader": "^2.0.0",
-    "ts-loader": "^8.0.0",
+    "ts-loader": "^9.4.2",
     "tslint": "^6.1.2",
     "typescript": "^3.7.5",
     "url-loader": "4.1.0",
@@ -52,5 +53,9 @@
     "webpack-dev-server": "^4.7.2",
     "webpack-hook-plugin": "^1.0.7",
     "webpack-manifest-plugin": "^2.2.0"
+  },
+  "resolutions": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
   }
 }
