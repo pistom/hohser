@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "4.2.1",
+  "version": "4.3.0",
   "developer": {
     "name": "Tomasz Pisarek",
     "url": "https://github.com/pistom"
