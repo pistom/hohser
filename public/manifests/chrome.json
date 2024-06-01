@@ -1,8 +1,8 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Google and other popular search engines.",
   "icons": {
     "16": "images/hohser-16.png",
@@ -12,8 +12,7 @@
     "96": "images/hohser-96.png",
     "128": "images/hohser-128.png"
   },
-
-  "browser_action": {
+  "action": {
     "default_title": "Highlight or Hide Search Engine Results",
     "default_popup": "popup.html",
     "default_icon": {
@@ -21,15 +20,15 @@
       "38": "images/hohser-38.png"
     }
   },
-  
   "options_ui": {
     "page": "popup.html",
     "open_in_tab": true,
     "chrome_style": false
   },
-
-  "permissions": ["storage", "tabs"],
-
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "content_scripts": [
     {
       "matches": [
@@ -246,13 +245,17 @@
         "*://*.baidu.com/*",
         "*://*.kagi.com/*"
       ],
-      "js": ["static/js/content.js"],
-      "css": ["static/css/content.css"]
+      "js": [
+        "static/js/content.js"
+      ],
+      "css": [
+        "static/css/content.css"
+      ]
     }
   ],
-
-  "content_security_policy": "script-src 'self'; object-src 'self';",
-
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
