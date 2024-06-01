@@ -2,21 +2,18 @@
   "manifest_version": 2,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "developer": {
     "name": "Tomasz Pisarek",
     "url": "https://github.com/pistom"
   },
-
   "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Google and other popular search engines.",
-
   "icons": {
     "19": "images/hohser-19.png",
     "32": "images/hohser-32.png",
     "48": "images/hohser-48.png",
     "96": "images/hohser-96.png"
   },
-
   "browser_action": {
     "default_title": "Highlight or Hide Search Engine Results",
     "default_popup": "popup.html",
@@ -25,15 +22,15 @@
       "38": "images/hohser-38.png"
     }
   },
-  
   "options_ui": {
     "page": "popup.html",
     "open_in_tab": true,
     "browser_style": false
   },
-
-  "permissions": ["storage", "tabs"],
-
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "content_scripts": [
     {
       "matches": [
@@ -250,20 +247,21 @@
         "*://*.baidu.com/*",
         "*://*.kagi.com/*"
       ],
-      "js": ["static/js/content.js"],
-      "css": ["static/css/content.css"]
+      "js": [
+        "static/js/content.js"
+      ],
+      "css": [
+        "static/css/content.css"
+      ]
     }
   ],
-
   "content_security_policy": "script-src 'self'; object-src 'self';",
-
   "browser_specific_settings": {
     "gecko": {
       "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
       "strict_min_version": "79.0"
     }
   },
-  
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
