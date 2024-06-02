@@ -22,8 +22,7 @@
   },
   "options_ui": {
     "page": "popup.html",
-    "open_in_tab": true,
-    "chrome_style": false
+    "open_in_tab": true
   },
   "permissions": [
     "storage",
@@ -257,10 +256,9 @@
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "commands": {
-    "_execute_browser_action": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+1"
-      }
+    "_execute_action": {
+      "suggested_key": "Ctrl+Shift+1",
+      "description": "Highlight or Hide Search Engine Results"
     }
   }
 }
