@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "esnext",
     "typeRoots": ["node_modules/@types", "node_modules/web-ext-types"],
     "jsx": "react",
     "module": "CommonJS",
@@ -8,7 +8,7 @@
     "preserveConstEnums": true,
     "removeComments": true,
     "sourceMap": false,
-    "types": ["node", "@types/firefox-webext-browser", "@types/chrome", "@types/react-redux"],
+    "types": ["node", "firefox-webext-browser", "chrome", "react-redux"],
     "strictNullChecks": false,
   },
   "include": [
