@@ -16,10 +16,8 @@
   },
   "scripts": {
     "build": "webpack --stats-children",
-    "load": "web-ext run"
-  },
-  "webExt": {
-    "sourceDir": "build/firefox/"
+    "load": "web-ext run --no-config-discovery --verbose --source-dir build/firefox/",
+    "load:msedge": "web-ext run --no-config-discovery --verbose --source-dir build/chrome/ --target chromium --chromium-binary \"%ProgramFiles(x86)%/Microsoft/Edge/Application/msedge.exe\""
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
