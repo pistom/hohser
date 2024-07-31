@@ -6,12 +6,12 @@ import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware';
 import browserStorageMock from './mock/BrowserStorageMock';
 import { reducers } from './reducers';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { CHROME, FIREFOX } from './constants';
 import 'chrome-storage-promise';
 import { Options } from './types';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#455a64',
@@ -62,9 +62,9 @@ browserStorageSync.get('options').then((o: any) => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <MuiThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <App />
-      </MuiThemeProvider>
+      </ThemeProvider>
     </Provider>,
     document.getElementById('root') as HTMLElement
   );
