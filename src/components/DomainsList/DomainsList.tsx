@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FavoriteBorderIcon from '@material-ui/icons/Favorite';
-import WarningIcon from '@material-ui/icons/Warning';
-import OffIcon from '@material-ui/icons/VisibilityOff';
-import BlockIcon from '@material-ui/icons/Opacity';
+import withStyles from '@mui/styles/withStyles';
+import List from '@mui/material/List';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Badge from '@mui/material/Badge';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteBorderIcon from '@mui/icons-material/Favorite';
+import WarningIcon from '@mui/icons-material/Warning';
+import OffIcon from '@mui/icons-material/VisibilityOff';
+import BlockIcon from '@mui/icons-material/Opacity';
 import { Domain } from '../../types';
 import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from '../../constants';
 

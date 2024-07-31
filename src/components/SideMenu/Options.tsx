@@ -1,56 +1,56 @@
 import * as React from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Collapse from '@material-ui/core/Collapse';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Switch from '@material-ui/core/Switch';
-import Slider from '@material-ui/core/Slider';
-import Divider from '@material-ui/core/Divider';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import Tooltip from '@material-ui/core/Tooltip';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import PowerOffIcon from '@material-ui/icons/PowerOff';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import ErrorIcon from '@material-ui/icons/ErrorOutline';
-import NewIcon from '@material-ui/icons/FiberNew';
-import CafeIcon from '@material-ui/icons/LocalCafeOutlined';
-import ExportImportIcon from '@material-ui/icons/ImportExport';
-import UploadIcon from '@material-ui/icons/CloudUpload';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import ClearIcon from '@material-ui/icons/ClearAll';
-import WarningIcon from '@material-ui/icons/Warning';
-import StorageIcon from '@material-ui/icons/Storage';
-import Counter from '@material-ui/icons/Filter9Plus';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import PaletteIcon from '@material-ui/icons/Palette';
-import InvertColorsIcon from '@material-ui/icons/InvertColors';
-import OpacityIcon from '@material-ui/icons/Opacity';
-import { withStyles } from '@material-ui/core/styles';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Collapse from '@mui/material/Collapse';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import Switch from '@mui/material/Switch';
+import Slider from '@mui/material/Slider';
+import Divider from '@mui/material/Divider';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Tooltip from '@mui/material/Tooltip';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import PowerOffIcon from '@mui/icons-material/PowerOff';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ErrorIcon from '@mui/icons-material/ErrorOutline';
+import NewIcon from '@mui/icons-material/FiberNew';
+import CafeIcon from '@mui/icons-material/LocalCafeOutlined';
+import ExportImportIcon from '@mui/icons-material/ImportExport';
+import UploadIcon from '@mui/icons-material/CloudUpload';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
+import ClearIcon from '@mui/icons-material/ClearAll';
+import WarningIcon from '@mui/icons-material/Warning';
+import StorageIcon from '@mui/icons-material/Storage';
+import Counter from '@mui/icons-material/Filter9Plus';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import PaletteIcon from '@mui/icons-material/Palette';
+import InvertColorsIcon from '@mui/icons-material/InvertColors';
+import OpacityIcon from '@mui/icons-material/Opacity';
+import withStyles from '@mui/styles/withStyles';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
 import { isDomainNameOnList } from '../../reducers';
-import { Link } from '@material-ui/core';
+import { Link } from '@mui/material';
 
 interface Props {
   options: any;
@@ -409,7 +409,7 @@ class Options extends React.Component<Props, State> {
                 Select your JSON file
               </DialogContentText>
               <DialogContentText variant="caption" style={{ marginBottom: 4 }}>
-                (It works in <Link href="#" onClick={this.handleWindowMode}>window mode</Link> only)
+                (It works in <Link href="#" onClick={this.handleWindowMode} underline="hover">window mode</Link> only)
               </DialogContentText>
               <DialogContentText variant="caption" style={{ marginBottom: 4 }}>
                 <input type="file" id="file-import" onChange={(e): void => this.readFileContent(e.target.files)} />
@@ -420,7 +420,7 @@ class Options extends React.Component<Props, State> {
                 or put your JSON formated text belowe
               </DialogContentText>
               <DialogContentText variant="caption" style={{ marginBottom: 10 }}>
-                (an example of the JSON data structure <Link href="#" onClick={this.handleJsonStructure}>here</Link>)
+                (an example of the JSON data structure <Link href="#" onClick={this.handleJsonStructure} underline="hover">here</Link>)
               </DialogContentText>
               <TextField
                 label="Domain's list"
@@ -432,7 +432,7 @@ class Options extends React.Component<Props, State> {
                 style={{ width: "100%" }}
               />
             </div>
-          <FormControl component="span" style={{ marginTop: 15 }}>
+          <FormControl variant="standard" component="span" style={{ marginTop: 15 }}>
             <FormLabel component="caption">
               Items with no display style defined
             </FormLabel>
@@ -483,7 +483,7 @@ class Options extends React.Component<Props, State> {
               <ListItemText primary={ `Color ${i+4} (${color})` } />
               { this.state.colors.length === i + 1 ?
               <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete" onClick={this.removeColor}>
+                <IconButton edge="end" aria-label="delete" onClick={this.removeColor} size="large">
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction> : null
@@ -504,7 +504,11 @@ class Options extends React.Component<Props, State> {
                 style={{marginLeft: 12, flex: 1}}
               />
             </Tooltip>
-            <IconButton aria-label="add" onClick={this.addColor} style={{padding: 10}}>
+            <IconButton
+              aria-label="add"
+              onClick={this.addColor}
+              style={{padding: 10}}
+              size="large">
               <AddIcon />
             </IconButton>
           </Paper>

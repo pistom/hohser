@@ -1,21 +1,21 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import AppBar from '@material-ui/core/AppBar';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
-import ColorIcon from '@material-ui/icons/InvertColors';
-import NoColorIcon from '@material-ui/icons/InvertColorsOff';
-import CloseIcon from '@material-ui/icons/Close';
+import withStyles from '@mui/styles/withStyles';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import Grid from '@mui/material/Grid';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Slide from '@mui/material/Slide';
+import ColorIcon from '@mui/icons-material/InvertColors';
+import NoColorIcon from '@mui/icons-material/InvertColorsOff';
+import CloseIcon from '@mui/icons-material/Close';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1 } from '../../constants';
 
@@ -184,7 +184,11 @@ class EditDomain extends React.Component<Props, State> {
       >
         <AppBar position="static">
           <Toolbar>
-            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+            <IconButton
+              color="inherit"
+              onClick={this.handleClose}
+              aria-label="Close"
+              size="large">
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.flex}>
@@ -198,24 +202,24 @@ class EditDomain extends React.Component<Props, State> {
         <form onSubmit={this.handleSave} className={classes.root} autoComplete="off">
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <FormControl fullWidth>
+              <FormControl variant="standard" fullWidth>
                 <TextField
+                  variant="standard"
                   error={this.state.emptyDomain}
                   label="Domain"
                   id="margin-none"
                   className={classes.textField}
                   value={this.state.domainName}
-                  onChange={this.handleDomainNameChange}
-                />
+                  onChange={this.handleDomainNameChange} />
               </FormControl>
             </Grid>
             <Grid item xs={8}>
-              <FormControl fullWidth className={classes.formControl}>
+              <FormControl variant="standard" fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="age-simple">Style</InputLabel>
                 <Select
+                  variant="standard"
                   value={this.state.display}
-                  onChange={this.handleDisplayChange}
-                >
+                  onChange={this.handleDisplayChange}>
                   <MenuItem value="1">Highlight</MenuItem>
                   <MenuItem value="2">Transparent</MenuItem>
                   <MenuItem value="3">Hide</MenuItem>
@@ -223,13 +227,13 @@ class EditDomain extends React.Component<Props, State> {
               </FormControl>
             </Grid>
             <Grid item xs={4}>
-              <FormControl fullWidth className={classes.formControl}>
+              <FormControl variant="standard" fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="age-simple">Color</InputLabel>
                 <Select
+                  variant="standard"
                   value={this.state.color}
                   onChange={this.handleColorChange}
-                  disabled={this.state.disableColors}
-                >
+                  disabled={this.state.disableColors}>
                   <MenuItem value="0" disabled><NoColorIcon className={classes.colorIcon} style={{ color: '#607D8B' }} /></MenuItem>
                   <MenuItem value="1"><ColorIcon className={classes.colorIcon} style={{ color: '#f50057' }} /></MenuItem>
                   <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{ color: '#8BC34A' }} /></MenuItem>

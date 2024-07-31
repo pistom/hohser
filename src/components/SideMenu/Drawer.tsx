@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@mui/styles/withStyles';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 import Options from './Options';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { DisplayStyle, Color, Domain } from '../../types';
 
 interface Props {
@@ -53,7 +53,10 @@ const Drawer = (props: Props) => {
         className={classes.root}
       >
         <Toolbar>
-          <IconButton className={classes.menuButton} onClick={() => props.toggle()} >
+          <IconButton
+            className={classes.menuButton}
+            onClick={() => props.toggle()}
+            size="large">
             <ArrowBackIcon />
           </IconButton>
         </Toolbar>

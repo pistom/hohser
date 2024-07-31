@@ -6,12 +6,19 @@ import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware';
 import browserStorageMock from './mock/BrowserStorageMock';
 import { reducers } from './reducers';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles';
 import { CHROME, FIREFOX } from './constants';
 import 'chrome-storage-promise';
 import { Options } from './types';
 
-const theme = createTheme({
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+const theme = createTheme(adaptV4Theme({
   palette: {
     primary: {
       main: '#455a64',
@@ -26,7 +33,7 @@ const theme = createTheme({
       contrastText: '#ffffff'
     },
   },
-});
+}));
 
 /*
  * Detect browser name
@@ -62,9 +69,11 @@ browserStorageSync.get('options').then((o: any) => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Provider>,
     document.getElementById('root') as HTMLElement
   );

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import FormControl from '@material-ui/core/FormControl';
-import SearchIcon from '@material-ui/icons/Search';
+import withStyles from '@mui/styles/withStyles';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import FormControl from '@mui/material/FormControl';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Props {
   toggle: () => void;
@@ -36,7 +36,7 @@ const SearchBox = (props: Props) => {
       onOpen={() => props.toggle()}
     >
       <form onSubmit={handleSubmit}>
-        <FormControl fullWidth>
+        <FormControl variant="standard" fullWidth>
           <TextField
             autoFocus
             id="standard-search"
@@ -53,7 +53,7 @@ const SearchBox = (props: Props) => {
                     style={{marginRight: -8}}
                     aria-label="Search"
                     onClick={() => props.toggle()}
-                  >
+                    size="large">
                     <SearchIcon />
                   </IconButton>
                 </InputAdornment>

@@ -1,19 +1,19 @@
 import * as React from 'react';
-import Toolbar from '@material-ui/core/Toolbar';
-import AppBar from '@material-ui/core/AppBar';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import ColorIcon from '@material-ui/icons/InvertColors';
-import NoColorIcon from '@material-ui/icons/InvertColorsOff';
-import AddIcon from '@material-ui/icons/Add';
-import AddLocationIcon from '@material-ui/icons/AddLocation';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import withStyles from '@mui/styles/withStyles';
+import Grid from '@mui/material/Grid';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import ColorIcon from '@mui/icons-material/InvertColors';
+import NoColorIcon from '@mui/icons-material/InvertColorsOff';
+import AddIcon from '@mui/icons-material/Add';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { DisplayStyle, Color } from '../../types';
 import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1 } from '../..//constants';
 
@@ -176,8 +176,9 @@ class BottomBar extends React.Component<Props, State> {
           <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
             <Grid container spacing={1}>
               <Grid item xs={7}>
-                <FormControl fullWidth>
+                <FormControl variant="standard" fullWidth>
                   <TextField
+                    variant="standard"
                     error={this.state.emptyDomain}
                     label="Domain name"
                     className={classes.textField}
@@ -188,17 +189,16 @@ class BottomBar extends React.Component<Props, State> {
                       endAdornment: <InputAdornment position="end">
                         <AddLocationIcon color="primary" onClick={this.handleGetCurrentUrl} style={{cursor: "pointer"}} />
                       </InputAdornment>,
-                    }}
-                  />
+                    }} />
                 </FormControl>
               </Grid>
               <Grid item xs={3} sm={2}>
-                <FormControl fullWidth className={classes.formControl}>
+                <FormControl variant="standard" fullWidth className={classes.formControl}>
                   <InputLabel htmlFor="age-simple">Style</InputLabel>
                   <Select
+                    variant="standard"
                     value={this.state.display}
-                    onChange={this.handleDisplayChange}
-                  >
+                    onChange={this.handleDisplayChange}>
                     <MenuItem value="1" selected>Highlight</MenuItem>
                     <MenuItem value="2">Transparent</MenuItem>
                     <MenuItem value="3">Hide</MenuItem>
@@ -206,13 +206,13 @@ class BottomBar extends React.Component<Props, State> {
                 </FormControl>
               </Grid>
               <Grid item xs={2} sm={1}>
-                <FormControl fullWidth className={classes.formControl}>
+                <FormControl variant="standard" fullWidth className={classes.formControl}>
                   <InputLabel htmlFor="age-simple">Color</InputLabel>
                   <Select
+                    variant="standard"
                     value={this.state.color}
                     onChange={this.handleColorChange}
-                    disabled={this.state.disableColors}
-                  >
+                    disabled={this.state.disableColors}>
                     <MenuItem value="0" disabled><NoColorIcon className={classes.colorIcon} style={{color: '#607D8B'}} /></MenuItem>
                     <MenuItem value="1"><ColorIcon className={classes.colorIcon} style={{color: '#f50057'}} /></MenuItem>
                     <MenuItem value="2"><ColorIcon className={classes.colorIcon} style={{color: '#8BC34A'}} /></MenuItem>
@@ -224,7 +224,11 @@ class BottomBar extends React.Component<Props, State> {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={2}>
-                <FormControl margin="dense" fullWidth className={classes.formControl}>
+                <FormControl
+                  variant="standard"
+                  margin="dense"
+                  fullWidth
+                  className={classes.formControl}>
                   <Button type="submit" variant="contained" size="small" color="secondary" className={classes.button}>
                     Add <AddIcon />
                   </Button>
