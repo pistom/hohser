@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
@@ -16,21 +16,6 @@ import AddIcon from '@mui/icons-material/Add';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { DisplayStyle, Color } from '../../types';
 import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1 } from '../..//constants';
-
-interface Props {
-  classes: any;
-  addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
-  currentTabUrl: string | null;
-  options: any;
-}
-
-interface State {
-  domainName: string;
-  color: number;
-  display: number;
-  disableColors: boolean;
-  emptyDomain: boolean;
-}
 
 const styles = {
   root: {
@@ -49,9 +34,24 @@ const styles = {
   }
 };
 
+interface Props {
+  classes?: Partial<Record<keyof typeof styles, string>>;
+  addDomain: (domainName: string, display: DisplayStyle, color?: Color) => void;
+  currentTabUrl: string | null;
+  options: any;
+}
+
+interface State {
+  domainName: string;
+  color: number;
+  display: number;
+  disableColors: boolean;
+  emptyDomain: boolean;
+}
+
 class BottomBar extends React.Component<Props, State> {
 
-  domainNameTextInputRef = React.createRef() as React.RefObject<HTMLElement>;
+  domainNameTextInputRef = React.createRef() as React.RefObject<HTMLInputElement>;
 
   constructor (props: any) {
     super(props);
@@ -75,7 +75,7 @@ class BottomBar extends React.Component<Props, State> {
     addEventListener("keyup", (e: KeyboardEvent) => {
       const input = this.domainNameTextInputRef &&
                     this.domainNameTextInputRef.current &&
-                    this.domainNameTextInputRef.current.firstChild as HTMLElement;
+                    this.domainNameTextInputRef.current.firstChild as HTMLInputElement;
       const activeElementTagName = document.activeElement && document.activeElement.tagName;
       if (input && activeElementTagName === 'BODY' && ["1", "2", "3", "4", "5"].includes(e.key)) {
         this.handleGetCurrentUrl();
@@ -169,7 +169,7 @@ class BottomBar extends React.Component<Props, State> {
   }
 
   render () {
-    const classes = this.props.classes;
+    const classes = withStyles.getClasses(this.props);
     return (
       <AppBar position="fixed" color="default" className={classes.appBar}>
         <Toolbar style={{paddingBottom: '10px'}}>
@@ -181,7 +181,6 @@ class BottomBar extends React.Component<Props, State> {
                     variant="standard"
                     error={this.state.emptyDomain}
                     label="Domain name"
-                    className={classes.textField}
                     value={this.state.domainName}
                     onChange={this.handleDomainNameChange}
                     InputProps={{
@@ -193,7 +192,7 @@ class BottomBar extends React.Component<Props, State> {
                 </FormControl>
               </Grid>
               <Grid item xs={3} sm={2}>
-                <FormControl variant="standard" fullWidth className={classes.formControl}>
+                <FormControl variant="standard" fullWidth>
                   <InputLabel htmlFor="age-simple">Style</InputLabel>
                   <Select
                     variant="standard"
@@ -206,7 +205,7 @@ class BottomBar extends React.Component<Props, State> {
                 </FormControl>
               </Grid>
               <Grid item xs={2} sm={1}>
-                <FormControl variant="standard" fullWidth className={classes.formControl}>
+                <FormControl variant="standard" fullWidth>
                   <InputLabel htmlFor="age-simple">Color</InputLabel>
                   <Select
                     variant="standard"
@@ -227,9 +226,8 @@ class BottomBar extends React.Component<Props, State> {
                 <FormControl
                   variant="standard"
                   margin="dense"
-                  fullWidth
-                  className={classes.formControl}>
-                  <Button type="submit" variant="contained" size="small" color="secondary" className={classes.button}>
+                  fullWidth>
+                  <Button type="submit" variant="contained" size="small" color="secondary">
                     Add <AddIcon />
                   </Button>
                 </FormControl>
@@ -244,4 +242,4 @@ class BottomBar extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(BottomBar);
+export default withStyles(BottomBar, styles);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -7,23 +7,23 @@ import IconButton from '@mui/material/IconButton';
 import FormControl from '@mui/material/FormControl';
 import SearchIcon from '@mui/icons-material/Search';
 
-interface Props {
-  toggle: () => void;
-  onChangeSearchTextField: (e: any) => void;
-  classes: any;
-  open: boolean;
-  value: string;
-}
-
-const styles = (theme: any) => ({
+const styles = {
   searchField: {
     marginBottom: 0,
     marginTop: 0,
   }
-});
+};
+
+interface Props {
+  toggle: () => void;
+  onChangeSearchTextField: (e: any) => void;
+  classes?: Partial<Record<keyof typeof styles, string>>;
+  open: boolean;
+  value: string;
+}
 
 const SearchBox = (props: Props) => {
-  const classes = props.classes;
+  const classes = withStyles.getClasses(props);
   const handleSubmit = (event: any) => {
     event.preventDefault();
     props.toggle();
@@ -67,4 +67,4 @@ const SearchBox = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(SearchBox);
+export default withStyles(SearchBox, styles);

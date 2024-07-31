@@ -6,16 +6,13 @@ import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware';
 import browserStorageMock from './mock/BrowserStorageMock';
 import { reducers } from './reducers';
-import { createTheme, ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles';
+import { createTheme, ThemeProvider, adaptV4Theme } from '@mui/material/styles';
+import { CacheProvider } from "@emotion/react";
+import { TssCacheProvider } from "tss-react";
+import createCache from "@emotion/cache";
 import { CHROME, FIREFOX } from './constants';
 import 'chrome-storage-promise';
 import { Options } from './types';
-
-
-declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
 
 
 const theme = createTheme(adaptV4Theme({
@@ -66,14 +63,24 @@ browserStorageSync.get('options').then((o: any) => {
   }
 
   const store = createStore(reducers, applyMiddleware(promise));
+  const muiCache = createCache({
+      "key": "mui",
+      "prepend": true
+  });
+
+  const tssCache = createCache({
+      "key": "tss"
+  });
 
   ReactDOM.render(
     <Provider store={store}>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <CacheProvider value={muiCache}>
+          <TssCacheProvider value={tssCache}> 
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </TssCacheProvider>
+      </CacheProvider>
     </Provider>,
     document.getElementById('root') as HTMLElement
   );

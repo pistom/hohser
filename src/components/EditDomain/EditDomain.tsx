@@ -1,5 +1,5 @@
 import * as React from 'react';
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import Grid from '@mui/material/Grid';
@@ -18,23 +18,6 @@ import NoColorIcon from '@mui/icons-material/InvertColorsOff';
 import CloseIcon from '@mui/icons-material/Close';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { HIGHLIGHT, FULL_HIDE, PARTIAL_HIDE, COLOR_1 } from '../../constants';
-
-interface Props {
-  classes: any;
-  open: number | null;
-  domain: Domain | null;
-  editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
-  closeEditionHandle: () => void;
-  options: any;
-}
-
-interface State {
-  domainName: string;
-  color: number;
-  display: number;
-  disableColors: boolean;
-  emptyDomain: boolean;
-}
 
 const styles = {
   root: {
@@ -59,6 +42,23 @@ const styles = {
     flex: 1,
   },
 };
+
+interface Props {
+  classes?: Partial<Record<keyof typeof styles, string>>;
+  open: number | null;
+  domain: Domain | null;
+  editDomain: (index: number, domainName: string, display: DisplayStyle, color?: Color) => void;
+  closeEditionHandle: () => void;
+  options: any;
+}
+
+interface State {
+  domainName: string;
+  color: number;
+  display: number;
+  disableColors: boolean;
+  emptyDomain: boolean;
+}
 
 function Transition (props: any) {
   return <Slide direction="right" {...props} />;
@@ -174,7 +174,7 @@ class EditDomain extends React.Component<Props, State> {
   }
 
   render () {
-    const classes = this.props.classes;
+    const classes = withStyles.getClasses(this.props);
     return (
       <Dialog
         fullScreen
@@ -208,13 +208,12 @@ class EditDomain extends React.Component<Props, State> {
                   error={this.state.emptyDomain}
                   label="Domain"
                   id="margin-none"
-                  className={classes.textField}
                   value={this.state.domainName}
                   onChange={this.handleDomainNameChange} />
               </FormControl>
             </Grid>
             <Grid item xs={8}>
-              <FormControl variant="standard" fullWidth className={classes.formControl}>
+              <FormControl variant="standard" fullWidth>
                 <InputLabel htmlFor="age-simple">Style</InputLabel>
                 <Select
                   variant="standard"
@@ -227,7 +226,7 @@ class EditDomain extends React.Component<Props, State> {
               </FormControl>
             </Grid>
             <Grid item xs={4}>
-              <FormControl variant="standard" fullWidth className={classes.formControl}>
+              <FormControl variant="standard" fullWidth>
                 <InputLabel htmlFor="age-simple">Color</InputLabel>
                 <Select
                   variant="standard"
@@ -255,4 +254,4 @@ class EditDomain extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(EditDomain);
+export default withStyles(EditDomain, styles);

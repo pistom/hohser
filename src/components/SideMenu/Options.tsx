@@ -45,12 +45,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PaletteIcon from '@mui/icons-material/Palette';
 import InvertColorsIcon from '@mui/icons-material/InvertColors';
 import OpacityIcon from '@mui/icons-material/Opacity';
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import { DisplayStyle, Color, Domain } from '../../types';
 import { browserName } from '../../popup';
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from '../../constants';
 import { isDomainNameOnList } from '../../reducers';
 import { Link } from '@mui/material';
+
+const styles = {
+  rainbow: {
+    backgroundImage: 'linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red)',
+    color: 'transparent',
+    borderRadius: 15
+  },
+};
 
 interface Props {
   options: any;
@@ -64,7 +72,7 @@ interface Props {
   importDomains: (domainsList: Domain[]) => void;
   updateHighlightCustomColors: (colors: string[]) => void;
   domainsList: Array<Domain>;
-  classes: any;
+  classes?: Partial<Record<keyof typeof styles, string>>;
 }
 
 interface State {
@@ -79,14 +87,6 @@ interface State {
   fixColors: string[];
   newColorError: boolean;
 }
-
-const styles = (theme: any) => ({
-  rainbow: {
-    backgroundImage: 'linear-gradient(to left, violet, indigo, blue, green, yellow, orange, red)',
-    color: 'transparent',
-    borderRadius: 15
-  },
-});
 
 class Options extends React.Component<Props, State> {
   state = {
@@ -259,6 +259,8 @@ class Options extends React.Component<Props, State> {
   }
 
   render (): JSX.Element[] {
+    const classes = withStyles.getClasses(this.props);
+
     return [
       <List component="nav" key="list">
         <ListItem button onClick={this.handleClick}>
@@ -477,7 +479,7 @@ class Options extends React.Component<Props, State> {
             <ListItem>
               <ListItemIcon>
               <InvertColorsIcon
-                  className={ color.includes('super') ? this.props.classes.rainbow : '' }
+                  className={ color.includes('super') ? classes.rainbow : '' }
                   style={{ color: color.includes('super') ? undefined : '#'+color }} />
               </ListItemIcon>
               <ListItemText primary={ `Color ${i+4} (${color})` } />
@@ -534,5 +536,5 @@ class Options extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(Options);
+export default withStyles(Options, styles);
 

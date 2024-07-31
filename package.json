@@ -8,7 +8,6 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
-    "@mui/styles": "^5.16.6",
     "archiver": "^5.0.2",
     "chrome-storage-promise": "^0.1.0",
     "react": "^17.0.0",
@@ -16,6 +15,7 @@
     "react-redux": "7.2.0",
     "redux-observable": "^1.0.0",
     "redux-promise-middleware": "6.1.2",
+    "tss-react": "^4.9.11",
     "web-ext-types": "^3.2.1"
   },
   "scripts": {

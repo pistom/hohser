@@ -1,17 +1,11 @@
 import * as React from 'react';
-import withStyles from '@mui/styles/withStyles';
+import { withStyles } from 'tss-react/mui';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-
-interface Props {
-  toggleDrawer: () => void;
-  toggleSearch: () => void;
-  classes: any;
-}
 
 const styles = {
   root: {
@@ -33,8 +27,14 @@ const styles = {
   },
 };
 
+interface Props {
+  toggleDrawer: () => void;
+  toggleSearch: () => void;
+  classes?: Partial<Record<keyof typeof styles, string>>;
+}
+
 const TopBar = (props: Props) => {
-  const classes = props.classes;
+  const classes = withStyles.getClasses(props);
   return (
     <AppBar position="fixed" color="primary" className={classes.appBar}>
       <Toolbar>
@@ -62,4 +62,4 @@ const TopBar = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(TopBar);
+export default withStyles(TopBar, styles);
