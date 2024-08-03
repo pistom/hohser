@@ -12,15 +12,12 @@
     "react-dom": "^17.0.0",
     "react-redux": "7.2.0",
     "redux-observable": "^1.0.0",
-    "redux-promise-middleware": "6.1.2",
-    "web-ext-types": "^3.2.1"
+    "redux-promise-middleware": "6.1.2"
   },
   "scripts": {
     "build": "webpack --stats-children",
-    "load": "web-ext run"
-  },
-  "webExt": {
-    "sourceDir": "build/firefox/"
+    "load": "web-ext run --no-config-discovery --verbose --source-dir build/firefox/",
+    "load:msedge": "web-ext run --no-config-discovery --verbose --source-dir build/chrome/ --target chromium --chromium-binary \"%ProgramFiles(x86)%/Microsoft/Edge/Application/msedge.exe\""
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -48,6 +45,8 @@
     "tslint": "^6.1.2",
     "typescript": "^3.7.5",
     "url-loader": "4.1.0",
+    "web-ext": "^8.2.0",
+    "web-ext-types": "^3.2.1",
     "webpack": "^5.76.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^4.7.2",
