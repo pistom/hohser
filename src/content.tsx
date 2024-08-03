@@ -39,7 +39,6 @@ function applyResultStyle (
   color: Color,
   displayStyle: DisplayStyle,
   options: Options,
-  domainName: string
 ): void {
   const domainColors = {
     COLOR_1: [245, 0, 87],
@@ -67,11 +66,6 @@ function applyResultStyle (
     result.classList.add("hohser_partial_hide");
   } else if (!Array.isArray(domainColors[color])) {
     result.classList.add(domainColors[color]);
-  }
-  // Delete entry button
-  const deleteButton = result.querySelector(".hohser_actions_domain button") as HTMLElement;
-  if(deleteButton) {
-    deleteButton.dataset.matchedString = domainName;
   }
 }
 
@@ -109,57 +103,40 @@ function processResult (r: Element, domainList: any, options: any, processResult
       throw new Error("No domain info");
     }
 
-    // Add management component to the result
-    const managementComponentAnchor = result.appendChild(document.createElement("span"));
-    managementComponentAnchor.classList.add("hohser_result_management");
-    managementComponentAnchors.push(managementComponentAnchor);
-    ReactDOM.render(
-      <ResultManagement url={url} />,
-      managementComponentAnchor as HTMLElement
-    );
-
-    // Listen to management component buttons click and stop event propagation
-    managementComponentAnchor.addEventListener('click', (e: any) => {
-      e.preventDefault();
-      e.stopPropagation();
-      let action;
-      let color;
-      let domain;
-      let matchedString;
-      const nodeName = e.target.nodeName;
-      if (e.target && nodeName === 'BUTTON') {
-        action = e.target.dataset.action;
-        color = e.target.dataset.color;
-        domain = e.target.dataset.domain;
-        matchedString = e.target.dataset.matchedString;
-      } else if (e.target && nodeName === 'SVG' || nodeName === 'svg') {
-        action = e.target.parentNode.parentNode.dataset.action;
-        color = e.target.parentNode.parentNode.dataset.color;
-        domain = e.target.parentNode.parentNode.dataset.domain;
-        matchedString = e.target.parentNode.parentNode.dataset.matchedString;
-      } else if (e.target && nodeName === 'PATH' || nodeName === 'path') {
-        action = e.target.parentNode.parentNode.parentNode.dataset.action;
-        color = e.target.parentNode.parentNode.parentNode.dataset.color;
-        domain = e.target.parentNode.parentNode.parentNode.dataset.domain;
-        matchedString = e.target.parentNode.parentNode.parentNode.dataset.matchedString;
-      }
-      if (action === "REMOVE_DOMAIN") {
-        storageManager.removeEntry(matchedString);
-      } else if (action === "FULL_HIDE" || action === "PARTIAL_HIDE" || action === "HIGHLIGHT") {
-        storageManager.save(domain, action, color);
-      }
-    });
+    let matchedString: string | null = null;
 
     // Add or remove classes to matches results
     const matches = domainList.filter((s: Domain) => url.includes(s.domainName));
     if (matches.length > 0) {
       const domain = matches.reduce(function (a: Domain, b: Domain) { return a.domainName.length > b.domainName.length ? a : b; });
       removeResultStyle(result);
-      applyResultStyle(result, domain.color, domain.display, options, domain.domainName);
+      applyResultStyle(result, domain.color, domain.display, options);
+      matchedString = domain.domainName;
       displayStyle = domain.display;
     } else {
       removeResultStyle(result);
     }
+
+    // Add management component to the result
+    const managementComponentAnchor = result.appendChild(document.createElement("span"));
+    managementComponentAnchor.classList.add("hohser_result_management");
+    managementComponentAnchors.push(managementComponentAnchor);
+
+    // Listen to management component buttons click and stop event propagation
+    function handleManagementComponentClick(e: React.MouseEvent<HTMLButtonElement>, action: string, color: string | null, domain: string): void {
+      e.preventDefault();
+      e.stopPropagation();
+      if (action === "REMOVE_DOMAIN") {
+        storageManager.removeEntry(matchedString);
+      } else if (action === "FULL_HIDE" || action === "PARTIAL_HIDE" || action === "HIGHLIGHT") {
+        storageManager.save(domain, action, color);
+      }
+    }
+
+    ReactDOM.render(
+      <ResultManagement url={url} showDeleteButton={!!matchedString} handleClick={handleManagementComponentClick} />,
+      managementComponentAnchor as HTMLElement
+    );
   } catch (e) {
     console.warn(e);
     // Try to process result again

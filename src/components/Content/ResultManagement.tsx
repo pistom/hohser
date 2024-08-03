@@ -9,6 +9,8 @@ import { FULL_HIDE, PARTIAL_HIDE, HIGHLIGHT, COLOR_1, COLOR_2, COLOR_3, REMOVE_D
 
 interface Props {
   url: string;
+  showDeleteButton: boolean;
+  handleClick: (e: React.MouseEvent<HTMLButtonElement>, action: string, color: string | null, domain: string) => void;
 }
 
 export const getShortUrl = (u: string): string | null => {
@@ -25,8 +27,8 @@ export const getShortUrl = (u: string): string | null => {
 };
 
 export const ResultManagement = (props: Props): JSX.Element => {
-
   const domainName: string | null = getShortUrl(props.url);
+  const handleClick = props.handleClick;
 
   return (
     <div>
@@ -34,47 +36,47 @@ export const ResultManagement = (props: Props): JSX.Element => {
       <div className="hohser_actions">
         <p className="hohser_actions_domain">
           {domainName}
-          <IconButton data-domain={domainName} data-action={REMOVE_DOMAIN} size="large">
+          {props.showDeleteButton && <IconButton
+            size="large"
+            onClick={(e) => handleClick(e, REMOVE_DOMAIN, null, domainName)}
+            >
             <DeleteIcon />
-          </IconButton>
+          </IconButton>}
         </p>
         <div className="hohser_actions_btns">
           <IconButton
             title="Hide"
-            data-domain={domainName}
-            data-action={FULL_HIDE}
-            size="large">
+            size="large"
+            onClick={(e) => handleClick(e, FULL_HIDE, null, domainName)}
+            >
             <OffIcon fontSize="small" />
           </IconButton>
           <IconButton
             title="Transparent"
-            data-domain={domainName}
-            data-action={PARTIAL_HIDE}
-            size="large">
+            size="large"
+            onClick={(e) => handleClick(e, PARTIAL_HIDE, null, domainName)}
+            >
             <BlockIcon fontSize="small" />
           </IconButton>
           <IconButton
             title="Highlight (red)"
-            data-domain={domainName}
-            data-action={HIGHLIGHT}
-            data-color={COLOR_1}
-            size="large">
+            size="large"
+            onClick={(e) => handleClick(e, HIGHLIGHT, COLOR_1, domainName)}
+            >
             <FavoriteBorderIcon style={{color: "#f50057"}} fontSize="small" />
           </IconButton>
           <IconButton
             title="Highlight (green)"
-            data-domain={domainName}
-            data-action={HIGHLIGHT}
-            data-color={COLOR_2}
-            size="large">
+            size="large"
+            onClick={(e) => handleClick(e, HIGHLIGHT, COLOR_2, domainName)}
+            >
             <FavoriteBorderIcon style={{color: "#8BC34A"}} fontSize="small" />
           </IconButton>
           <IconButton
             title="Highlight (blue)"
-            data-domain={domainName}
-            data-action={HIGHLIGHT}
-            data-color={COLOR_3}
-            size="large">
+            size="large"
+            onClick={(e) => handleClick(e, HIGHLIGHT, COLOR_3, domainName)}
+            >
             <FavoriteBorderIcon style={{color: "#03A9F4"}} fontSize="small" />
           </IconButton>
         </div>
