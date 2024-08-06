@@ -230,10 +230,12 @@ browserStorageSync.get('options')
     // Initial process results
     processResults(domainList, options);
 
-    // Process results on page load
-    document.addEventListener('load', () => {
-      processResults(domainList, options);
-    });
+    // Re-process results on page load if it wasn't done initially
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', () => {
+        processResults(domainList, options);
+      });
+    }
 
     // Process results on DOM change
     const targets = document.querySelectorAll(searchEngineConfig.observerSelector);
