@@ -1,8 +1,8 @@
 import * as React from "react";
-import Snackbar from '@material-ui/core/Snackbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@mui/material/Snackbar';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 interface Props {
   options: any;
@@ -58,7 +58,7 @@ class SnackBar extends React.Component<Props, State> {
               aria-label="Close"
               color="inherit"
               onClick={this.handleClose}
-            >
+              size="large">
               <CloseIcon />
             </IconButton>,
           ]}

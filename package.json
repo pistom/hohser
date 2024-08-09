@@ -4,8 +4,10 @@
   "private": true,
   "sideEffects": false,
   "dependencies": {
-    "@material-ui/core": "^4.0.1",
-    "@material-ui/icons": "^4.0.1",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.6",
+    "@mui/material": "^5.16.6",
     "archiver": "^5.0.2",
     "chrome-storage-promise": "^0.1.0",
     "react": "^17.0.0",
@@ -13,14 +15,12 @@
     "react-redux": "7.2.0",
     "redux-observable": "^1.0.0",
     "redux-promise-middleware": "6.1.2",
-    "web-ext-types": "^3.2.1"
+    "tss-react": "^4.9.11"
   },
   "scripts": {
     "build": "webpack --stats-children",
-    "load": "web-ext run"
-  },
-  "webExt": {
-    "sourceDir": "build/firefox/"
+    "load": "web-ext run --no-config-discovery --verbose --source-dir build/firefox/",
+    "load:msedge": "web-ext run --no-config-discovery --verbose --source-dir build/chrome/ --target chromium --chromium-binary \"%ProgramFiles(x86)%/Microsoft/Edge/Application/msedge.exe\""
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -46,8 +46,10 @@
     "style-loader": "^2.0.0",
     "ts-loader": "^9.4.2",
     "tslint": "^6.1.2",
-    "typescript": "^3.7.5",
+    "typescript": "^5.5.4",
     "url-loader": "4.1.0",
+    "web-ext": "^8.2.0",
+    "web-ext-types": "^3.2.1",
     "webpack": "^5.76.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^4.7.2",

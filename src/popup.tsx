@@ -6,12 +6,16 @@ import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware';
 import browserStorageMock from './mock/BrowserStorageMock';
 import { reducers } from './reducers';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider, adaptV4Theme } from '@mui/material/styles';
+import { CacheProvider } from "@emotion/react";
+import { TssCacheProvider } from "tss-react";
+import createCache from "@emotion/cache";
 import { CHROME, FIREFOX } from './constants';
 import 'chrome-storage-promise';
 import { Options } from './types';
 
-const theme = createMuiTheme({
+
+const theme = createTheme(adaptV4Theme({
   palette: {
     primary: {
       main: '#455a64',
@@ -26,7 +30,7 @@ const theme = createMuiTheme({
       contrastText: '#ffffff'
     },
   },
-});
+}));
 
 /*
  * Detect browser name
@@ -59,12 +63,24 @@ browserStorageSync.get('options').then((o: any) => {
   }
 
   const store = createStore(reducers, applyMiddleware(promise));
+  const muiCache = createCache({
+      "key": "mui",
+      "prepend": true
+  });
+
+  const tssCache = createCache({
+      "key": "tss"
+  });
 
   ReactDOM.render(
     <Provider store={store}>
-      <MuiThemeProvider theme={theme}>
-        <App />
-      </MuiThemeProvider>
+      <CacheProvider value={muiCache}>
+          <TssCacheProvider value={tssCache}> 
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </TssCacheProvider>
+      </CacheProvider>
     </Provider>,
     document.getElementById('root') as HTMLElement
   );
