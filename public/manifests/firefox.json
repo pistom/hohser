@@ -245,7 +245,8 @@
         "*://*.onesearch.com/*",
         "*://*.baidu.cn/*",
         "*://*.baidu.com/*",
-        "*://*.kagi.com/*"
+        "*://*.kagi.com/*",
+        "*://*.search.brave.com/*"
       ],
       "js": [
         "static/js/content.js"
