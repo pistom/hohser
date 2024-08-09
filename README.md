@@ -35,8 +35,19 @@ $ yarn
 
 ## Build
 ```shell
-$ yarn build   // Packages will be built in the "build" directory.
+$ yarn build    # Packages will be built in the "build" directory.
 ```
+
+## Run
+Using the `web-ext` library, you can launch a browser window with the extension installed using the following:
+```shell
+$ yarn load        # runs in Firefox
+```
+or
+```shell
+$ yarn load:msedge # runs in MS Edge
+```
+The extension will be automatically reloaded when you re-run `yarn build`.
 
 ## Import domains JSON structure
 ```json
