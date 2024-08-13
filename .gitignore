@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+install-state.gz
 
 # testing
 /coverage

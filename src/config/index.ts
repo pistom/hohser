@@ -8,3 +8,4 @@ export * from './yandex';
 export * from './onesearch';
 export * from './baidu';
 export * from './kagi';
+export * from './brave';

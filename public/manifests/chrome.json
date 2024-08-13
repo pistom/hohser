@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Highlight or Hide Search Engine Results",
   "short_name": "HoHSER",
-  "version": "4.4.1",
+  "version": "4.4.2",
   "description": "Filter search engine results. Block unwanted results and highlight the favorite ones. For Google and other popular search engines.",
   "icons": {
     "16": "images/hohser-16.png",
@@ -242,7 +242,8 @@
         "*://*.onesearch.com/*",
         "*://*.baidu.cn/*",
         "*://*.baidu.com/*",
-        "*://*.kagi.com/*"
+        "*://*.kagi.com/*",
+        "*://*.search.brave.com/*"
       ],
       "js": [
         "static/js/content.js"

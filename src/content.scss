@@ -64,10 +64,6 @@
 
 .hohser_actions_domain button {
   margin: -6px -24px -6px 0px;
-  display: none;
-}
-
-.hohser_actions_domain button[data-matched-string] {
   display: inline-flex;
 }
 
@@ -176,6 +172,9 @@
 .super1:not(:hover) .result__snippet {
   color: black!important;
 }
+.dark-bg .hohser_menu_icon {
+  color: white;
+}
 
 .super2:not(:hover) .result__snippet {
   color: black!important;
@@ -218,3 +217,8 @@
   font-weight: bold;
   color: white !important;
 } 
+
+/* Brave specific */
+.hohser_result-brave {
+    box-shadow: none!important;
+}

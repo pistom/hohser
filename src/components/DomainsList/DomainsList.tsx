@@ -1,33 +1,19 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
-import FavoriteBorderIcon from '@material-ui/icons/Favorite';
-import WarningIcon from '@material-ui/icons/Warning';
-import OffIcon from '@material-ui/icons/VisibilityOff';
-import BlockIcon from '@material-ui/icons/Opacity';
+import { withStyles } from 'tss-react/mui';
+import List from '@mui/material/List';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Badge from '@mui/material/Badge';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteBorderIcon from '@mui/icons-material/Favorite';
+import WarningIcon from '@mui/icons-material/Warning';
+import OffIcon from '@mui/icons-material/VisibilityOff';
+import BlockIcon from '@mui/icons-material/Opacity';
 import { Domain } from '../../types';
 import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from '../../constants';
 
-interface Props {
-  domainsList: Array<Domain>;
-  highlightColors: Array<string>;
-  removeDomainHandle: (domainName: string) => void;
-  editDomainHandle: (index: number) => void;
-  openSearch: () => void;
-  searchedPhrase: string;
-  classes: any;
-}
-
-interface State {
-  showList: boolean;
-}
-
-const styles = (theme: any) => ({
+const styles = {
   entry: {
     maxHeight: 70,
     transition: "all .25s",
@@ -69,7 +55,21 @@ const styles = (theme: any) => ({
     color: 'transparent',
     borderRadius: 15
   },
-});
+};
+
+interface Props {
+  domainsList: Array<Domain>;
+  highlightColors: Array<string>;
+  removeDomainHandle: (domainName: string) => void;
+  editDomainHandle: (index: number) => void;
+  openSearch: () => void;
+  searchedPhrase: string;
+  classes?: Partial<Record<keyof typeof styles, string>>;
+}
+
+interface State {
+  showList: boolean;
+}
 
 class DomainsList extends React.Component<Props, State> {
 
@@ -107,7 +107,7 @@ class DomainsList extends React.Component<Props, State> {
   }
 
   render () {
-    const classes = this.props.classes;
+    const classes = withStyles.getClasses(this.props);
     return (
     <List style={{ position: "absolute", top: 54, bottom: 116, overflowY: "scroll", overflowX: "hidden", width: "100%" }}>
       {this.props.domainsList.length < 100 || this.state.showList || this.props.searchedPhrase.length >= 3 ?
@@ -166,4 +166,4 @@ class DomainsList extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(DomainsList);
+export default withStyles(DomainsList, styles);
