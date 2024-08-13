@@ -32,7 +32,7 @@ export const ResultManagement = (props: Props): JSX.Element => {
 
   return (
     <div>
-      <Arrow />
+      <Arrow className="hohser_menu_icon" />
       <div className="hohser_actions">
         <p className="hohser_actions_domain">
           {domainName}
