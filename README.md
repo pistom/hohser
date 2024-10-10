@@ -17,6 +17,7 @@
 - [OneSearch](https://www.onesearch.com/)
 - [Baidu](http://www.baidu.com/) (partially)
 - [Kagi](https://kagi.com/)
+- [Brave](https://search.brave.com/)
 
 Add an issue if you would like to use the extension with another search engine.
 
