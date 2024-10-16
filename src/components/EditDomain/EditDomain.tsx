@@ -2,7 +2,7 @@ import * as React from 'react';
 import { withStyles } from 'tss-react/mui';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -201,7 +201,7 @@ class EditDomain extends React.Component<Props, State> {
         </AppBar>
         <form onSubmit={this.handleSave} className={classes.root} autoComplete="off">
           <Grid container spacing={1}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControl variant="standard" fullWidth>
                 <TextField
                   variant="standard"
@@ -212,7 +212,7 @@ class EditDomain extends React.Component<Props, State> {
                   onChange={this.handleDomainNameChange} />
               </FormControl>
             </Grid>
-            <Grid item xs={8}>
+            <Grid size={{ xs: 8 }}>
               <FormControl variant="standard" fullWidth>
                 <InputLabel htmlFor="age-simple">Style</InputLabel>
                 <Select
@@ -225,7 +225,7 @@ class EditDomain extends React.Component<Props, State> {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={4}>
+            <Grid size={{ xs: 4 }}>
               <FormControl variant="standard" fullWidth>
                 <InputLabel htmlFor="age-simple">Color</InputLabel>
                 <Select
