@@ -183,11 +183,13 @@ class BottomBar extends React.Component<Props, State> {
                     label="Domain name"
                     value={this.state.domainName}
                     onChange={this.handleDomainNameChange}
-                    InputProps={{
-                      ref: this.domainNameTextInputRef,
-                      endAdornment: <InputAdornment position="end">
-                        <AddLocationIcon color="primary" onClick={this.handleGetCurrentUrl} style={{cursor: "pointer"}} />
-                      </InputAdornment>,
+                    slotProps={{
+                      input: {
+                        ref: this.domainNameTextInputRef,
+                        endAdornment: <InputAdornment position="end">
+                          <AddLocationIcon color="primary" onClick={this.handleGetCurrentUrl} style={{cursor: "pointer"}} />
+                        </InputAdornment>,
+                      }
                     }} />
                 </FormControl>
               </Grid>
@@ -236,7 +238,6 @@ class BottomBar extends React.Component<Props, State> {
           </form>
 
         </Toolbar>
-
       </AppBar>
     );
   }

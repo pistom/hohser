@@ -46,20 +46,22 @@ const SearchBox = (props: Props) => {
             margin="normal"
             variant="filled"
             value={props.value}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    style={{marginRight: -8}}
-                    aria-label="Search"
-                    onClick={() => props.toggle()}
-                    size="large">
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
             onChange={props.onChangeSearchTextField}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      style={{marginRight: -8}}
+                      aria-label="Search"
+                      onClick={() => props.toggle()}
+                      size="large">
+                      <SearchIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }
+            }}
           />
         </FormControl>
       </form>
