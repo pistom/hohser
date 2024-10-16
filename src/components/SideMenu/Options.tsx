@@ -5,7 +5,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Collapse from '@mui/material/Collapse';
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from '@mui/material/ListItemText';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import Switch from '@mui/material/Switch';
 import Slider from '@mui/material/Slider';
 import Divider from '@mui/material/Divider';
@@ -279,45 +278,45 @@ class Options extends React.Component<Props, State> {
               </ListItemIcon>
               <ListItemText secondary="Edit custom highlight colors" />
             </ListItemButton>
-            <ListItem>
+            <ListItem secondaryAction={
+              <Switch
+                edge="end"
+                onChange={(): void => this.props.toggleShowAll()}
+                checked={this.props.options.showAll}
+              />
+            }>
               <ListItemIcon>
                 <PowerOffIcon />
               </ListItemIcon>
               <ListItemText secondary="Show hidden results" />
-              <ListItemSecondaryAction>
-                <Switch
-                  edge="end"
-                  onChange={(): void => this.props.toggleShowAll()}
-                  checked={this.props.options.showAll}
-                />
-              </ListItemSecondaryAction>
             </ListItem>
-            <ListItem>
+            <ListItem secondaryAction={
+              <Switch
+                edge="end"
+                onChange={(): void => this.props.toggleShowCounter()}
+                checked={this.props.options.showCounter}
+              />
+            }>
               <ListItemIcon>
                 <Counter />
               </ListItemIcon>
               <ListItemText secondary="Show hidden results counter" />
-              <ListItemSecondaryAction>
-                <Switch
-                  edge="end"
-                  onChange={(): void => this.props.toggleShowCounter()}
-                  checked={this.props.options.showCounter}
-                />
-              </ListItemSecondaryAction>
             </ListItem>
-            <ListItem aria-label="Sync storage is limited in size but the local one is not synchronized with your account">
-              <ListItemIcon>
-                <StorageIcon />
-              </ListItemIcon>
-              <ListItemText secondary="Use local storage instead of sync" />
-              <ListItemSecondaryAction>
+            <ListItem
+              aria-label="Sync storage is limited in size but the local one is not synchronized with your account"
+              secondaryAction={
                 <Switch
                   edge="end"
                   onChange={this.props.toggleLocalStorage}
                   checked={this.props.options.useLocalStorage}
                   onClick={this.handleUseLocalStorageSwithClick}
                 />
-              </ListItemSecondaryAction>
+              }
+            >
+              <ListItemIcon>
+                <StorageIcon />
+              </ListItemIcon>
+              <ListItemText secondary="Use local storage instead of sync" />
             </ListItem>
             <ListItemButton onClick={this.handleClearDomainList}>
               <ListItemIcon>
@@ -326,20 +325,19 @@ class Options extends React.Component<Props, State> {
               <ListItemText secondary={`Clear domain list (${this.props.domainsList.length})`} />
               <WarningIcon fontSize="small" color="error" />
             </ListItemButton>
-            <ListItem>
+            <ListItem secondaryAction={
+              <Switch
+                edge="end"
+                onChange={(): void => this.props.toggleForceColors()}
+                checked={this.props.options.forceColors}
+              />
+            }>
               <ListItemIcon>
                 <PowerOffIcon />
               </ListItemIcon>
               <ListItemText secondary="Force extension colors" />
-              <ListItemSecondaryAction>
-                <Switch
-                  edge="end"
-                  onChange={(): void => this.props.toggleForceColors()}
-                  checked={this.props.options.forceColors}
-                />
-              </ListItemSecondaryAction>
             </ListItem>
-            <ListItem>
+            <ListItem secondaryAction={null}>
               <ListItemIcon>
                 <OpacityIcon />
               </ListItemIcon>
@@ -358,8 +356,6 @@ class Options extends React.Component<Props, State> {
                   </>
                 }
               />
-              <ListItemSecondaryAction>
-              </ListItemSecondaryAction>
             </ListItem>
           </List>
         </Collapse>
@@ -477,20 +473,19 @@ class Options extends React.Component<Props, State> {
           ))}
           <Divider />
           { this.state.colors.map((color: string, i: number) => (
-            <ListItem>
+            <ListItem secondaryAction={
+              (this.state.colors.length === i + 1)
+              ? <IconButton edge="end" aria-label="delete" onClick={this.removeColor} size="large">
+                  <DeleteIcon />
+                </IconButton>
+              : null
+            }>
               <ListItemIcon>
               <InvertColorsIcon
                   className={ color.includes('super') ? classes.rainbow : '' }
                   style={{ color: color.includes('super') ? undefined : '#'+color }} />
               </ListItemIcon>
               <ListItemText primary={ `Color ${i+4} (${color})` } />
-              { this.state.colors.length === i + 1 ?
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete" onClick={this.removeColor} size="large">
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction> : null
-              }
             </ListItem>
           ))}
           </List>
