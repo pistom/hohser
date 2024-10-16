@@ -3,6 +3,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Collapse from '@mui/material/Collapse';
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from '@mui/material/ListItemText';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import Switch from '@mui/material/Switch';
@@ -263,21 +264,21 @@ class Options extends React.Component<Props, State> {
 
     return [
       <List component="nav" key="list">
-        <ListItem button onClick={this.handleClick}>
+        <ListItemButton onClick={this.handleClick}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary="Settings" />
           {this.state.open ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />}
-        </ListItem>
+        </ListItemButton>
         <Collapse in={this.state.open} timeout="auto" unmountOnExit>
           <List component="nav" disablePadding>
-            <ListItem button onClick={this.handleColorsMenuItem}>
+            <ListItemButton onClick={this.handleColorsMenuItem}>
               <ListItemIcon>
                 <PaletteIcon />
               </ListItemIcon>
               <ListItemText secondary="Edit custom highlight colors" />
-            </ListItem>
+            </ListItemButton>
             <ListItem>
               <ListItemIcon>
                 <PowerOffIcon />
@@ -318,13 +319,13 @@ class Options extends React.Component<Props, State> {
                 />
               </ListItemSecondaryAction>
             </ListItem>
-            <ListItem button onClick={this.handleClearDomainList}>
+            <ListItemButton onClick={this.handleClearDomainList}>
               <ListItemIcon>
                 <ClearIcon />
               </ListItemIcon>
               <ListItemText secondary={`Clear domain list (${this.props.domainsList.length})`} />
               <WarningIcon fontSize="small" color="error" />
-            </ListItem>
+            </ListItemButton>
             <ListItem>
               <ListItemIcon>
                 <PowerOffIcon />
@@ -363,35 +364,35 @@ class Options extends React.Component<Props, State> {
           </List>
         </Collapse>
         <Divider />
-        <ListItem button onClick={this.handleExportDomains}>
+        <ListItemButton onClick={this.handleExportDomains}>
           <ListItemIcon>
             <ExportImportIcon />
           </ListItemIcon>
           <ListItemText primary="Export domain's list" />
           <DownloadIcon fontSize="small" />
-        </ListItem>
-        <ListItem button onClick={this.handleImportMenuItem}>
+        </ListItemButton>
+        <ListItemButton onClick={this.handleImportMenuItem}>
           <ListItemIcon>
             <ExportImportIcon />
           </ListItemIcon>
           <ListItemText primary="Import domain's list" />
           <UploadIcon fontSize="small" />
-        </ListItem>
+        </ListItemButton>
         <Divider />
-        <ListItem button onClick={this.handleIssue}>
+        <ListItemButton onClick={this.handleIssue}>
           <ListItemIcon>
             <ErrorIcon />
           </ListItemIcon>
           <ListItemText primary="Report an issue" />
           <OpenInNewIcon fontSize="small" />
-        </ListItem>
-        <ListItem button onClick={this.handleIssue}>
+        </ListItemButton>
+        <ListItemButton onClick={this.handleIssue}>
           <ListItemIcon>
             <NewIcon />
           </ListItemIcon>
           <ListItemText primary="Propose a new feature" />
           <OpenInNewIcon fontSize="small" />
-        </ListItem>
+        </ListItemButton>
         <Divider />
         <ListItem>
           <ListItemText secondary={`HoHSer ${this.getExtensionVersion()}`} />
