@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withStyles } from 'tss-react/mui';
+import type { Theme } from '@mui/material';
 import List from '@mui/material/List';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -13,7 +14,7 @@ import BlockIcon from '@mui/icons-material/Opacity';
 import { Domain } from '../../types';
 import { HIGHLIGHT, PARTIAL_HIDE, FULL_HIDE } from '../../constants';
 
-const styles = {
+const styles = (theme: Theme) => ({
   entry: {
     maxHeight: 70,
     transition: "all .25s",
@@ -25,13 +26,13 @@ const styles = {
   domain: {
     cursor: 'pointer',
     padding: 16,
-    color: '#444',
+    color: theme.palette.text.primary,
     flexGrow: 3,
     overflow: 'hidden'
   },
   icons: {
     padding: "12px 16px 12px 0",
-    color: '#888',
+    color: theme.palette.text.secondary,
     display: 'flex',
     justifyContent: 'flex-end'
   },
@@ -55,7 +56,7 @@ const styles = {
     color: 'transparent',
     borderRadius: 15
   },
-};
+});
 
 interface Props {
   domainsList: Array<Domain>;
@@ -64,7 +65,7 @@ interface Props {
   editDomainHandle: (index: number) => void;
   openSearch: () => void;
   searchedPhrase: string;
-  classes?: Partial<Record<keyof typeof styles, string>>;
+  classes?: Partial<Record<keyof ReturnType<typeof styles>, string>>;
 }
 
 interface State {
