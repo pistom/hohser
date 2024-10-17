@@ -38,7 +38,26 @@ const theme = createTheme({
         }
       },
     },
-    dark: false,
+    dark: {
+      palette: {
+        primary: {
+          main: blueGrey[200],
+          light: '#718792',
+          dark: '#1c313a',
+          contrastText: '#ffffff',
+        },
+        secondary: {
+          main: deepOrange['A200'],
+          light: '#ff6434',
+          dark: '#a30000',
+          contrastText: '#ffffff'
+        },
+        text: {
+          primary: '#ccc',
+          secondary: '#888',
+        }
+      },
+    },
   },
 });
 
