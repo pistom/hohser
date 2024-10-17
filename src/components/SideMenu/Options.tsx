@@ -50,6 +50,8 @@ import { browserName } from "../../popup";
 import { CHROME, COLOR_1, HIGHLIGHT, FIREFOX } from "../../constants";
 import { isDomainNameOnList } from "../../reducers";
 import { Link } from "@mui/material";
+import { useColorScheme } from '@mui/material/styles';
+
 
 const download = (data: string): void => {
   const file = new Blob([data], { type: "application/json" });
@@ -129,6 +131,11 @@ const Options: React.FC<Props> = (props) => {
   React.useEffect(() => {
     setColors([...props.options.highlightColors]);
   }, [props.options.highlightColors]);
+
+  const { mode, setMode } = useColorScheme();
+  if (!mode) {
+    return null;
+  }
 
   const handleClick = (): void => {
     setOpen((open) => !open);
@@ -268,6 +275,28 @@ const Options: React.FC<Props> = (props) => {
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="nav" disablePadding>
+              <ListItem>
+                  <ListItemText
+                    secondary={
+                      <FormControl>
+                        <FormLabel id="color-scheme-label">Color scheme</FormLabel>
+                        <RadioGroup
+                          aria-labelledby="color-scheme-label"
+                          name="color-scheme-toggle"
+                          row
+                          value={mode}
+                          onChange={(event) =>
+                            setMode(event.target.value as 'system' | 'light' | 'dark')
+                          }
+                        >
+                          <FormControlLabel value="system" control={<Radio size="small" />} label="System" />
+                          <FormControlLabel value="light" control={<Radio size="small" />} label="Light" />
+                          <FormControlLabel value="dark" control={<Radio size="small" />} label="Dark" />
+                        </RadioGroup>
+                      </FormControl>
+                    }
+                  />
+            </ListItem>
             <ListItemButton onClick={handleColorsMenuItem}>
               <ListItemIcon>
                 <PaletteIcon />
