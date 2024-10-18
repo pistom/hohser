@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import promise from 'redux-promise-middleware';
 import browserStorageMock from './mock/BrowserStorageMock';
 import { reducers } from './reducers';
-import { createTheme, ThemeProvider, adaptV4Theme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { blueGrey, deepOrange } from '@mui/material/colors';
 import { CacheProvider } from "@emotion/react";
 import { TssCacheProvider } from "tss-react";
 import createCache from "@emotion/cache";
@@ -15,22 +16,50 @@ import 'chrome-storage-promise';
 import { Options } from './types';
 
 
-const theme = createTheme(adaptV4Theme({
-  palette: {
-    primary: {
-      main: '#455a64',
-      light: '#718792',
-      dark: '#1c313a',
-      contrastText: '#ffffff'
+const theme = createTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: {
+          main: blueGrey[700],
+          light: '#718792',
+          dark: '#1c313a',
+          contrastText: '#ffffff',
+        },
+        secondary: {
+          main: deepOrange['A700'],
+          light: '#ff6434',
+          dark: '#a30000',
+          contrastText: '#ffffff'
+        },
+        text: {
+          primary: '#444',
+          secondary: '#888',
+        }
+      },
     },
-    secondary: {
-      main: '#dd2c00',
-      light: '#ff6434',
-      dark: '#a30000',
-      contrastText: '#ffffff'
+    dark: {
+      palette: {
+        primary: {
+          main: blueGrey[200],
+          light: '#718792',
+          dark: '#1c313a',
+          contrastText: '#ffffff',
+        },
+        secondary: {
+          main: deepOrange['A200'],
+          light: '#ff6434',
+          dark: '#a30000',
+          contrastText: '#ffffff'
+        },
+        text: {
+          primary: '#ccc',
+          secondary: '#888',
+        }
+      },
     },
   },
-}));
+});
 
 /*
  * Detect browser name
@@ -76,7 +105,7 @@ browserStorageSync.get('options').then((o: any) => {
     <Provider store={store}>
       <CacheProvider value={muiCache}>
           <TssCacheProvider value={tssCache}> 
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme} defaultMode="system">
               <App />
             </ThemeProvider>
           </TssCacheProvider>

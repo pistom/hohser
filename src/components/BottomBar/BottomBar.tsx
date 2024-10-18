@@ -2,7 +2,7 @@ import * as React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 import { withStyles } from 'tss-react/mui';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid2';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -175,7 +175,7 @@ class BottomBar extends React.Component<Props, State> {
         <Toolbar style={{paddingBottom: '10px'}}>
           <form className={classes.root} autoComplete="off" onSubmit={this.handleSubmit}>
             <Grid container spacing={1}>
-              <Grid item xs={7}>
+              <Grid size={{ xs: 7 }}>
                 <FormControl variant="standard" fullWidth>
                   <TextField
                     variant="standard"
@@ -183,15 +183,17 @@ class BottomBar extends React.Component<Props, State> {
                     label="Domain name"
                     value={this.state.domainName}
                     onChange={this.handleDomainNameChange}
-                    InputProps={{
-                      ref: this.domainNameTextInputRef,
-                      endAdornment: <InputAdornment position="end">
-                        <AddLocationIcon color="primary" onClick={this.handleGetCurrentUrl} style={{cursor: "pointer"}} />
-                      </InputAdornment>,
+                    slotProps={{
+                      input: {
+                        ref: this.domainNameTextInputRef,
+                        endAdornment: <InputAdornment position="end">
+                          <AddLocationIcon color="primary" onClick={this.handleGetCurrentUrl} style={{cursor: "pointer"}} />
+                        </InputAdornment>,
+                      }
                     }} />
                 </FormControl>
               </Grid>
-              <Grid item xs={3} sm={2}>
+              <Grid size={{ xs: 3, sm: 2 }}>
                 <FormControl variant="standard" fullWidth>
                   <InputLabel htmlFor="age-simple">Style</InputLabel>
                   <Select
@@ -204,7 +206,7 @@ class BottomBar extends React.Component<Props, State> {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={2} sm={1}>
+              <Grid size={{ xs: 2, sm: 1 }}>
                 <FormControl variant="standard" fullWidth>
                   <InputLabel htmlFor="age-simple">Color</InputLabel>
                   <Select
@@ -222,7 +224,7 @@ class BottomBar extends React.Component<Props, State> {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={2}>
+              <Grid size={{ xs: 12, sm: 2 }}>
                 <FormControl
                   variant="standard"
                   margin="dense"
@@ -236,7 +238,6 @@ class BottomBar extends React.Component<Props, State> {
           </form>
 
         </Toolbar>
-
       </AppBar>
     );
   }
