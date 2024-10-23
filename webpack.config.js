@@ -6,7 +6,8 @@ const WebpackHookPlugin = require('webpack-hook-plugin');
 module.exports = {
   entry: {
     popup: './src/popup.tsx',
-    content: './src/content.tsx'
+    content: './src/content.tsx',
+    background: './src/background.ts',
   },
   module: {
     rules: [
