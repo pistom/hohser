@@ -129,11 +129,10 @@
 }
 
 /* Startpage specific */
-.column--main__content > ol .search-result {
-  padding: var(--spacing-default);
-  margin: calc(0rem - var(--spacing-default));
-  margin-bottom: calc(1.25rem - var(--spacing-default));
-  border-radius: var(--ui-button-radius);
+#main .result {
+  padding: 4px;
+  margin: 14px 0;
+  border-radius: 4px;
 }
 
 .hohser_actions_btns button [fill], .hohser_actions_domain button [fill] {
