@@ -266,6 +266,9 @@
     "gecko": {
       "id": "{2d0ade95-bf3c-4868-b877-71ccd038e11b}",
       "strict_min_version": "79.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "113.0"
     }
   },
   "commands": {
